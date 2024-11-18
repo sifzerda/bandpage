@@ -6,9 +6,8 @@ function Header() {
         <nav></nav>
         <div className="wrap">
           <p className='the'>
-            <span className='word'>The</span> 
-            <span className="glitch" data-text="Horror">Horror</span> 
-            <span className='word'>Map</span>
+            <span className='word'>Ultimate </span> 
+            <span className="glitch" data-text="Horror">Band</span> 
           </p>
         </div>
       </header>
