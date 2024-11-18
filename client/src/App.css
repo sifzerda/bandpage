@@ -68,6 +68,7 @@ footer {
   min-height: 100px;
   display: flex;
   flex-direction: column;
+  background-color: white;
 }
 
 .date-label {
@@ -77,12 +78,16 @@ footer {
 
 .note-input {
   flex-grow: 1;
-  border: none;
-  outline: none;
+  border: 1px solid #ccc;
+  border-radius: 5px;
   resize: none;
-  font-size: 14px;
   padding: 5px;
-  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.note-input:disabled {
+  background-color: #e9ecef;
+  color: #6c757d;
 }
 
 .calendar-header {
@@ -110,3 +115,10 @@ footer {
 .calendar-header button:hover {
   background-color: #0056b3;
 }
+
+.calendar-day.past-day {
+  background-color: #f0f0f0;
+  pointer-events: none; /* Prevent all interactions */
+  color: #aaa;
+}
+
