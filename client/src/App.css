@@ -45,14 +45,14 @@ footer {
   text-align: center;
 }
 
-
 /* --------------------- calender -----------------------*/
 
 .calendar {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 20px;
+  align-items: center; /* Centers the content horizontally */
+  justify-content: flex-start; /* Aligns items to the top */
+  margin-top: 20px; /* Adds some space at the top if needed */
 }
 
 .calendar-grid {
@@ -75,6 +75,47 @@ footer {
 .date-label {
   font-weight: bold;
   margin-bottom: 5px;
+}
+
+.note-row {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.note-row-item {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  text-align: center;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.note-row-item.normal {
+  background-color: white;
+}
+
+.note-row-item.green {
+  background-color: #a5d6a7; /* Light green */
+  color: black;
+}
+
+.note-row-item.red {
+  background-color: #ef9a9a; /* Light red */
+  color: black;
+}
+
+.note-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.note-label {
+  font-weight: bold;
+  width: 80px; /* Adjust width as needed for alignment */
 }
 
 .note-input {
@@ -128,3 +169,31 @@ footer {
   border: 4px dashed #007bff;
 }
 
+/* save calender */
+
+.save-button {
+  width: 150px; /* Set a fixed width for the button */
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: #4caf50;
+  color: white;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); /* 3D shadow effect */
+  transition: all 0.2s ease-in-out; /* Smooth transition for hover and click */
+}
+
+.save-button:hover {
+  background-color: #45a049;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12); /* Hover shadow */
+  transform: translateY(-2px); /* Lift the button on hover */
+}
+
+.save-button:active {
+  background-color: #388e3c;
+  box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.2), 0 2px 3px rgba(0, 0, 0, 0.1); /* Depress shadow when clicked */
+  transform: translateY(2px); /* Button appears pressed down */
+}
