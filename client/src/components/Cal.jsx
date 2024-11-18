@@ -12,6 +12,28 @@ import {
   startOfDay,
 } from "date-fns";
 
+// Function to add suffix to date number (e.g., 1st, 2nd, 3rd, 4th, 15th, etc.)
+const getDayWithSuffix = (day) => {
+  const dayOfMonth = format(day, "d"); // Get day of the month (e.g., 1, 2, 3...)
+  const lastDigit = dayOfMonth % 10;
+
+  if (dayOfMonth >= 11 && dayOfMonth <= 13) {
+    // Special case for 11th, 12th, 13th
+    return `${dayOfMonth}th`;
+  }
+
+  switch (lastDigit) {
+    case 1:
+      return `${dayOfMonth}st`;
+    case 2:
+      return `${dayOfMonth}nd`;
+    case 3:
+      return `${dayOfMonth}rd`;
+    default:
+      return `${dayOfMonth}th`;
+  }
+};
+
 function Cal() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [rowStates, setRowStates] = useState({}); // State to track row colors
@@ -70,7 +92,8 @@ function Cal() {
 
   return (
     <div className="calendar">
-      {/* Save Button Above Calendar */}
+
+      {/* Save Button */}
       <button onClick={saveState} className="save-button">
         Save State
       </button>
@@ -89,13 +112,19 @@ function Cal() {
           const isCurrentDay = isToday(day);
           const dateKey = format(day, "yyyy-MM-dd");
           const dayState = rowStates[dateKey] || {};
+          const dayName = format(day, "EEEE"); // Full day name
 
           return (
             <div
               key={day}
-              className={`calendar-day ${isPast ? "past-day" : ""} ${isCurrentDay ? "current-day" : ""}`}
+              className={`calendar-day ${isPast ? "past-day" : ""} ${
+                isCurrentDay ? "current-day" : ""
+              }`}
             >
-              <div className="date-label">{format(day, "d")}</div>
+              <div className="date-label">
+                <span className="day-name">{dayName}</span>{" "}
+                {getDayWithSuffix(day)}
+              </div>
               {!isPast && (
                 <div className="note-row">
                   {names.map((name, index) => (
@@ -113,6 +142,7 @@ function Cal() {
           );
         })}
       </div>
+
     </div>
   );
 }
