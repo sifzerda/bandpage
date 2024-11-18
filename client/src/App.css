@@ -44,3 +44,69 @@ footer {
   margin-top: auto; /* Push the footer to the bottom */
   text-align: center;
 }
+
+
+/* --------------------- calender -----------------------*/
+
+.calendar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 7 days a week */
+  gap: 5px;
+}
+
+.calendar-day {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+}
+
+.date-label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.note-input {
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: 14px;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.calendar-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.calendar-header button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.calendar-header button:hover {
+  background-color: #0056b3;
+}
