@@ -11,3 +11,36 @@
 
 /* --------------------- custom -----------------------*/
 
+/* Ensure the entire page fills the viewport */
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main content of the page */
+#root, .main-content {
+  flex: 1; /* Allows content to grow and push the footer down */
+  display: flex;
+  flex-direction: column;
+}
+
+/* --------------------- header -----------------------*/
+
+header {
+  background-color: #222; /* Optional: Customize */
+  color: white; /* Optional: Customize */
+  padding: 20px 0;
+  text-align: center;
+}
+
+/* --------------------- footer -----------------------*/
+
+footer {
+  background-color: #222; /* Optional: Customize */
+  color: white; /* Optional: Customize */
+  padding: 20px 0;
+  margin-top: auto; /* Push the footer to the bottom */
+  text-align: center;
+}

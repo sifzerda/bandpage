@@ -38,13 +38,9 @@ function App() {
           <Navigation />
         </header>
 
-        <div className="bucket-app">
-
           <main className="main-content">
             <Outlet />
           </main>
-
-        </div>
 
         <Footer />
       </>
