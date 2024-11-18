@@ -47,21 +47,29 @@ function Cal() {
 
       {/* Calendar Grid */}
       <div className="calendar-grid">
-        {days.map((day) => (
-          <div
-            key={day}
-            className={`calendar-day ${isBefore(startOfDay(day), today) ? "past-day" : ""}`}
-          >
-            <div className="date-label">{format(day, "d")}</div>
-            <textarea
-              className="note-input"
-              placeholder="Add a note..."
-              value={notes[format(day, "yyyy-MM-dd")] || ""}
-              onChange={(e) => handleInputChange(day, e.target.value)}
-              disabled={isBefore(startOfDay(day), today)} // Disable for past days
-            />
-          </div>
-        ))}
+        {days.map((day) => {
+          const isPast = isBefore(startOfDay(day), today);
+          const isCurrentDay = isToday(day);
+
+          return (
+            <div
+              key={day}
+              className={`calendar-day ${
+                isPast ? "past-day" : ""
+              } ${isCurrentDay ? "current-day" : ""}`}
+            >
+              <div className="date-label">{format(day, "d")}</div>
+              {!isPast && (
+                <textarea
+                  className="note-input"
+                  placeholder="Add a note..."
+                  value={notes[format(day, "yyyy-MM-dd")] || ""}
+                  onChange={(e) => handleInputChange(day, e.target.value)}
+                />
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

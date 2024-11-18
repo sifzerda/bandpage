@@ -62,13 +62,14 @@ footer {
 }
 
 .calendar-day {
-  border: 1px solid #ddd;
+  border: 1px solid #000000;
   border-radius: 5px;
   padding: 10px;
   min-height: 100px;
   display: flex;
   flex-direction: column;
-  background-color: white;
+  background-color: rgb(182, 222, 245);
+  position: relative;
 }
 
 .date-label {
@@ -120,5 +121,10 @@ footer {
   background-color: #f0f0f0;
   pointer-events: none; /* Prevent all interactions */
   color: #aaa;
+}
+
+.calendar-day.current-day {
+  background-color: #fff9c4; /* Yellow highlight */
+  border: 4px dashed #007bff;
 }
 
