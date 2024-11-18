@@ -1,55 +1,37 @@
 import ContactForm from '../components/ContactForm';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub, faLinkedin, faFacebook } from '@fortawesome/free-brands-svg-icons';
+import { faGithub, faLinkedin, faFacebook, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import YouTubeSearch from '../components/YouTubeSearch';
 
 export default function Suggestions() {
   return (
     <div className="contact-container">
-      <h1>Song Suggestions</h1>
+      <h1>Find Songs</h1>
 
       <div className="separator-line"></div>
 
       <div className="contact-icons">
         <div className="icon-container">
-          <a href="mailto:tydamon@hotmail.com" className="icon">
-            <FontAwesomeIcon icon={faEnvelope} size="2x" />
+          <a href="https://youtube.com" className="icon">
+            <FontAwesomeIcon icon={faYoutube} size="2x" />
           </a>
-          <p className='contact-text'>Email</p>
+          <p className='contact-text'>YouTube</p>
         </div>
-
-        <div className="icon-container">
-          <a href="https://github.com/sifzerda" className="icon">
-            <FontAwesomeIcon icon={faGithub} size="2x" />
-          </a>
-          <p className='contact-text'>GitHub</p>
-        </div>
-
-        <div className="icon-container">
-          <a href="https://github.com/sifzerda" className="icon">
-            <FontAwesomeIcon icon={faLinkedin} size="2x" />
-          </a>
-          <p className='contact-text'>LinkedIn</p>
-        </div>
-
-        <div className="icon-container">
-          <a href="https://github.com/sifzerda" className="icon">
-            <FontAwesomeIcon icon={faFacebook} size="2x" />
-          </a>
-          <p className='contact-text'>Facebook</p>
-        </div>
-
 
       </div>
 
       <div className="separator-line"></div>
+ 
+{/* ------------ YT Search --------------*/}
 
-      <div className="form-box">
+<div>
+<YouTubeSearch />
+</div>
 
-        <h1>Leave A Message</h1>
-        <ContactForm />
-      </div>
+{/* ------------ ------------------------*/}
+
 
       <div className="separator-line"></div>
 
