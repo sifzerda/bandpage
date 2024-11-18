@@ -11,7 +11,10 @@ export default function Calender() {
 
       <div className="form-box">
 
-        <h1>Leave A Message</h1>
+        <h3>Instructions</h3>
+        <h5>Click on your name to change availability</h5>
+        <h5>Red = Unavailable</h5>
+        <h5>Green = Available</h5>
 
         <Cal />
 

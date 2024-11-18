@@ -75,6 +75,7 @@ function Cal() {
   // Save the current rowStates to localStorage
   const saveState = () => {
     localStorage.setItem("calendarState", JSON.stringify(rowStates));
+    alert("Calendar saved!"); // Simple browser alert
   };
 
   // Load the saved state from localStorage
@@ -95,7 +96,7 @@ function Cal() {
 
       {/* Save Button */}
       <button onClick={saveState} className="save-button">
-        Save State
+        Save This
       </button>
 
       {/* Month Navigation */}
@@ -112,7 +113,7 @@ function Cal() {
           const isCurrentDay = isToday(day);
           const dateKey = format(day, "yyyy-MM-dd");
           const dayState = rowStates[dateKey] || {};
-          const dayName = format(day, "EEEE"); // Full day name
+          const dayName = format(day, "EEE"); // Abbreviated day name (e.g., Mon, Tue, Wed)
 
           return (
             <div
