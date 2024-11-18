@@ -56,25 +56,34 @@ function Navigation() {
  
           className={currentPage === '/' ? 'nav-link active' : 'nav-link'}
         >
-          About Me
+          Current Activity
         </Link>
       </li>
 
       <li className="nav-item">
-
         <Link
-          to="/Contact"
+          to="/Calender"
    
-          className={currentPage === '/Contact' ? 'nav-link active' : 'nav-link'}
+          className={currentPage === '/Calender' ? 'nav-link active' : 'nav-link'}
         >
-          Contact
+          Calender
+        </Link>
+      </li>
+
+      <li className="nav-item">
+        <Link
+          to="/Suggestions"
+   
+          className={currentPage === '/Suggestions' ? 'nav-link active' : 'nav-link'}
+        >
+          Song Suggestions
         </Link>
       </li>
 
                  {/* New Tab Linking to Fiction-Map - currently a Google placeholder */}
                  <li className="nav-item">
-        <a href="https://fiction-map-d72538a215a2.herokuapp.com" className="nav-link" target="_blank" rel="noopener noreferrer">
-          Fiction Map
+        <a href="https://www.facebook.com/groups/924179039723377" className="nav-link" target="_blank" rel="noopener noreferrer">
+          FB Band Group
         </a>
       </li>
 

@@ -2,12 +2,12 @@ import ContactForm from '../components/ContactForm';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin, faFacebook } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope, faSquare } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
-export default function Contact() {
+export default function Calender() {
   return (
     <div className="contact-container">
-      <h1>Contact Me</h1>
+      <h1>Calender</h1>
 
       <div className="separator-line"></div>
 
