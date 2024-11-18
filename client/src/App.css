@@ -199,6 +199,32 @@ footer {
   transform: translateY(2px); /* Button appears pressed down */
 }
 
+div.color-box {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+p.red-text {
+  color: rgb(0, 0, 0);
+  border: 2px solid black;
+  background-color: rgb(255, 148, 148);
+  padding: 5px;
+}
+
+p.green-text {
+  color: rgb(0, 0, 0);
+  border: 2px solid black;
+  background-color: rgb(191, 255, 148);
+  padding: 5px;
+}
+
+p.white-text {
+  color: rgb(0, 0, 0);
+  border: 2px solid black;
+  background-color: rgb(255, 255, 255);
+  padding: 5px;
+}
 
 /* buttons: next previous */
 
