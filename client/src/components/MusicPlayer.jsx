@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 import Draggable from 'react-draggable';
 
 const MusicPlayer = () => {
@@ -23,47 +22,4 @@ const MusicPlayer = () => {
   );
 };
 
-const App = () => {
-  const [popup, setPopup] = useState(null);
-
-  const openMusicPlayerWindow = () => {
-    const playerWindow = window.open(
-      '',
-      'Music Player',
-      'width=300,height=400,left=100,top=100'
-    );
-
-    playerWindow.document.title = 'Music Player';
-
-    const cleanup = () => {
-      setPopup(null);
-      playerWindow.close();
-    };
-
-    // Render MusicPlayer into the new window
-    ReactDOM.createRoot(playerWindow.document.body).render(
-      <React.StrictMode>
-        <MusicPlayer />
-        <button onClick={cleanup}>Close</button>
-      </React.StrictMode>
-    );
-
-    setPopup(playerWindow);
-  };
-
-  useEffect(() => {
-    return () => {
-      if (popup) {
-        popup.close();
-      }
-    };
-  }, [popup]);
-
-  return (
-    <div className="app">
-      <button onClick={openMusicPlayerWindow}>Open Music Player</button>
-    </div>
-  );
-};
-
-export default App;
+export default MusicPlayer;

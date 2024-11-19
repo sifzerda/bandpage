@@ -1,3 +1,4 @@
+import MusicPlayer from "../../backups/MusicPlayer - within window";
 
 function Header() {
   return (
@@ -10,6 +11,14 @@ function Header() {
             <span className="glitch" data-text="Horror">Band</span> 
           </p>
         </div>
+
+
+<div>
+  <MusicPlayer />
+</div>
+
+
+
       </header>
     </header>
   );
