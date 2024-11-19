@@ -256,3 +256,62 @@ p.white-text {
   font-weight: bold;
   margin: 0 20px;  /* Spacing between buttons and heading */
 }
+
+/* --------------------- music player -----------------------*/
+
+.music-player {
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: #2a2a2a;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  font-family: Arial, sans-serif;
+  cursor: grab;
+}
+
+.music-player:active {
+  cursor: grabbing;
+}
+
+.music-player-header {
+  background: #444;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 10px 10px 0 0;
+  user-select: none;
+}
+
+.music-player-body {
+  padding: 10px;
+}
+
+.track-info {
+  margin-bottom: 10px;
+}
+
+.track-name,
+.artist-name {
+  margin: 0;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-around;
+}
+
+.control-btn {
+  background: #555;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.control-btn:hover {
+  background: #777;
+}

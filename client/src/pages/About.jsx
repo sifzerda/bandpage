@@ -1,4 +1,5 @@
 import '../App.css';
+import MusicPlayer from '../components/MusicPlayer';
 
 export default function About () {
   return (
@@ -6,6 +7,8 @@ export default function About () {
       <h1>Current Activity</h1>
 
       <p className="separator-line"></p>
+
+      <MusicPlayer />
 
       <div className="separator-line"></div>
 
