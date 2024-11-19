@@ -3,7 +3,7 @@ import './App.css';
 import { Outlet } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import Header from './components/Header';
-import MPDiv from './components/MPDiv';
+import MusicPlayer from './components/MusicPlayer';
 import Footer from './components/Footer';
 
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink, } from '@apollo/client';
@@ -40,6 +40,11 @@ function App() {
         </header>
 
           <main className="main-content">
+
+{/* ---- outside react-router so will persist after nav tabs switched*/}
+          <MusicPlayer /> 
+{/* -----------------------------------------------------------------*/}
+
             <Outlet />
           </main>
 

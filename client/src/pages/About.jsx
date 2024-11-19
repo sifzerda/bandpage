@@ -1,5 +1,4 @@
 import '../App.css';
-import MusicPlayer from '../components/MusicPlayer';
 
 export default function About () {
   return (
@@ -14,10 +13,6 @@ export default function About () {
       <p className='portfolio-bio'>
         Current news and activities goes here:
       </p>
-
-      <div> 
-        <MusicPlayer />
-      </div>
 
       <div className="separator-line"></div>
 
