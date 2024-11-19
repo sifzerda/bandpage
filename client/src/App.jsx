@@ -3,6 +3,7 @@ import './App.css';
 import { Outlet } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import Header from './components/Header';
+import MPDiv from './components/MPDiv';
 import Footer from './components/Footer';
 
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink, } from '@apollo/client';
