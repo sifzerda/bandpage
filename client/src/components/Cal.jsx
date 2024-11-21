@@ -96,7 +96,7 @@ function Cal() {
 
       {/* Save Button */}
       <button onClick={saveState} className="save-button">
-        Save This
+        Save
       </button>
 
       {/* Month Navigation */}

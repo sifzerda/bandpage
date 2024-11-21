@@ -10,7 +10,7 @@ const YouTubeSearch = () => {
   const [nextPageToken, setNextPageToken] = useState('');
   const [prevPageToken, setPrevPageToken] = useState('');
 
-  const API_KEY = 'AIzaSyCcKs8Miz82FFDXZb6zU9Yfgkt0JZzdiWg';
+  const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
 
   const fetchVideos = async (query, token = '') => {
     const API_URL = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${query}&pageToken=${token}&key=${API_KEY}`;
