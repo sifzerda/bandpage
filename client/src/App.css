@@ -11,6 +11,10 @@
 
 /* --------------------- custom -----------------------*/
 
+body {
+  padding-bottom: 60px; /* Add padding equal to the music player's height to avoid overlapping content */
+}
+
 /* Ensure the entire page fills the viewport */
 html, body {
   height: 100%;
@@ -29,7 +33,6 @@ html, body {
 .main-content {
 padding-bottom: 30px; /* Add some space at the bottom */
 }
-
 
 /* --------------------- header -----------------------*/
 
@@ -314,4 +317,23 @@ p.white-text {
 
 .control-btn:hover {
   background: #777;
+}
+
+/* ------------- mp is on top of other page contents -------------*/
+
+.music-player-container {
+  position: fixed; /* Ensures the music player stays in place */
+  bottom: 0; /* Anchors the player to the bottom of the viewport */
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.8); /* Optional: Add a background for better visibility */
+  z-index: 1000; /* Ensures it appears on top of other content */
+  padding: 10px; /* Optional: Add padding for better aesthetics */
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5); /* Optional: Add a shadow for a polished look */
+}
+
+.music-player-container .music-player {
+  align-items: center;
+  justify-content: space-between; /* Space out player controls */
+  color: white; /* Match text color with the background */
 }

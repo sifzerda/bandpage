@@ -43,6 +43,7 @@ Features:
 + Embedded YouTube search using YouTube Data API v3
 + Search for youtube videos/music, play in embedded player
 + User can save video results to music player. HandleSaveVideo prop passes from Suggestions page to music player at the global level (in App.jsx, outside react-router-outlet) allowing song to play even after page switched via nav tabs
++ Search has a keydown function to allow search to run by pressing enter
 
 TO DO:
 [ ] Main Page Updates (Create, Read, Update, Delete)

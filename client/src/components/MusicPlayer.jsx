@@ -38,6 +38,7 @@ const MusicPlayer = ({ playlist }) => {
 
   return (
     <Draggable>
+      <div className="music-player-container">
       <div className="music-player">
         <div className="music-player-header">🎵 Music Player</div>
         <div className="music-player-body">
@@ -71,6 +72,7 @@ const MusicPlayer = ({ playlist }) => {
             ))}
           </ul>
         </div>
+      </div>
       </div>
     </Draggable>
   );
