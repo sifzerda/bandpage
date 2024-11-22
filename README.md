@@ -9,7 +9,12 @@ Currently, two official plugins are available:
 
 
 
+TECH:
 
++ react-router
++ react-youtube
++ react-draggable
++ react-player
 
 
 NOTES:
@@ -30,10 +35,20 @@ Features:
 + Page can be sent to DB (remote sitewide) for other users, via submit 
 
 (4) Music Player:
-+ Uses react-youtube, react-draggable
 + play, pause, next/prev song
 + imported inside App.jsx outside react-router outlet so the player persists after nav tab switch, and playback continues.
 
 (5) Song Suggestions:
 + Embedded YouTube search using YouTube Data API v3
 + Search for youtube videos/music, play in embedded player
+
+TO DO:
+[ ] Main Page Updates (Create, Read, Update, Delete)
+[ ] Save song video id from search page, send to global music player
+[ ] Submit calendar availability to DB and retrieve so all users can see
+[ ] Add functionality to music player: run through playlist, enhanced GUI
+[ ] Fix up global GUI, styling
+[ ] Post Song suggestions from YT search to song suggestion page via retrieving video id
+[ ]
+[ ]
+[ ]

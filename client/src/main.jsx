@@ -12,14 +12,6 @@ import Profile from './pages/Profile.jsx';
 
 // subjects
 
-import Genre from './pages/Genre.jsx';
-import Techniques from './pages/Techniques.jsx';
-import Tropes from './pages/Tropes.jsx';
-import Scenes from './pages/Scenes.jsx';
-import Types from './pages/Types.jsx';
-import ScaryWords from './pages/ScaryWords.jsx';
-
-import References from './pages/References.jsx';
 import Login from './pages/Login.jsx';
 import Signup from './pages/Signup.jsx';
 
@@ -43,43 +35,6 @@ const router = createBrowserRouter([
       {
         path: '/Suggestions',
         element: <Suggestions />,
-      },
-
-      {
-        path: '/Genre',
-        element: <Genre />,
-      },
-
-      {
-        path: '/Techniques',
-        element: <Techniques />,
-      },
-      {
-        path: '/Types',
-        element: <Types />,
-      },
-
-      {
-        path: '/Scenes',
-        element: <Scenes />,
-      },
-
-      {
-        path: '/Tropes',
-        element: <Tropes />,
-      },
-      {
-        path: '/Techniques',
-        element: <Techniques />,
-      },
-      {
-        path: '/ScaryWords',
-        element: <ScaryWords />,
-      },
-
-      {
-        path: '/References',
-        element: <References />,
       },
 
       {
