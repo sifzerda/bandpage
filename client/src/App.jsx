@@ -1,12 +1,12 @@
 import './App.css';
-// Bringing in the required import from 'react-router-dom'
 import { Outlet } from 'react-router-dom';
+import React, { useState } from 'react';
 import Navigation from './components/Navigation';
 import Header from './components/Header';
 import MusicPlayer from './components/MusicPlayer';
 import Footer from './components/Footer';
 
-import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink, } from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
 const httpLink = createHttpLink({
@@ -28,9 +28,13 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-// content //
-
 function App() {
+  const [savedVideo, setSavedVideo] = useState(null);
+
+  const handleSaveVideo = (videoId, title) => {
+    setSavedVideo({ videoId, title });
+  };
+
   return (
     <ApolloProvider client={client}>
       <>
@@ -39,14 +43,13 @@ function App() {
           <Navigation />
         </header>
 
-          <main className="main-content">
+        <main className="main-content">
+          {/* MusicPlayer is persistent across all pages */}
+          <MusicPlayer savedVideo={savedVideo} />
 
-{/* ---- outside react-router so will persist after nav tabs switched*/}
-          <MusicPlayer /> 
-{/* -----------------------------------------------------------------*/}
-
-            <Outlet />
-          </main>
+          {/* Outlet renders the routed components */}
+          <Outlet context={{ handleSaveVideo }} />
+        </main>
 
         <Footer />
       </>

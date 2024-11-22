@@ -1,11 +1,12 @@
-import ContactForm from '../components/ContactForm';
-
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub, faLinkedin, faFacebook, faYoutube } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import YouTubeSearch from '../components/YouTubeSearch';
+import { useOutletContext } from 'react-router-dom';
 
 export default function Suggestions() {
+  const { handleSaveVideo } = useOutletContext();
+
   return (
     <div className="contact-container">
       <h1>Find Songs</h1>
@@ -17,24 +18,18 @@ export default function Suggestions() {
           <a href="https://youtube.com" className="icon">
             <FontAwesomeIcon icon={faYoutube} size="2x" />
           </a>
-          <p className='contact-text'>YouTube</p>
+          <p className="contact-text">YouTube</p>
         </div>
-
       </div>
 
       <div className="separator-line"></div>
- 
-{/* ------------ YT Search --------------*/}
 
-<div>
-<YouTubeSearch />
-</div>
-
-{/* ------------ ------------------------*/}
-
+      {/* YouTube Search */}
+      <div>
+        <YouTubeSearch onSaveVideo={handleSaveVideo} />
+      </div>
 
       <div className="separator-line"></div>
-
     </div>
   );
 }
