@@ -4,6 +4,7 @@ import YouTube from "react-youtube";
 
 const MusicPlayer = ({ playlist }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [showPlaylist, setShowPlaylist] = useState(false); // State to toggle playlist visibility
   const playerRef = useRef(null);
 
   const currentVideo = playlist[currentIndex] || null;
@@ -39,40 +40,46 @@ const MusicPlayer = ({ playlist }) => {
   return (
     <Draggable>
       <div className="music-player-container">
-      <div className="music-player">
-        <div className="music-player-header">🎵 Music Player</div>
-        <div className="music-player-body">
-          {currentVideo ? (
-            <>
-              <p>Now Playing: {currentVideo.title}</p>
-              <YouTube videoId={currentVideo.videoId} opts={opts} onReady={onReady} />
-            </>
-          ) : (
-            <p>No video selected</p>
-          )}
-          <div className="controls">
-            <button onClick={playPrevious} disabled={currentIndex === 0}>
-              ⏮ Previous
-            </button>
-            <button onClick={playNext} disabled={currentIndex === playlist.length - 1}>
-              Next ⏭
-            </button>
+        <div className="music-player">
+          <div className="music-player-header">🎵 Music Player</div>
+          <div className="music-player-body">
+            {currentVideo ? (
+              <>
+                <p>Now Playing: {currentVideo.title}</p>
+                <YouTube videoId={currentVideo.videoId} opts={opts} onReady={onReady} />
+              </>
+            ) : (
+              <p>No video selected</p>
+            )}
+            <div className="controls">
+              <button onClick={playPrevious} disabled={currentIndex === 0}>
+                ⏮ Previous
+              </button>
+              <button onClick={playNext} disabled={currentIndex === playlist.length - 1}>
+                Next ⏭
+              </button>
+              <button onClick={() => setShowPlaylist((prev) => !prev)}>
+                {showPlaylist ? "Hide Playlist" : "Playlist"}
+              </button>
+            </div>
           </div>
+          {showPlaylist && (
+            <div className="playlist">
+              <h3>Playlist</h3>
+              <ul>
+                {playlist.map((video, index) => (
+                  <li
+                    key={index}
+                    style={{ fontWeight: index === currentIndex ? "bold" : "normal" }}
+                    onClick={() => setCurrentIndex(index)} // Allow clicking to select video
+                  >
+                    {video.title}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
-        <div className="playlist">
-          <h3>Playlist</h3>
-          <ul>
-            {playlist.map((video, index) => (
-              <li
-                key={index}
-                style={{ fontWeight: index === currentIndex ? "bold" : "normal" }}
-              >
-                {video.title}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
       </div>
     </Draggable>
   );
