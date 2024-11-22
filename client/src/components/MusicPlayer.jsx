@@ -5,6 +5,7 @@ import YouTube from "react-youtube";
 const MusicPlayer = ({ playlist }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showPlaylist, setShowPlaylist] = useState(false); // State to toggle playlist visibility
+  const [isPlaying, setIsPlaying] = useState(true); // State to toggle play/pause
   const playerRef = useRef(null);
 
   const currentVideo = playlist[currentIndex] || null;
@@ -37,6 +38,15 @@ const MusicPlayer = ({ playlist }) => {
     }
   };
 
+  const togglePlayPause = () => {
+    if (isPlaying) {
+      playerRef.current.pauseVideo();
+    } else {
+      playerRef.current.playVideo();
+    }
+    setIsPlaying(!isPlaying); // Toggle the play/pause state
+  };
+
   return (
     <Draggable>
       <div className="music-player-container">
@@ -54,6 +64,9 @@ const MusicPlayer = ({ playlist }) => {
             <div className="controls">
               <button onClick={playPrevious} disabled={currentIndex === 0}>
                 ⏮ Previous
+              </button>
+              <button onClick={togglePlayPause}>
+                {isPlaying ? "Pause" : "Play"}
               </button>
               <button onClick={playNext} disabled={currentIndex === playlist.length - 1}>
                 Next ⏭
