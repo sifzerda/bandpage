@@ -1,17 +1,5 @@
 import { gql } from '@apollo/client';
 
-export const ADD_THOUGHT = gql`
-  mutation addThought($userId: ID!, $thoughtText: String!, $pageParams: String!) {
-    addThought(userId: $userId, thoughtText: $thoughtText, pageParams: $pageParams) {
-      _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-      pageParams
-    }
-  }
-`;
-
 export const LOGIN = gql`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
@@ -32,14 +20,6 @@ export const ADD_USER = gql`
         _id
         username
       }
-    }
-  }
-`;
-
-export const REMOVE_THOUGHT = gql`
-  mutation removeThought($thoughtId: ID!) {
-    removeThought(thoughtId: $thoughtId) {
-      _id
     }
   }
 `;

@@ -1,5 +1,17 @@
 import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
 import axios from 'axios';
+import { gql } from 'graphql-tag';
+
+// Define the GraphQL mutation for saving the video ID
+const ADD_VIDEO_MUTATION = gql`
+  mutation AddVideo($videoId: String!, $title: String!) {
+    addVideo(videoId: $videoId, title: $title) {
+      videoId
+      title
+    }
+  }
+`;
 
 const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -38,6 +50,21 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
     }
   };
 
+  // Use the Apollo useMutation hook to execute the GraphQL mutation
+  const [addVideoToDb] = useMutation(ADD_VIDEO_MUTATION);
+
+  const sendToDB = async (videoId, title) => {
+    try {
+      // Call the mutation to save the video ID to the database
+      const { data } = await addVideoToDb({ variables: { videoId, title } });
+      console.log('Video saved to DB:', data.addVideo);
+      alert('Video ID sent to DB successfully!');
+    } catch (error) {
+      console.error('Error sending video ID to DB:', error);
+      alert('Failed to send video ID to DB.');
+    }
+  };
+
   return (
     <div>
       <input
@@ -72,6 +99,9 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
               <p>{video.snippet.title}</p>
               <button onClick={() => handleSave(video.id.videoId, video.snippet.title)}>
                 Add to Playlist
+              </button>
+              <button onClick={() => sendToDB(video.id.videoId, video.snippet.title)}>
+                Send to DB
               </button>
             </div>
           </div>
