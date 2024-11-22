@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
-const YouTubeSearch = ({ onSaveVideo }) => {
+const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [videos, setVideos] = useState([]);
-  const [selectedVideo, setSelectedVideo] = useState(null);
-  const [selectedVideoTitle, setSelectedVideoTitle] = useState('');
   const [pageToken, setPageToken] = useState('');
   const [nextPageToken, setNextPageToken] = useState('');
   const [prevPageToken, setPrevPageToken] = useState('');
@@ -27,13 +25,17 @@ const YouTubeSearch = ({ onSaveVideo }) => {
   const handleSearch = () => {
     if (searchQuery) {
       fetchVideos(searchQuery);
-      setSelectedVideo(null);
-      setSelectedVideoTitle('');
     }
   };
 
   const handleSave = (videoId, title) => {
-    onSaveVideo(videoId, title); // Send the selected video to the parent component
+    const video = { videoId, title };
+    if (onSaveVideo) {
+      onSaveVideo(videoId, title); // Save single video to the player
+    }
+    if (onAddToPlaylist) {
+      onAddToPlaylist(video); // Add video to the playlist
+    }
   };
 
   return (
@@ -47,7 +49,7 @@ const YouTubeSearch = ({ onSaveVideo }) => {
       <button onClick={handleSearch}>Search</button>
 
       <div>
-        <h3>Video Playlist:</h3>
+        <h3>Video Results:</h3>
         {videos.map((video) => (
           <div
             key={video.id.videoId}
@@ -69,11 +71,26 @@ const YouTubeSearch = ({ onSaveVideo }) => {
             <div>
               <p>{video.snippet.title}</p>
               <button onClick={() => handleSave(video.id.videoId, video.snippet.title)}>
-                Save to Player
+                Add to Playlist
               </button>
             </div>
           </div>
         ))}
+      </div>
+
+      <div style={{ marginTop: '20px' }}>
+        <button
+          onClick={() => fetchVideos(searchQuery, prevPageToken)}
+          disabled={!prevPageToken}
+        >
+          Previous Page
+        </button>
+        <button
+          onClick={() => fetchVideos(searchQuery, nextPageToken)}
+          disabled={!nextPageToken}
+        >
+          Next Page
+        </button>
       </div>
     </div>
   );

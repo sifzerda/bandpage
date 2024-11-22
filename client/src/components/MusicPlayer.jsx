@@ -1,70 +1,75 @@
-import React, { useState, useEffect, useRef } from 'react';
-import Draggable from 'react-draggable';
-import YouTube from 'react-youtube';
+import React, { useState, useRef } from "react";
+import Draggable from "react-draggable";
+import YouTube from "react-youtube";
 
-const MusicPlayer = ({ savedVideo }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
+const MusicPlayer = ({ playlist }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
   const playerRef = useRef(null);
 
+  const currentVideo = playlist[currentIndex] || null;
+
   const opts = {
-    height: '0',
-    width: '0',
+    height: "0", // Hide video display
+    width: "0", // Hide video display
     playerVars: {
       autoplay: 1,
       controls: 0,
-      showinfo: 0,
-      modestbranding: 1,
-      rel: 0,
-      iv_load_policy: 3,
     },
   };
 
   const onReady = (event) => {
     playerRef.current = event.target;
-    if (isPlaying) {
-      playerRef.current.playVideo();
+    if (currentVideo) {
+      playerRef.current.loadVideoById(currentVideo.videoId);
     }
   };
 
-  const onPlay = () => {
-    if (playerRef.current) {
-      playerRef.current.playVideo();
-      setIsPlaying(true);
+  const playNext = () => {
+    if (currentIndex < playlist.length - 1) {
+      setCurrentIndex((prev) => prev + 1);
     }
   };
 
-  const onPause = () => {
-    if (playerRef.current) {
-      playerRef.current.pauseVideo();
-      setIsPlaying(false);
+  const playPrevious = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex((prev) => prev - 1);
     }
   };
-
-  useEffect(() => {
-    if (savedVideo && playerRef.current) {
-      playerRef.current.loadVideoById(savedVideo.videoId);
-      setIsPlaying(true);
-    }
-  }, [savedVideo]);
 
   return (
     <Draggable>
       <div className="music-player">
         <div className="music-player-header">🎵 Music Player</div>
         <div className="music-player-body">
-          <div className="track-info">
-            <p className="track-name">Track: {savedVideo?.title || 'No track selected'}</p>
-          </div>
-          <div className="youtube-player">
-            <YouTube videoId={savedVideo?.videoId || ''} opts={opts} onReady={onReady} />
-          </div>
+          {currentVideo ? (
+            <>
+              <p>Now Playing: {currentVideo.title}</p>
+              <YouTube videoId={currentVideo.videoId} opts={opts} onReady={onReady} />
+            </>
+          ) : (
+            <p>No video selected</p>
+          )}
           <div className="controls">
-            <button onClick={onPause}>⏮</button>
-            <button onClick={isPlaying ? onPause : onPlay}>
-              {isPlaying ? '⏸' : '⏯'}
+            <button onClick={playPrevious} disabled={currentIndex === 0}>
+              ⏮ Previous
             </button>
-            <button>⏭</button>
+            <button onClick={playNext} disabled={currentIndex === playlist.length - 1}>
+              Next ⏭
+            </button>
           </div>
+        </div>
+        <div className="playlist">
+          <h3>Playlist</h3>
+          <ul>
+            {playlist.map((video, index) => (
+              <li
+                key={index}
+                style={{ fontWeight: index === currentIndex ? "bold" : "normal" }}
+              >
+                {video.title}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </Draggable>

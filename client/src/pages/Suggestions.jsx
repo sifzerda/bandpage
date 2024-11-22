@@ -5,7 +5,8 @@ import YouTubeSearch from '../components/YouTubeSearch';
 import { useOutletContext } from 'react-router-dom';
 
 export default function Suggestions() {
-  const { handleSaveVideo } = useOutletContext();
+  // passing the handleAddToPlaylist function to the YouTubeSearch component
+  const { handleAddToPlaylist } = useOutletContext();
 
   return (
     <div className="contact-container">
@@ -26,7 +27,7 @@ export default function Suggestions() {
 
       {/* YouTube Search */}
       <div>
-        <YouTubeSearch onSaveVideo={handleSaveVideo} />
+        <YouTubeSearch onAddToPlaylist={handleAddToPlaylist} />
       </div>
 
       <div className="separator-line"></div>
