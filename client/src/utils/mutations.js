@@ -1,5 +1,7 @@
 import { gql } from '@apollo/client';
 
+// Existing Mutations
+
 export const LOGIN = gql`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
@@ -32,3 +34,26 @@ export const REMOVE_USER = gql`
     }
   }
 `;
+ 
+ // Add Video Mutation
+export const ADD_VIDEO = gql`
+mutation addVideo($videoId: String!, $title: String!, $comment: String) {
+  addVideo(videoId: $videoId, title: $title, comment: $comment) {
+    videoId
+    title
+    comment
+  }
+}
+`;
+
+// Remove Video Mutation
+export const REMOVE_VIDEO = gql`
+mutation removeVideo($videoId: String!) {
+  removeVideo(videoId: $videoId) {
+    videoId
+    title
+    comment
+  }
+}
+`;
+ 

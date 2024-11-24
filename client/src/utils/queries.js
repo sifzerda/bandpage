@@ -1,5 +1,7 @@
 import { gql } from '@apollo/client';
 
+// Existing Queries
+
 export const QUERY_USER = gql`
   query getUser($userId: ID!) {
     user(userId: $userId) {
@@ -29,4 +31,16 @@ export const QUERY_ME = gql`
     }
   }
 `;
+ 
+// Fetch all videos
+export const QUERY_VIDEOS = gql`
+  query getVideos {
+    getVideos {
+      videoId
+      title
+      comment
+    }
+  }
+`;
 
+ 

@@ -1,36 +1,38 @@
+// Suggestions.jsx
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faYoutube } from '@fortawesome/free-brands-svg-icons';
-import YouTubeSearch from '../components/YouTubeSearch';
-import { useOutletContext } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { QUERY_VIDEOS } from './../utils/queries'; // import the QUERY_VIDEOS query
 
-export default function Suggestions() {
-  // passing the handleAddToPlaylist function to the YouTubeSearch component
-  const { handleAddToPlaylist } = useOutletContext();
+const Suggestions = () => {
+  // Run the query using the useQuery hook
+  const { loading, error, data } = useQuery(QUERY_VIDEOS);
 
+  // Show loading state while the query is being fetched
+  if (loading) return <p>Loading videos...</p>;
+
+  // Show error message if the query fails
+  if (error) return <p>Error: {error.message}</p>;
+
+  // Display the list of videos once data is fetched
   return (
-    <div className="contact-container">
-      <h1>Find Songs</h1>
-
-      <div className="separator-line"></div>
-
-      <div className="contact-icons">
-        <div className="icon-container">
-          <a href="https://youtube.com" className="icon">
-            <FontAwesomeIcon icon={faYoutube} size="2x" />
-          </a>
-          <p className="contact-text">YouTube</p>
-        </div>
-      </div>
-
-      <div className="separator-line"></div>
-
-      {/* YouTube Search */}
+    <div>
+      <h1>Video Suggestions</h1>
       <div>
-        <YouTubeSearch onAddToPlaylist={handleAddToPlaylist} />
+        {data.getVideos.length > 0 ? (
+          <ul>
+            {data.getVideos.map((video) => (
+              <li key={video.videoId}>
+                <h3>{video.title}</h3>
+                <p>{video.comment}</p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No videos found.</p>
+        )}
       </div>
-
-      <div className="separator-line"></div>
     </div>
   );
-}
+};
+
+export default Suggestions;

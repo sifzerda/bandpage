@@ -43,6 +43,18 @@ header {
   text-align: center;
 }
 
+/* ------------------- nav tabs -----------------------*/
+
+.nav-tabs {
+  display: flex;
+  width: 100%;
+}
+
+.right-username {
+  margin-left: auto; /* Pushes this item to the right side */
+}
+
+
 /* --------------------- footer -----------------------*/
 
 footer {

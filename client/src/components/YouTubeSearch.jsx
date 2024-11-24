@@ -1,17 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
+import { ADD_VIDEO } from './../utils/mutations';   
 import axios from 'axios';
-import { gql } from 'graphql-tag';
-
-// Define the GraphQL mutation for saving the video ID
-const ADD_VIDEO_MUTATION = gql`
-  mutation AddVideo($videoId: String!, $title: String!) {
-    addVideo(videoId: $videoId, title: $title) {
-      videoId
-      title
-    }
-  }
-`;
 
 const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -19,9 +10,14 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
   const [pageToken, setPageToken] = useState('');
   const [nextPageToken, setNextPageToken] = useState('');
   const [prevPageToken, setPrevPageToken] = useState('');
+  const navigate = useNavigate();
 
   const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
 
+  // Mutation to add video
+  const [addVideo, { data, loading, error }] = useMutation(ADD_VIDEO);
+
+  // Function to fetch videos from the YouTube API
   const fetchVideos = async (query, token = '') => {
     const API_URL = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${query}&pageToken=${token}&key=${API_KEY}`;
     try {
@@ -29,39 +25,66 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
       setVideos(response.data.items);
       setNextPageToken(response.data.nextPageToken);
       setPrevPageToken(response.data.prevPageToken || '');
+      console.log("Fetched videos:", response.data.items);
     } catch (error) {
       console.error('Error fetching YouTube data', error);
     }
   };
 
   const handleSearch = () => {
+    console.log('Searching for videos with query:', searchQuery);
     if (searchQuery) {
       fetchVideos(searchQuery);
     }
   };
 
   const handleSave = (videoId, title) => {
-    const video = { videoId, title };
+    console.log('Saving video with ID:', videoId, 'and title:', title);
     if (onSaveVideo) {
-      onSaveVideo(videoId, title); // Save single video to the player
+      onSaveVideo(videoId, title);
     }
     if (onAddToPlaylist) {
-      onAddToPlaylist(video); // Add video to the playlist
+      onAddToPlaylist({ videoId, title });
     }
   };
 
-  // Use the Apollo useMutation hook to execute the GraphQL mutation
-  const [addVideoToDb] = useMutation(ADD_VIDEO_MUTATION);
-
-  const sendToDB = async (videoId, title) => {
+  const handlePost = async (video) => {
+    console.log("Posting video:", video); // Log the video object being posted
+  
     try {
-      // Call the mutation to save the video ID to the database
-      const { data } = await addVideoToDb({ variables: { videoId, title } });
-      console.log('Video saved to DB:', data.addVideo);
-      alert('Video ID sent to DB successfully!');
-    } catch (error) {
-      console.error('Error sending video ID to DB:', error);
-      alert('Failed to send video ID to DB.');
+      // Log before making the mutation call
+      console.log("Making GraphQL mutation with variables:", {
+        videoId: video.id.videoId,
+        title: video.snippet.title,
+        comment: 'Posted from YouTube search', // Optional comment
+      });
+  
+      // Post video using GraphQL mutation
+      const response = await addVideo({
+        variables: {
+          videoId: video.id.videoId,
+          title: video.snippet.title,
+          comment: 'Posted from YouTube search',
+        },
+      });
+  
+      // Log the response from the mutation
+      console.log('Mutation response:', response);
+  
+      if (response && response.data && response.data.addVideo) {
+        console.log('Video posted:', response.data.addVideo); // Log the video data returned
+        navigate('/Suggestions'); // Navigate to the display tab after posting
+      } else {
+        console.error("No video data returned in mutation response.");
+      }
+  
+    } catch (err) {
+      console.error('Error posting video:', err); // Log any error that occurs
+    }
+  
+    // Log any GraphQL mutation errors
+    if (error) {
+      console.error('GraphQL Mutation Error:', error);
     }
   };
 
@@ -100,9 +123,8 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
               <button onClick={() => handleSave(video.id.videoId, video.snippet.title)}>
                 Add to Playlist
               </button>
-              <button onClick={() => sendToDB(video.id.videoId, video.snippet.title)}>
-                Send to DB
-              </button>
+
+              <button onClick={() => handlePost(video)}>Post</button>
             </div>
           </div>
         ))}

@@ -22,10 +22,17 @@ const client = new ApolloClient({
 });
 
 function App() {
-  const [playlist, setPlaylist] = useState([]);
+  const [playlist, setPlaylist] = useState([]); // Playlist state
+  const [selectedVideo, setSelectedVideo] = useState(null); // Currently selected video
 
+  // Function to add a video to the playlist
   const handleAddToPlaylist = (video) => {
     setPlaylist((prevPlaylist) => [...prevPlaylist, video]);
+  };
+
+  // Function to set a selected video (for display purposes)
+  const handleSelectVideo = (video) => {
+    setSelectedVideo(video);
   };
 
   return (
@@ -42,8 +49,8 @@ function App() {
             <MusicPlayer playlist={playlist} />
           </div>
 
-          {/* Pass handleAddToPlaylist via Outlet Context */}
-          <Outlet context={{ handleAddToPlaylist }} />
+          {/* Pass playlist functions and data via Outlet Context */}
+          <Outlet context={{ handleAddToPlaylist, handleSelectVideo, selectedVideo, playlist }} />
         </main>
 
         <Footer />
