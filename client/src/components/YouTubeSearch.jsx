@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useMutation } from '@apollo/client'; 
-import { ADD_VIDEO } from './../utils/mutations';   
-import axios from 'axios';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { ADD_VIDEO } from "./../utils/mutations";
+import axios from "axios";
 
 const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [videos, setVideos] = useState([]);
-  const [pageToken, setPageToken] = useState('');
-  const [nextPageToken, setNextPageToken] = useState('');
-  const [prevPageToken, setPrevPageToken] = useState('');
+  const [searchHistory, setSearchHistory] = useState([]); // State to store search history
+  const [pageToken, setPageToken] = useState("");
+  const [nextPageToken, setNextPageToken] = useState("");
+  const [prevPageToken, setPrevPageToken] = useState("");
   const navigate = useNavigate();
 
   const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
@@ -18,28 +19,36 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
   const [addVideo, { data, loading, error }] = useMutation(ADD_VIDEO);
 
   // Function to fetch videos from the YouTube API
-  const fetchVideos = async (query, token = '') => {
+  const fetchVideos = async (query, token = "") => {
     const API_URL = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${query}&pageToken=${token}&key=${API_KEY}`;
     try {
       const response = await axios.get(API_URL);
       setVideos(response.data.items);
       setNextPageToken(response.data.nextPageToken);
-      setPrevPageToken(response.data.prevPageToken || '');
+      setPrevPageToken(response.data.prevPageToken || "");
       console.log("Fetched videos:", response.data.items);
     } catch (error) {
-      console.error('Error fetching YouTube data', error);
+      console.error("Error fetching YouTube data", error);
     }
   };
 
   const handleSearch = () => {
-    console.log('Searching for videos with query:', searchQuery);
     if (searchQuery) {
+      console.log("Searching for videos with query:", searchQuery);
       fetchVideos(searchQuery);
+
+      // Update the search history, ensuring no duplicates
+      setSearchHistory((prevHistory) => {
+        if (!prevHistory.includes(searchQuery)) {
+          return [searchQuery, ...prevHistory].slice(0, 10); // Limit to 10 entries
+        }
+        return prevHistory;
+      });
     }
   };
 
   const handleSave = (videoId, title) => {
-    console.log('Saving video with ID:', videoId, 'and title:', title);
+    console.log("Saving video with ID:", videoId, "and title:", title);
     if (onSaveVideo) {
       onSaveVideo(videoId, title);
     }
@@ -50,38 +59,30 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
 
   const handlePost = async (video) => {
     console.log("Posting video:", video);
-  
+
     try {
-      // Make the GraphQL mutation call 
-      console.log("Making GraphQL mutation with variables:", {
-        videoId: video.id.videoId,
-        title: video.snippet.title,
-        comment: 'Posted from YouTube search',
-      });
-  
       const response = await addVideo({
         variables: {
           videoId: video.id.videoId,
           title: video.snippet.title,
-          comment: 'Posted from YouTube search',
+          comment: "Posted from YouTube search",
         },
       });
-  
-      console.log('Mutation response:', response);
-  
-      if (response && response.data && response.data.addVideo) {
-        console.log('Video posted:', response.data.addVideo);
-        navigate('/Suggestions');
+
+      console.log("Mutation response:", response);
+
+      if (response?.data?.addVideo) {
+        console.log("Video posted:", response.data.addVideo);
+        navigate("/Suggestions");
       } else {
         console.error("No video data returned in mutation response.");
       }
     } catch (err) {
-      console.error('Error posting video:', err);
+      console.error("Error posting video:", err);
     }
-  
-    // Log any GraphQL mutation errors
+
     if (error) {
-      console.error('GraphQL Mutation Error:', error);
+      console.error("GraphQL Mutation Error:", error);
     }
   };
 
@@ -95,39 +96,68 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
       />
       <button onClick={handleSearch}>Search</button>
 
+      {/* Search History */}
+      <div>
+        <h4>Search History:</h4>
+        {searchHistory.length > 0 ? (
+          <ul>
+            {searchHistory.map((query, index) => (
+              <li key={index}>
+                <button
+                  onClick={() => {
+                    setSearchQuery(query); // Set the search bar text to the selected query
+                    fetchVideos(query); // Re-fetch videos for this query
+                  }}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    color: "blue",
+                    cursor: "pointer",
+                    textDecoration: "underline",
+                  }}
+                >
+                  {query}
+                </button>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No previous searches.</p>
+        )}
+      </div>
+
       <div>
         <h3>Video Results:</h3>
         {videos.map((video) => (
           <div
             key={video.id.videoId}
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              marginBottom: '10px',
-              border: '1px solid #ddd',
-              padding: '5px',
-              borderRadius: '5px',
+              display: "flex",
+              alignItems: "center",
+              marginBottom: "10px",
+              border: "1px solid #ddd",
+              padding: "5px",
+              borderRadius: "5px",
             }}
           >
             <img
               src={video.snippet.thumbnails.medium.url}
               alt={video.snippet.title}
               width="120"
-              style={{ marginRight: '10px' }}
+              style={{ marginRight: "10px" }}
             />
             <div>
               <p>{video.snippet.title}</p>
               <button onClick={() => handleSave(video.id.videoId, video.snippet.title)}>
                 Add to Playlist
               </button>
-
               <button onClick={() => handlePost(video)}>Post</button>
             </div>
           </div>
         ))}
       </div>
 
-      <div style={{ marginTop: '20px' }}>
+      <div style={{ marginTop: "20px" }}>
         <button
           onClick={() => fetchVideos(searchQuery, prevPageToken)}
           disabled={!prevPageToken}
