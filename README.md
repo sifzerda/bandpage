@@ -51,7 +51,7 @@ TO DO:
 [ ] Submit calendar availability to DB and retrieve so all users can see
 [ ] Add functionality to music player: run through playlist, enhanced GUI
 [ ] Fix up global GUI, styling
-[ ] Post Song suggestions from YT search to song suggestion page via retrieving video id
+[x] Post Song suggestions from YT search to song suggestion page via retrieving video id
 [ ]
 [ ]
 [ ]

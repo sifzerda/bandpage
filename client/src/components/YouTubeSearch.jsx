@@ -34,7 +34,6 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
 
   const handleSearch = () => {
     if (searchQuery) {
-      console.log("Searching for videos with query:", searchQuery);
       fetchVideos(searchQuery);
 
       // Update the search history, ensuring no duplicates
@@ -48,7 +47,6 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
   };
 
   const handleSave = (videoId, title) => {
-    console.log("Saving video with ID:", videoId, "and title:", title);
     if (onSaveVideo) {
       onSaveVideo(videoId, title);
     }
@@ -58,7 +56,6 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
   };
 
   const handlePost = async (video) => {
-    console.log("Posting video:", video);
 
     try {
       const response = await addVideo({
@@ -69,10 +66,7 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
         },
       });
 
-      console.log("Mutation response:", response);
-
       if (response?.data?.addVideo) {
-        console.log("Video posted:", response.data.addVideo);
         navigate("/Suggestions");
       } else {
         console.error("No video data returned in mutation response.");
