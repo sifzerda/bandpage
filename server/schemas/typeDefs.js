@@ -10,8 +10,8 @@ const typeDefs = `
     videoId: String
     title: String
     comment: String
-    createdAt: String  # Optional: add createdAt if you want to track when it was posted
-    updatedAt: String  # Optional: add updatedAt to track when it was last updated
+    createdAt: String   
+    updatedAt: String   
   }
 
   type Auth {
@@ -22,17 +22,17 @@ const typeDefs = `
   type Query {
     user(userId: ID!): User
     users: [User]
-    getVideos: [Video]  # Fetch videos, now with comment and optional timestamps
+    getVideos: [Video]   
     me: User
   }
 
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
-    addVideo(videoId: String!, title: String!, comment: String): Video  # Updated to include comment
+    addVideo(videoId: String!, title: String!, comment: String): Video  
     updateUser(username: String, email: String, password: String): User
     login(email: String!, password: String!): Auth
     removeUser: User
-    removeVideo(videoId: String!): Video  # Mutation to remove a video
+    removeVideo(videoId: String!): Video  
   }
 `;
 

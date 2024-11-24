@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client'; 
 import { ADD_VIDEO } from './../utils/mutations';   
 import axios from 'axios';
 
@@ -49,17 +49,16 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
   };
 
   const handlePost = async (video) => {
-    console.log("Posting video:", video); // Log the video object being posted
+    console.log("Posting video:", video);
   
     try {
-      // Log before making the mutation call
+      // Make the GraphQL mutation call 
       console.log("Making GraphQL mutation with variables:", {
         videoId: video.id.videoId,
         title: video.snippet.title,
-        comment: 'Posted from YouTube search', // Optional comment
+        comment: 'Posted from YouTube search',
       });
   
-      // Post video using GraphQL mutation
       const response = await addVideo({
         variables: {
           videoId: video.id.videoId,
@@ -68,18 +67,16 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
         },
       });
   
-      // Log the response from the mutation
       console.log('Mutation response:', response);
   
       if (response && response.data && response.data.addVideo) {
-        console.log('Video posted:', response.data.addVideo); // Log the video data returned
-        navigate('/Suggestions'); // Navigate to the display tab after posting
+        console.log('Video posted:', response.data.addVideo);
+        navigate('/Suggestions');
       } else {
         console.error("No video data returned in mutation response.");
       }
-  
     } catch (err) {
-      console.error('Error posting video:', err); // Log any error that occurs
+      console.error('Error posting video:', err);
     }
   
     // Log any GraphQL mutation errors
