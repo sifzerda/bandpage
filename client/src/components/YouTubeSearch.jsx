@@ -128,33 +128,38 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
 
       <div>
         <h3>Video Results:</h3>
-        {videos.map((video) => (
-          <div
-            key={video.id.videoId}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginBottom: "10px",
-              border: "1px solid #ddd",
-              padding: "5px",
-              borderRadius: "5px",
-            }}
-          >
-            <img
-              src={video.snippet.thumbnails.medium.url}
-              alt={video.snippet.title}
-              width="120"
-              style={{ marginRight: "10px" }}
-            />
-            <div>
-              <p>{video.snippet.title}</p>
-              <button onClick={() => handleSave(video.id.videoId, video.snippet.title)}>
-                Add to Playlist
-              </button>
-              <button onClick={() => handlePost(video)}>Post</button>
-            </div>
-          </div>
-        ))}
+        {videos.map((video) => {
+  const videoId = video.id?.videoId; // Safely extract videoId
+  if (!videoId) return null; // Skip rendering if videoId is missing
+
+  return (
+    <div
+      key={videoId}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        marginBottom: "10px",
+        border: "1px solid #ddd",
+        padding: "5px",
+        borderRadius: "5px",
+      }}
+    >
+      <img
+        src={video.snippet.thumbnails.medium.url}
+        alt={video.snippet.title}
+        width="120"
+        style={{ marginRight: "10px" }}
+      />
+      <div>
+        <p>{video.snippet.title}</p>
+        <button onClick={() => handleSave(videoId, video.snippet.title)}>
+          Add to Playlist
+        </button>
+        <button onClick={() => handlePost(video)}>Post</button>
+      </div>
+    </div>
+  );
+})}
       </div>
 
       <div style={{ marginTop: "20px" }}>
