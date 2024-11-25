@@ -1,43 +1,61 @@
 import React from "react";
-import { useQuery } from "@apollo/client";
-import { QUERY_VIDEOS } from "./../utils/queries"; // Import the QUERY_VIDEOS query
+import { useQuery, useMutation } from "@apollo/client";
+import { QUERY_VIDEOS } from "./../utils/queries";
+import { REMOVE_VIDEO } from "./../utils/mutations";
+import { QUERY_ME } from "./../utils/queries"; // Import the QUERY_ME query
 
 const Suggestions = () => {
-  // Run the query using the useQuery hook
-  const { loading, error, data } = useQuery(QUERY_VIDEOS);
+  // Fetch the list of videos
+  const { loading: videosLoading, error: videosError, data: videosData, refetch } = useQuery(QUERY_VIDEOS);
 
-  // Show loading state while the query is being fetched
-  if (loading) {
-    return <p>Loading videos...</p>;
-  }
+  // Fetch the current logged-in user's details
+  const { loading: meLoading, error: meError, data: meData } = useQuery(QUERY_ME);
 
-  // Show error message if the query fails
-  if (error) {
-    return <p>Error: {error.message}</p>;
-  }
+  const [removeVideo] = useMutation(REMOVE_VIDEO);
 
-  // Debugging: Log the list of videos returned from the query
-  if (data?.getVideos) {
-    console.log("Fetched videos from QUERY_VIDEOS:", data.getVideos);
-  }
+  // Show loading states
+  if (videosLoading || meLoading) return <p>Loading...</p>;
 
-  // Display the list of videos once data is fetched
+  // Show error messages if queries fail
+  if (videosError) return <p>Error loading videos: {videosError.message}</p>;
+  if (meError) return <p>Error fetching user: {meError.message}</p>;
+
+  // Get the current user's username
+  const currentUser = meData?.me?.username;
+
+  // Function to handle video deletion
+  const handleDelete = async (videoId, username) => {
+    if (username !== currentUser) {
+      alert("You can only delete videos which you submitted.");
+      return;
+    }
+
+    try {
+      await removeVideo({ variables: { videoId } });
+      refetch(); // Refetch videos after deletion
+    } catch (err) {
+      console.error("Error deleting video:", err);
+    }
+  };
+
   return (
     <div>
       <h1>Video Suggestions</h1>
       <div>
-        {/* Debugging: Ensure the array length is correct */}
-        {data?.getVideos?.length > 0 ? (
+        {videosData?.getVideos?.length > 0 ? (
           <ul>
-            {data.getVideos.map((video) => {
-              return (
-                <li key={video.videoId}>
-                  <h3>{video.title}</h3>
-                  <p>{video.comment}</p>
-                  <p>Posted by: {video.username}</p> {/* Display username here */}
-                </li>
-              );
-            })}
+            {videosData.getVideos.map((video) => (
+              <li key={video.videoId}>
+                <h3>{video.title}</h3>
+                <p>{video.comment}</p>
+                <p>Posted by: {video.username || "Anonymous"}</p>
+                <button
+                  onClick={() => handleDelete(video.videoId, video.username)}
+                >
+                  Delete Post
+                </button>
+              </li>
+            ))}
           </ul>
         ) : (
           <p>No videos found.</p>
