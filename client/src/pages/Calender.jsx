@@ -20,7 +20,6 @@ export default function Calender() {
         
 </div>
 
-
         <Cal />
 
       </div>
