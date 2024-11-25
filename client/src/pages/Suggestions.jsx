@@ -34,6 +34,7 @@ const Suggestions = () => {
                 <li key={video.videoId}>
                   <h3>{video.title}</h3>
                   <p>{video.comment}</p>
+                  <p>Posted by: {video.username}</p> {/* Display username here */}
                 </li>
               );
             })}

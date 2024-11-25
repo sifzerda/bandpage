@@ -1,7 +1,6 @@
 import { gql } from '@apollo/client';
 
-// Existing Queries
-
+// Fetch a single user by ID
 export const QUERY_USER = gql`
   query getUser($userId: ID!) {
     user(userId: $userId) {
@@ -12,16 +11,18 @@ export const QUERY_USER = gql`
   }
 `;
 
+// Fetch all users
 export const QUERY_USERS = gql`
-{
-  users {
-    _id
-    username
-    email
+  query getUsers {
+    users {
+      _id
+      username
+      email
+    }
   }
-}
 `;
 
+// Fetch the logged-in user's details
 export const QUERY_ME = gql`
   query me {
     me {
@@ -31,7 +32,7 @@ export const QUERY_ME = gql`
     }
   }
 `;
- 
+
 // Fetch all videos
 export const QUERY_VIDEOS = gql`
   query getVideos {
@@ -39,8 +40,9 @@ export const QUERY_VIDEOS = gql`
       videoId
       title
       comment
+      username
+      createdAt
+      updatedAt
     }
   }
 `;
-
- 

@@ -2,50 +2,51 @@ const { User, Video } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
-
   Query: {
-
+    // Fetch all users
     users: async () => {
-      return User.find()
+      return User.find();
     },
-    ////////////
+
+    // Fetch a single user by ID
     user: async (parent, { userId }) => {
-      return User.findOne({ _id: userId })
+      return User.findById(userId);
     },
-    /////////////
+
+    // Fetch the logged-in user's data
     me: async (parent, args, context) => {
       if (context.user) {
-        return await User.findById(context.user._id)
+        return User.findById(context.user._id);
       }
       throw new AuthenticationError('You must be logged in');
     },
-    ////////////
+
     // Fetch all videos
     getVideos: async () => {
-      return Video.find();  // Returns all video posts
+      return Video.find(); // Ensure all fields (including username) are returned
     },
-
   },
 
-  // ------------------------ MUTATIONS ----------------------------------------------------- //
-
   Mutation: {
-    //------------------- ------ ------------------------- //
+    // Add a new user
     addUser: async (parent, { username, email, password }) => {
       const user = await User.create({ username, email, password });
       const token = signToken(user);
       return { token, user };
     },
-    ///////////////
+
+    // Update user details
     updateUser: async (parent, args, context) => {
       if (context.user) {
-        return await User.findByIdAndUpdate(context.user._id, args, {
+        return User.findByIdAndUpdate(context.user._id, args, {
           new: true,
+          runValidators: true,
         });
       }
       throw new AuthenticationError('You must be logged in to update your profile');
     },
-    //////////////
+
+    // Remove a user
     removeUser: async (parent, args, context) => {
       if (context.user) {
         try {
@@ -54,53 +55,53 @@ const resolvers = {
         } catch (error) {
           throw new Error('Failed to remove user.');
         }
-      } else {
-        throw new AuthenticationError('You must be logged in to remove a user.');
       }
+      throw new AuthenticationError('You must be logged in to remove a user.');
     },
-    //////////////
+
+    // Login a user
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
       if (!user) {
-        throw AuthenticationError;
+        throw new AuthenticationError('Invalid credentials');
       }
       const correctPw = await user.isCorrectPassword(password);
       if (!correctPw) {
-        throw AuthenticationError;
+        throw new AuthenticationError('Invalid credentials');
       }
       const token = signToken(user);
       return { token, user };
-    }, // end login bracket
+    },
 
-     // Add a new video to the database
-     addVideo: async (parent, { videoId, title, comment }, context) => {
+    // Add a new video
+    addVideo: async (parent, { videoId, title, comment }, context) => {
       if (context.user) {
-      // Assuming you have a function to save the video to your database
-      const newVideo = await Video.create({
-        videoId,
-        title,
-        comment,
-        userId: context.user.id, // Attach userId if needed
-      });
-      return newVideo;
+        const newVideo = await Video.create({
+          videoId,
+          title,
+          comment,
+          username: context.user.username, // Attach the logged-in user's username
+        });
+        return newVideo;
       }
       throw new AuthenticationError('You must be logged in to add a video');
     },
 
-      // Remove a video by videoId
-      removeVideo: async (parent, { videoId }, context) => {
-        if (context.user) {
-          const video = await Video.findOneAndDelete({ videoId });
-          if (!video) {
-            throw new Error('Video not found');
-          }
-          return video;
+    // Remove a video by its ID
+    removeVideo: async (parent, { videoId }, context) => {
+      if (context.user) {
+        const video = await Video.findOneAndDelete({
+          videoId,
+          username: context.user.username, // Ensure the video belongs to the logged-in user
+        });
+        if (!video) {
+          throw new Error('Video not found or not authorized to delete');
         }
-        throw new AuthenticationError('You must be logged in to remove a video');
-      },
-
-  }, // end mutation bracket
-
-} // end resolvers bracket
+        return video;
+      }
+      throw new AuthenticationError('You must be logged in to remove a video');
+    },
+  },
+};
 
 module.exports = resolvers;

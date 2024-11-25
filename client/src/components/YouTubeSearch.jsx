@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { ADD_VIDEO } from "./../utils/mutations";
+import { QUERY_ME } from "./../utils/queries";
 import axios from "axios";
 
 const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
@@ -14,6 +15,9 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
   const navigate = useNavigate();
 
   const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
+
+  // Fetch logged-in user's data
+  const { data: userData } = useQuery(QUERY_ME);
 
   // Mutation to add video
   const [addVideo, { data, loading, error }] = useMutation(ADD_VIDEO);
@@ -56,17 +60,25 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
   };
 
   const handlePost = async (video) => {
-
+    const username = userData?.me?.username; // Extract the username from the user's data
+  
+    if (!username) {
+      alert("You must be logged in to post a video to the suggestions page");
+      return; // Exit the function early if user is not logged in
+    }
+  
     try {
       const response = await addVideo({
         variables: {
           videoId: video.id.videoId,
           title: video.snippet.title,
           comment: "Posted from YouTube search",
+          username: username, // Include username in the mutation
         },
       });
-
+  
       if (response?.data?.addVideo) {
+        console.log("Video posted successfully");
         navigate("/Suggestions");
       } else {
         console.error("No video data returned in mutation response.");
@@ -74,7 +86,7 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
     } catch (err) {
       console.error("Error posting video:", err);
     }
-
+  
     if (error) {
       console.error("GraphQL Mutation Error:", error);
     }
@@ -123,37 +135,37 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
       <div>
         <h3>Video Results:</h3>
         {videos.map((video) => {
-  const videoId = video.id?.videoId; // Safely extract videoId
-  if (!videoId) return null; // Skip rendering if videoId is missing
+          const videoId = video.id?.videoId; // Safely extract videoId
+          if (!videoId) return null; // Skip rendering if videoId is missing
 
-  return (
-    <div
-      key={videoId}
-      style={{
-        display: "flex",
-        alignItems: "center",
-        marginBottom: "10px",
-        border: "1px solid #ddd",
-        padding: "5px",
-        borderRadius: "5px",
-      }}
-    >
-      <img
-        src={video.snippet.thumbnails.medium.url}
-        alt={video.snippet.title}
-        width="120"
-        style={{ marginRight: "10px" }}
-      />
-      <div>
-        <p>{video.snippet.title}</p>
-        <button onClick={() => handleSave(videoId, video.snippet.title)}>
-          Add to Playlist
-        </button>
-        <button onClick={() => handlePost(video)}>Post</button>
-      </div>
-    </div>
-  );
-})}
+          return (
+            <div
+              key={videoId}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "10px",
+                border: "1px solid #ddd",
+                padding: "5px",
+                borderRadius: "5px",
+              }}
+            >
+              <img
+                src={video.snippet.thumbnails.medium.url}
+                alt={video.snippet.title}
+                width="120"
+                style={{ marginRight: "10px" }}
+              />
+              <div>
+                <p>{video.snippet.title}</p>
+                <button onClick={() => handleSave(videoId, video.snippet.title)}>
+                  Add to Playlist
+                </button>
+                <button onClick={() => handlePost(video)}>Post</button>
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       <div style={{ marginTop: "20px" }}>

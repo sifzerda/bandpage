@@ -6,13 +6,14 @@ const typeDefs = `
     password: String
   }
 
-  type Video {
-    videoId: String
-    title: String
-    comment: String
-    createdAt: String   
-    updatedAt: String   
-  }
+type Video {
+  videoId: String
+  title: String
+  comment: String
+  username: String  
+  createdAt: String
+  updatedAt: String
+}
 
   type Auth {
     token: ID!
@@ -28,7 +29,7 @@ const typeDefs = `
 
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
-    addVideo(videoId: String!, title: String!, comment: String): Video  
+    addVideo(videoId: String!, title: String!, comment: String, username: String): Video  
     updateUser(username: String, email: String, password: String): User
     login(email: String!, password: String!): Auth
     removeUser: User

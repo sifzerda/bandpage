@@ -1,7 +1,8 @@
 import { gql } from '@apollo/client';
 
-// Existing Mutations
+// User Authentication Mutations
 
+// Log in a user
 export const LOGIN = gql`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
@@ -14,6 +15,7 @@ export const LOGIN = gql`
   }
 `;
 
+// Register a new user
 export const ADD_USER = gql`
   mutation addUser($username: String!, $email: String!, $password: String!) {
     addUser(username: $username, email: $email, password: $password) {
@@ -21,11 +23,13 @@ export const ADD_USER = gql`
       user {
         _id
         username
+        email
       }
     }
   }
 `;
 
+// Remove the currently logged-in user
 export const REMOVE_USER = gql`
   mutation removeUser {
     removeUser {
@@ -34,26 +38,33 @@ export const REMOVE_USER = gql`
     }
   }
 `;
- 
- // Add Video Mutation
+
+// Video Mutations
+
+// Add a new video
 export const ADD_VIDEO = gql`
-mutation addVideo($videoId: String!, $title: String!, $comment: String) {
-  addVideo(videoId: $videoId, title: $title, comment: $comment) {
-    videoId
-    title
-    comment
+  mutation addVideo($videoId: String!, $title: String!, $comment: String, $username: String) {
+    addVideo(videoId: $videoId, title: $title, comment: $comment, username: $username) {
+      videoId
+      title
+      comment
+      username
+      createdAt
+      updatedAt
+    }
   }
-}
 `;
 
-// Remove Video Mutation
+// Remove an existing video
 export const REMOVE_VIDEO = gql`
-mutation removeVideo($videoId: String!) {
-  removeVideo(videoId: $videoId) {
-    videoId
-    title
-    comment
+  mutation removeVideo($videoId: String!) {
+    removeVideo(videoId: $videoId) {
+      videoId
+      title
+      comment
+      username
+      createdAt
+      updatedAt
+    }
   }
-}
 `;
- 
