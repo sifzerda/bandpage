@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
-const videoSchema = new mongoose.Schema(
-  {
+const videoSchema = new Schema({
     videoId: { type: String, required: true, unique: true },
     title: { type: String, required: true },
     comment: { type: String, maxlength: 500 }, // Optional: limit comment length
