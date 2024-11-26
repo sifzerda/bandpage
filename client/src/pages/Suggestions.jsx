@@ -1,8 +1,7 @@
 import React from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import { QUERY_VIDEOS } from "./../utils/queries";
+import { QUERY_VIDEOS, QUERY_ME } from "./../utils/queries";
 import { REMOVE_VIDEO } from "./../utils/mutations";
-import { QUERY_ME } from "./../utils/queries"; // Import the QUERY_ME query
 
 const Suggestions = () => {
   // Fetch the list of videos
