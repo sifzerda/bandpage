@@ -18,7 +18,7 @@ const Suggestions = () => {
 
   // Show error messages if queries fail
   if (videosError) return <p>Error loading videos: {videosError.message}</p>;
-  if (meError) return <p>Error fetching user: {meError.message}</p>;
+  if (meError) return <p>Please log in to view the song suggestions</p>;
 
   // Get the current user's username
   const currentUser = meData?.me?.username;
