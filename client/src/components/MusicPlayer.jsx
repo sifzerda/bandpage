@@ -35,6 +35,7 @@ const MusicPlayer = ({ playlist }) => {
     if (currentVideo) {
       playerRef.current.loadVideoById(currentVideo.videoId);
     }
+    setDuration(playerRef.current.getDuration()); // Set initial duration
   };
 
   const playNext = () => {
@@ -90,10 +91,19 @@ const MusicPlayer = ({ playlist }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       if (playerRef.current && isPlaying) {
-        setCurrentTime(playerRef.current.getCurrentTime());
-        setDuration(playerRef.current.getDuration());
+        const current = playerRef.current.getCurrentTime();
+        const total = playerRef.current.getDuration();
+
+        console.log("Current Time:", current); // Debugging log
+        console.log("Duration:", total); // Debugging log
+
+        setCurrentTime(current);
+        if (total > 0) {
+          setDuration(total); // Set duration only if valid
+        }
       }
-    }, 500);
+    }, 500); // Check progress every 500ms
+
     return () => clearInterval(interval);
   }, [isPlaying]);
 
@@ -132,20 +142,22 @@ const MusicPlayer = ({ playlist }) => {
                     {formatTime(currentTime)} / {formatTime(duration)}
                   </div>
                 </div>
+ {/* ------------------------------------------------------play/pause controls */}
                 <div className="controls">
                   <button onClick={playPrevious} disabled={currentIndex === 0}>
-                    ⏮ Previous
+                    ⏮ 
                   </button>
                   <button onClick={togglePlayPause}>
-                    {isPlaying ? "Pause" : "Play"}
+                    {isPlaying ? "⏸️" : "▶️"}
                   </button>
                   <button
                     onClick={playNext}
                     disabled={currentIndex === playlist.length - 1}
                   >
-                    Next ⏭
+                   ⏭
                   </button>
                 </div>
+ {/* ------------------------------------------------------Volume controls */}
                 <div className="volume-controls">
                   <button className="volume-toggle" onClick={toggleVolumeControl}>
                     {volume === 0 ? (
