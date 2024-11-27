@@ -101,101 +101,100 @@ const MusicPlayer = ({ playlist }) => {
 
   return (
     <div className="music-player-container">
-    <Draggable cancel=".progress-bar-container, .volume-control">
-      <div className="music-player">
-        <div className="title-bar">
-          <button
-            className="playlist-toggle"
-            onClick={() => setShowPlaylist((prev) => !prev)}
-          >
-            {showPlaylist ? "Hide Playlist" : "Show Playlist"}
-          </button>
-        </div>
-        <div className="music-player-body">
-          {currentVideo ? (
-            <>
-              <div className="title">Now Playing: {currentVideo.title}</div>
-              <YouTube
-                videoId={currentVideo.videoId}
-                opts={opts}
-                onReady={onReady}
-              />
-              <div
-                className="progress-bar-container"
-                onClick={handleProgressBarClick}
-              >
+      <Draggable cancel=".progress-bar-container, .volume-control">
+        <div className="music-player">
+          <div className="title-bar">
+            <button
+              className="playlist-toggle"
+              onClick={() => setShowPlaylist((prev) => !prev)}
+            >
+              {showPlaylist ? "Hide Playlist" : "Show Playlist"}
+            </button>
+          </div>
+          <div className="music-player-body">
+            {currentVideo ? (
+              <>
+                <div className="title">Now Playing: {currentVideo.title}</div>
+                <YouTube
+                  videoId={currentVideo.videoId}
+                  opts={opts}
+                  onReady={onReady}
+                />
                 <div
-                  className="progress-bar"
-                  style={{ width: `${progress}%` }}
-                ></div>
-                <div className="progress-time">
-                  {formatTime(currentTime)} / {formatTime(duration)}
-                </div>
-              </div>
-              <div className="controls">
-                <button onClick={playPrevious} disabled={currentIndex === 0}>
-                  ⏮ Previous
-                </button>
-                <button onClick={togglePlayPause}>
-                  {isPlaying ? "Pause" : "Play"}
-                </button>
-                <button
-                  onClick={playNext}
-                  disabled={currentIndex === playlist.length - 1}
+                  className="progress-bar-container"
+                  onClick={handleProgressBarClick}
                 >
-                  Next ⏭
-                </button>
-                <button
-                  className="volume-toggle"
-                  onClick={toggleVolumeControl}
-                >
-                  {volume === 0 ? (
-                    <FaVolumeMute />
-                  ) : volume <= 0.5 ? (
-                    <FaVolumeOff />
-                  ) : (
-                    <FaVolumeUp />
-                  )}
-                </button>
-                {showVolumeControl && (
-                  <div className="volume-control">
-                    <input
-                      className="volume-slider"
-                      type="range"
-                      min="0"
-                      max="1"
-                      step="0.01"
-                      value={volume}
-                      onChange={handleVolumeChange}
-                    />
+                  <div
+                    className="progress-bar"
+                    style={{ width: `${progress}%` }}
+                  ></div>
+                  <div className="progress-time">
+                    {formatTime(currentTime)} / {formatTime(duration)}
                   </div>
-                )}
-              </div>
-            </>
-          ) : (
-            <p>No video selected</p>
+                </div>
+                <div className="controls">
+                  <button onClick={playPrevious} disabled={currentIndex === 0}>
+                    ⏮ Previous
+                  </button>
+                  <button onClick={togglePlayPause}>
+                    {isPlaying ? "Pause" : "Play"}
+                  </button>
+                  <button
+                    onClick={playNext}
+                    disabled={currentIndex === playlist.length - 1}
+                  >
+                    Next ⏭
+                  </button>
+                </div>
+                <div className="volume-controls">
+                  <button className="volume-toggle" onClick={toggleVolumeControl}>
+                    {volume === 0 ? (
+                      <FaVolumeMute />
+                    ) : volume <= 0.5 ? (
+                      <FaVolumeOff />
+                    ) : (
+                      <FaVolumeUp />
+                    )}
+                  </button>
+                  {showVolumeControl && (
+                    <div className="volume-control">
+                      <input
+                        className="volume-slider"
+                        type="range"
+                        min="0"
+                        max="1"
+                        step="0.01"
+                        value={volume}
+                        onChange={handleVolumeChange}
+                      />
+                    </div>
+                  )}
+                </div>
+              </>
+            ) : (
+              <p>No video selected</p>
+            )}
+          </div>
+          {showPlaylist && (
+            <div className="playlist-container">
+              <h3>Playlist</h3>
+              <ul>
+                {playlist.map((video, index) => (
+                  <li
+                    key={index}
+                    style={{
+                      fontWeight: index === currentIndex ? "bold" : "normal",
+                    }}
+                    onClick={() => setCurrentIndex(index)}
+                  >
+                    {video.title}
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
         </div>
-        {showPlaylist && (
-          <div className="playlist-container">
-            <h3>Playlist</h3>
-            <ul>
-              {playlist.map((video, index) => (
-                <li
-                  key={index}
-                  style={{
-                    fontWeight: index === currentIndex ? "bold" : "normal",
-                  }}
-                  onClick={() => setCurrentIndex(index)}
-                >
-                  {video.title}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
-    </Draggable>
+      </Draggable>
     </div>
   );
 };

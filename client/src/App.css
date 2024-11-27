@@ -395,15 +395,11 @@ p.white-text {
   font-size: 24px;
   cursor: pointer;
   color: #007bff;
+  margin-right: 240px; /* Optional spacing for volume button */
 }
 
 .volume-toggle:hover {
   color: #00e1ff;
-}
-
-.volume-control {
-  margin-top: 5px;
-  /* Space between toggle button and slider */
 }
 
 .volume-slider {
@@ -525,7 +521,7 @@ p.white-text {
 }
 
 .music-player-body {
-  padding: 10px;
+  padding-bottom: 30px;
 }
 
 .controls {
