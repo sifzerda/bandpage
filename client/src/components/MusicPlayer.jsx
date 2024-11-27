@@ -17,7 +17,7 @@ const MusicPlayer = ({ playlist }) => {
   const defaultSong = "8GW6sLrK40k"; // The YouTube video ID for the default song
   const isPlaylistEmpty = playlist.length === 0;
   const currentVideo = isPlaylistEmpty
-    ? { videoId: defaultSong, title: "Default Song" }
+    ? { videoId: defaultSong, title: "HOME - Resonance" }
     : playlist[currentIndex];
 
   const opts = {
