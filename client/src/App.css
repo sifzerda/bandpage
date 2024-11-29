@@ -115,6 +115,104 @@ footer {
   text-align: center;
 }
 
+/* --------------------- sign up -----------------------*/
+
+/* General container styles */
+.container {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 20px;
+  background: linear-gradient(135deg, #e8f4f8, #fdfdfd);
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+/* Back to Login Link */
+.back-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.back-link:hover {
+  color: #0056b3;
+}
+
+/* Title styles */
+.login-title {
+  font-size: 2rem;
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Form group styles */
+.form-group-z {
+  margin-bottom: 20px;
+}
+
+.label-z {
+  display: block;
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.input-z {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-z:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+/* Input when focused */
+.input-z.focused {
+  border-color: #007bff;
+}
+
+/* Submit button styles */
+.button-container-z {
+  text-align: center;
+}
+
+.submit-button-z {
+  background: #007bff;
+  color: #fff;
+  padding: 12px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.submit-button-z:hover {
+  background: #0056b3;
+}
+
+.submit-button-z:active {
+  background: #004085;
+}
+
+.submit-button-z:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
 /* --------------------- calender -----------------------*/
 
 .calendar {
