@@ -6,14 +6,14 @@ import Auth from '../utils/auth';
 import '../App'; 
 
 function Login(props) {
-  const [formState, setFormState] = useState({ email: '', password: '' });
+  const [formState, setFormState] = useState({ username: '' });
   const [login, { error }] = useMutation(LOGIN);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
       const mutationResponse = await login({
-        variables: { email: formState.email, password: formState.password },
+        variables: { username: formState.username },
       });
       const token = mutationResponse.data.login.token;
       Auth.login(token);
@@ -37,30 +37,20 @@ function Login(props) {
       <h2 className='login-title'>Login</h2>
       <form onSubmit={handleFormSubmit}>
         <div className="form-group-z">
-          <label htmlFor="email" className="label-z">Email address:</label>
+          <label htmlFor="username" className="label-z">Username:</label>
           <input
             className="input-z"
-            placeholder="youremail@test.com"
-            name="email"
-            type="email"
-            id="email"
+            placeholder="your name"
+            name="username"
+            type="username"
+            id="username"
             onChange={handleChange}
           />
         </div>
-        <div className="form-group-z">
-          <label htmlFor="pwd" className="label-z">Password:</label>
-          <input
-            className="input-z"
-            placeholder="******"
-            name="password"
-            type="password"
-            id="pwd"
-            onChange={handleChange}
-          />
-        </div>
+
         {error && (
           <div>
-            <p className="error-text">The provided credentials are incorrect</p>
+            <p className="error-text">The provided username is incorrect</p>
           </div>
         )}
         <div className="button-container-z">

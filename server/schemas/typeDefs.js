@@ -2,8 +2,6 @@ const typeDefs = `
   type User {
     _id: ID
     username: String
-    email: String
-    password: String
   }
 
 type Video {
@@ -28,10 +26,10 @@ type Video {
   }
 
   type Mutation {
-    addUser(username: String!, email: String!, password: String!): Auth
+    addUser(username: String!): Auth
     addVideo(videoId: String!, title: String!, comment: String, username: String): Video  
-    updateUser(username: String, email: String, password: String): User
-    login(email: String!, password: String!): Auth
+    updateUser(username: String): User
+    login(username: String!): Auth
     removeUser: User
     removeVideo(videoId: String!): Video  
   }
