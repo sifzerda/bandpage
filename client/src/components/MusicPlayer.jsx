@@ -204,7 +204,7 @@ const MusicPlayer = ({ playlist }) => {
                   </li>
                 ) : (
                   playlist.map((video, index) => (
-                    <Draggable key={index}>
+
                       <li
                         style={{
                           fontWeight: index === currentIndex ? "bold" : "normal",
@@ -213,7 +213,7 @@ const MusicPlayer = ({ playlist }) => {
                       >
                         {video.title}
                       </li>
-                    </Draggable>
+
                   ))
                 )}
               </ul>
