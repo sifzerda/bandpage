@@ -188,22 +188,33 @@ const MusicPlayer = ({ playlist }) => {
             )}
           </div>
           {showPlaylist && (
-            <div className="playlist-container">
-              <h3>Playlist</h3>
-              <ul>
-                {playlist.map((video, index) => (
-                  <li
-                    key={index}
-                    style={{
-                      fontWeight: index === currentIndex ? "bold" : "normal",
-                    }}
-                    onClick={() => setCurrentIndex(index)}
-                  >
-                    {video.title}
-                  </li>
-                ))}
-              </ul>
-            </div>
+  <div className="playlist-container">
+    <h3>Playlist</h3>
+    <ul>
+      {isPlaylistEmpty ? (
+        <li
+          style={{
+            fontWeight: currentIndex === 0 ? "bold" : "normal",
+          }}
+          onClick={() => setCurrentIndex(0)}
+        >
+          HOME - Resonance
+        </li>
+      ) : (
+        playlist.map((video, index) => (
+          <li
+            key={index}
+            style={{
+              fontWeight: index === currentIndex ? "bold" : "normal",
+            }}
+            onClick={() => setCurrentIndex(index)}
+          >
+            {video.title}
+          </li>
+        ))
+      )}
+    </ul>
+  </div>
           )}
         </div>
       </Draggable>
