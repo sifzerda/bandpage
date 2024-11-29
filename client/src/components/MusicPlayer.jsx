@@ -94,9 +94,6 @@ const MusicPlayer = ({ playlist }) => {
         const current = playerRef.current.getCurrentTime();
         const total = playerRef.current.getDuration();
 
-        console.log("Current Time:", current); // Debugging log
-        console.log("Duration:", total); // Debugging log
-
         setCurrentTime(current);
         if (total > 0) {
           setDuration(total); // Set duration only if valid
