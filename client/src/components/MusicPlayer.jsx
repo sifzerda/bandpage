@@ -111,115 +111,115 @@ const MusicPlayer = ({ playlist }) => {
 
   return (
     <div className="music-player-container">
-      <Draggable cancel=".progress-bar-container, .volume-control">
-        <div className="music-player">
-          <div className="title-bar">
+<Draggable cancel=".progress-bar-container, .volume-control, .playlist-container">
+  <div className="music-player">
+    <div className="title-bar">
+      <button
+        className="playlist-toggle"
+        onClick={() => setShowPlaylist((prev) => !prev)}
+      >
+        {showPlaylist ? "Hide Playlist" : "Playlist"}
+      </button>
+    </div>
+    <div className="music-player-body">
+      {currentVideo ? (
+        <>
+          <span className="now-playing-label">Now Playing:</span>
+          <div className="title-x">
+            <div className="title"> {currentVideo.title}</div>
+          </div>
+          <YouTube
+            videoId={currentVideo.videoId}
+            opts={opts}
+            onReady={onReady}
+          />
+          <div
+            className="progress-bar-container"
+            onClick={handleProgressBarClick}
+          >
+            <div
+              className="progress-bar"
+              style={{ width: `${progress}%` }}
+            ></div>
+            <div className="progress-time">
+              {formatTime(currentTime)} / {formatTime(duration)}
+            </div>
+          </div>
+          {/* Play/Pause controls */}
+          <div className="controls">
+            <button onClick={playPrevious} disabled={currentIndex === 0}>
+              ⏮
+            </button>
+            <button onClick={togglePlayPause}>
+              {isPlaying ? "⏸️" : "▶️"}
+            </button>
             <button
-              className="playlist-toggle"
-              onClick={() => setShowPlaylist((prev) => !prev)}
+              onClick={playNext}
+              disabled={currentIndex === playlist.length - 1}
             >
-              {showPlaylist ? "Hide Playlist" : "Playlist"}
+              ⏭
             </button>
           </div>
-          <div className="music-player-body">
-            {currentVideo ? (
-              <>
-<span className="now-playing-label">Now Playing:</span>
-              <div className="title-x">
-                <div className="title"> {currentVideo.title}</div>
-                </div>
-                <YouTube
-                  videoId={currentVideo.videoId}
-                  opts={opts}
-                  onReady={onReady}
+          {/* Volume controls */}
+          <div className="volume-controls">
+            <button className="volume-toggle" onClick={toggleVolumeControl}>
+              {volume === 0 ? (
+                <FaVolumeMute />
+              ) : volume <= 0.5 ? (
+                <FaVolumeOff />
+              ) : (
+                <FaVolumeUp />
+              )}
+            </button>
+            {showVolumeControl && (
+              <div className="volume-control">
+                <input
+                  className="volume-slider"
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  value={volume}
+                  onChange={handleVolumeChange}
                 />
-                <div
-                  className="progress-bar-container"
-                  onClick={handleProgressBarClick}
-                >
-                  <div
-                    className="progress-bar"
-                    style={{ width: `${progress}%` }}
-                  ></div>
-                  <div className="progress-time">
-                    {formatTime(currentTime)} / {formatTime(duration)}
-                  </div>
-                </div>
- {/* ------------------------------------------------------play/pause controls */}
-                <div className="controls">
-                  <button onClick={playPrevious} disabled={currentIndex === 0}>
-                    ⏮ 
-                  </button>
-                  <button onClick={togglePlayPause}>
-                    {isPlaying ? "⏸️" : "▶️"}
-                  </button>
-                  <button
-                    onClick={playNext}
-                    disabled={currentIndex === playlist.length - 1}
-                  >
-                   ⏭
-                  </button>
-                </div>
- {/* ------------------------------------------------------Volume controls */}
-                <div className="volume-controls">
-                  <button className="volume-toggle" onClick={toggleVolumeControl}>
-                    {volume === 0 ? (
-                      <FaVolumeMute />
-                    ) : volume <= 0.5 ? (
-                      <FaVolumeOff />
-                    ) : (
-                      <FaVolumeUp />
-                    )}
-                  </button>
-                  {showVolumeControl && (
-                    <div className="volume-control">
-                      <input
-                        className="volume-slider"
-                        type="range"
-                        min="0"
-                        max="1"
-                        step="0.01"
-                        value={volume}
-                        onChange={handleVolumeChange}
-                      />
-                    </div>
-                  )}
-                </div>
-              </>
-            ) : (
-              <p>No video selected</p>
+              </div>
             )}
           </div>
-          {showPlaylist && (
-  <div className="playlist-container">
-    <ul>
-      {isPlaylistEmpty ? (
-        <li
-          style={{
-            fontWeight: currentIndex === 0 ? "bold" : "normal",
-          }}
-          onClick={() => setCurrentIndex(0)}
-        >
-          HOME - Resonance
-        </li>
+        </>
       ) : (
-        playlist.map((video, index) => (
-          <li
-            key={index}
-            style={{
-              fontWeight: index === currentIndex ? "bold" : "normal",
-            }}
-            onClick={() => setCurrentIndex(index)}
-          >
-            {video.title}
-          </li>
-        ))
+        <p>No video selected</p>
       )}
-    </ul>
-  </div>
+    </div>
+    {showPlaylist && (
+      <div className="playlist-container">
+        <ul>
+          {isPlaylistEmpty ? (
+            <li
+              style={{
+                fontWeight: currentIndex === 0 ? "bold" : "normal",
+              }}
+              onClick={() => setCurrentIndex(0)}
+            >
+              HOME - Resonance
+            </li>
+          ) : (
+            playlist.map((video, index) => (
+              <li
+                key={index}
+                style={{
+                  fontWeight: index === currentIndex ? "bold" : "normal",
+                }}
+                onClick={() => setCurrentIndex(index)}
+              >
+                {video.title}
+              </li>
+            ))
           )}
-        </div>
-      </Draggable>
+        </ul>
+      </div>
+    )}
+  </div>
+</Draggable>
     </div>
   );
 };
