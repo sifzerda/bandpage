@@ -9,6 +9,8 @@ function Footer() {
 
           <p className="footer-text">sifzerda</p>
           <p className="footer-text">2024</p>
+
+  {/*
           <a href="https://github.com/sifzerda/bandpage" target="_blank" rel="noopener noreferrer">
           <FontAwesomeIcon icon={faGithub} size="2x" />
           </a>
@@ -16,6 +18,7 @@ function Footer() {
           <br></br>
 
           <a href="https://react-td-portfolio.netlify.app/" target="_blank" rel="noopener noreferrer">My Project Portfolio</a>
+ */}
 
         </div>
       </div>

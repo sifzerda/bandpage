@@ -85,6 +85,25 @@ header {
   margin-left: auto; /* Pushes this item to the right side */
 }
 
+.nav-tabs .nav-link.active {
+  color: #fff; /* Change text color */
+  background-color: #007bff; /* Highlight background color */
+  border-radius: 5px; /* Add rounded corners */
+  font-weight: bold; /* Make text bold */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Add subtle text shadow */
+}
+
+.nav-tabs .nav-link {
+  color: #007bff; /* Default text color */
+  background-color: transparent; /* Default background */
+  text-decoration: none; /* Remove underline */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+
+.nav-tabs .nav-link:hover {
+  background-color: #e7f1ff; /* Hover effect */
+  color: #0056b3; /* Hover text color */
+}
 
 /* --------------------- footer -----------------------*/
 
@@ -305,21 +324,27 @@ p.white-text {
 
 /* --------------------- music player -----------------------*/
 
+.music-player.react-draggable.react-draggable-dragged {
+  background-color:  #1d224e;
+}
+
 .music-player {
   width: 300px;
   align-items: center;
   /* Center content horizontally */
   text-align: center;
   padding: 13px;
-  border: 2px solid #00FF00;
-  background: #333;
-  color: #00FF00;
+  border: 2px solid var(--volt);
+  color: var(--volt);
   border-radius: 10px;
-  background: #2a2a2a;
   color: #fff;
-  box-shadow: 0 0 20px #00FF00;
+  box-shadow: 0 0 5px #51ff00;
   font-family: 'VT323', monospace;
   cursor: grab;
+}
+
+.music-player-body {
+  background-color:  #1d224e;
 }
 
 .title-bar {
@@ -329,16 +354,30 @@ p.white-text {
   height: 40px;
   background-color: #444;
   color: #fff;
+  border: 2px solid #51ff00;
+}
+
+.now-playing-label {
+color: var(--blue);
+font-size: 18px;
+}
+
+.title-x {
+  display: inline-block;
+  width: 125%;
+  margin-left: -25px;
+  color: rgb(255, 255, 255);
+  border: 2px solid #51ff00;
+  background-color: #000000;
 }
 
 .title {
   display: inline-block;
   width: 105%;
-  /* has to be slightly bigger so text scroll disappears fully*/
   animation: marquee 15s linear infinite;
-  color: #00FF00;
+  color: rgb(255, 255, 255);
   white-space: nowrap;
-  /* Prevent text from wrapping */
+  font: 20px monospace;
 }
 
 @keyframes marquee {
@@ -353,10 +392,10 @@ p.white-text {
 
 .controls {
   display: flex;
-  align-items: center;
-  width: 100%;
+  gap: 10px;
   justify-content: center;
-  /* Center content horizontally */
+  align-items: center;
+  margin-top: 10px;
 }
 
 .play-pause-controls {
@@ -372,15 +411,26 @@ p.white-text {
   text-align: center;
 }
 
+.controls button {
+  background: linear-gradient(145deg, #1d224e, #3fb8fd); /* gradient */
+  width: 40px; /* Size of the button */
+  height: 40px;
+  font-size: 18px; /* Adjust icon size */
+  color: #333; /* Icon color */
+  border: 3px solid  #1d224e;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
 .control-button {
   background: transparent;
   border: none;
   font-size: 20px;
   cursor: pointer;
-  color: #48ff00;
+  color: var(--volt);
   margin: 0 10px;
   /* Space between buttons */
-  border: 2px solid rgb(60, 255, 0);
+  border: 2px solid var(--volt);
   border-radius: 5px;
   padding: 2px 8px;
 }
@@ -567,7 +617,7 @@ p.white-text {
 
 .playlist-container li[style*="bold"] {
   font-weight: bold;
-  color: #00ff00;
+  color: var(--volt);
 }
 
 .playlist-toggle {
@@ -589,17 +639,6 @@ p.white-text {
 .playlist-container.hidden {
   right: -300px;
 }
-
-/*
-.playlist {
-  max-height: 150px;  Limit the height 
-  overflow-y: auto; 
-  margin-top: 10px;
-  padding: 10px;
-  background-color: #333;
-  border-top: 1px solid #555;
-} 
-*/
 
 .playlist h3 {
   margin-top: 0;

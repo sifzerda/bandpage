@@ -118,13 +118,16 @@ const MusicPlayer = ({ playlist }) => {
               className="playlist-toggle"
               onClick={() => setShowPlaylist((prev) => !prev)}
             >
-              {showPlaylist ? "Hide Playlist" : "Show Playlist"}
+              {showPlaylist ? "Hide Playlist" : "Playlist"}
             </button>
           </div>
           <div className="music-player-body">
             {currentVideo ? (
               <>
-                <div className="title">Now Playing: {currentVideo.title}</div>
+<span className="now-playing-label">Now Playing:</span>
+              <div className="title-x">
+                <div className="title"> {currentVideo.title}</div>
+                </div>
                 <YouTube
                   videoId={currentVideo.videoId}
                   opts={opts}
@@ -189,7 +192,6 @@ const MusicPlayer = ({ playlist }) => {
           </div>
           {showPlaylist && (
   <div className="playlist-container">
-    <h3>Playlist</h3>
     <ul>
       {isPlaylistEmpty ? (
         <li
