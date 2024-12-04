@@ -3,7 +3,7 @@ import Draggable from "react-draggable";
 import YouTube from "react-youtube";
 import { FaVolumeUp, FaVolumeMute, FaVolumeOff } from "react-icons/fa";
 
-const MusicPlayer = ({ playlist }) => {
+const MusicPlayer = ({ playlist, setPlaylist }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showPlaylist, setShowPlaylist] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -35,7 +35,7 @@ const MusicPlayer = ({ playlist }) => {
     if (currentVideo) {
       playerRef.current.loadVideoById(currentVideo.videoId);
     }
-    setDuration(playerRef.current.getDuration()); // Set initial duration
+    setDuration(playerRef.current.getDuration());
   };
 
   const playNext = () => {
@@ -59,16 +59,17 @@ const MusicPlayer = ({ playlist }) => {
     setIsPlaying(!isPlaying);
   };
 
-  const handleVolumeChange = (e) => {
-    const newVolume = parseFloat(e.target.value);
-    setVolume(newVolume);
-    if (playerRef.current) {
-      playerRef.current.setVolume(newVolume * 100);
-    }
-  };
+  const handleDelete = (indexToDelete) => {
+    setPlaylist((prevPlaylist) => {
+      const newPlaylist = prevPlaylist.filter((_, index) => index !== indexToDelete);
 
-  const toggleVolumeControl = () => {
-    setShowVolumeControl((prev) => !prev);
+      // Adjust currentIndex if the deleted song was the current song
+      if (indexToDelete === currentIndex) {
+        return newPlaylist.length > 0 ? newPlaylist : [];
+      }
+      setCurrentIndex((prevIndex) => (prevIndex > indexToDelete ? prevIndex - 1 : prevIndex));
+      return newPlaylist;
+    });
   };
 
   const formatTime = (seconds) => {
@@ -96,10 +97,10 @@ const MusicPlayer = ({ playlist }) => {
 
         setCurrentTime(current);
         if (total > 0) {
-          setDuration(total); // Set duration only if valid
+          setDuration(total);
         }
       }
-    }, 500); // Check progress every 500ms
+    }, 500);
 
     return () => clearInterval(interval);
   }, [isPlaying]);
@@ -123,9 +124,9 @@ const MusicPlayer = ({ playlist }) => {
               <>
                 <span className="now-playing-label">Now Playing:</span>
                 <div className="title-x">
-                <div className="marquee-text">
-                <div className={`title rainbow-text`}>{currentVideo.title}</div>
-                </div>
+                  <div className="marquee-text">
+                    <div className="title rainbow-text">{currentVideo.title}</div>
+                  </div>
                 </div>
                 <YouTube
                   videoId={currentVideo.videoId}
@@ -144,42 +145,24 @@ const MusicPlayer = ({ playlist }) => {
                     {formatTime(currentTime)} / {formatTime(duration)}
                   </div>
                 </div>
-                {/* Play/Pause controls */}
                 <div className="controls">
-                  <button className ="press-play" onClick={playPrevious} disabled={currentIndex === 0}>
+                  <button
+                    className="press-play"
+                    onClick={playPrevious}
+                    disabled={currentIndex === 0}
+                  >
                     ⏮
                   </button>
-                  <button className ="press-play" onClick={togglePlayPause}>
+                  <button className="press-play" onClick={togglePlayPause}>
                     {isPlaying ? "⏸️" : "▶️"}
                   </button>
-                  <button className ="press-play" onClick={playNext} disabled={currentIndex === playlist.length - 1}>
+                  <button
+                    className="press-play"
+                    onClick={playNext}
+                    disabled={currentIndex === playlist.length - 1}
+                  >
                     ⏭
                   </button>
-                </div>
-                {/* Volume controls */}
-                <div className="volume-controls">
-                  <button className="volume-toggle" onClick={toggleVolumeControl}>
-                    {volume === 0 ? (
-                      <FaVolumeMute />
-                    ) : volume <= 0.5 ? (
-                      <FaVolumeOff />
-                    ) : (
-                      <FaVolumeUp />
-                    )}
-                  </button>
-                  {showVolumeControl && (
-                    <div className="volume-control">
-                      <input
-                        className="volume-slider"
-                        type="range"
-                        min="0"
-                        max="1"
-                        step="0.01"
-                        value={volume}
-                        onChange={handleVolumeChange}
-                      />
-                    </div>
-                  )}
                 </div>
               </>
             ) : (
@@ -189,29 +172,27 @@ const MusicPlayer = ({ playlist }) => {
           {showPlaylist && (
             <div className="playlist-container">
               <ul>
-                {isPlaylistEmpty ? (
+                {playlist.map((video, index) => (
                   <li
+                    key={video.videoId}
                     style={{
-                      fontWeight: currentIndex === 0 ? "bold" : "normal",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      fontWeight: index === currentIndex ? "bold" : "normal",
                     }}
-                    onClick={() => setCurrentIndex(0)}
                   >
-                    HOME - Resonance
+                    <span onClick={() => setCurrentIndex(index)}>
+                      {video.title}
+                    </span>
+                    <button
+                      className="delete-button"
+                      onClick={() => handleDelete(index)}
+                    >
+                      🗑️
+                    </button>
                   </li>
-                ) : (
-                  playlist.map((video, index) => (
-
-                      <li
-                        style={{
-                          fontWeight: index === currentIndex ? "bold" : "normal",
-                        }}
-                        onClick={() => setCurrentIndex(index)}
-                      >
-                        {video.title}
-                      </li>
-
-                  ))
-                )}
+                ))}
               </ul>
             </div>
           )}

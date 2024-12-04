@@ -756,6 +756,18 @@ button.press-play:hover {
   color: rgb(0, 0, 0);    
 }
 
+.delete-button {
+  background: none;
+  border: none;
+  color: #ff4d4d;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.delete-button:hover {
+  color: #ff0000;
+}
+
 /* --------------------- music player: current song CSS -----------------------*/
 
 @keyframes rainbow {

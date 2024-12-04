@@ -21,8 +21,16 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+// Define the initial playlist
+const initialPlaylist = [
+  { videoId: "8GW6sLrK40k", title: "Resonance - HOME" },
+  { videoId: "dwDns8x3Jb4", title: "Around The World - Daft Punk" },
+  { videoId: "cOnT6k8itRE", title: "Kerosene - Rachel Lorin" },
+  { videoId: "6ksHyN0kTiE", title: "Come and Get It - Selena Gomez" },
+];
+
 function App() {
-  const [playlist, setPlaylist] = useState([]); // Playlist state
+  const [playlist, setPlaylist] = useState(initialPlaylist); // Playlist state
   const [selectedVideo, setSelectedVideo] = useState(null); // Currently selected video
 
   // Function to add a video to the playlist
@@ -46,7 +54,7 @@ function App() {
         <main className="main-content">
           <div>
             {/* Music Player with Playlist */}
-            <MusicPlayer playlist={playlist} />
+            <MusicPlayer playlist={playlist} setPlaylist={setPlaylist} />
           </div>
 
           {/* Pass playlist functions and data via Outlet Context */}
