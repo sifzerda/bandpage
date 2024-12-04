@@ -7,10 +7,11 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showPlaylist, setShowPlaylist] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [volume, setVolume] = useState(0.3);
+  const [volume, setVolume] = useState(0.3); // Default volume is 30%
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [showVolumeControl, setShowVolumeControl] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
 
   const playerRef = useRef(null);
 
@@ -31,7 +32,7 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
 
   const onReady = (event) => {
     playerRef.current = event.target;
-    playerRef.current.setVolume(volume * 100);
+    playerRef.current.setVolume(volume * 100); // Set initial volume
     if (currentVideo) {
       playerRef.current.loadVideoById(currentVideo.videoId);
     }
@@ -86,6 +87,26 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
     setCurrentTime(newProgress);
     if (playerRef.current) {
       playerRef.current.seekTo(newProgress, true);
+    }
+  };
+
+  const toggleMute = () => {
+    setIsMuted(prevState => {
+      const newMuteState = !prevState;
+      if (newMuteState) {
+        setVolume(0); // Mute the volume
+      } else {
+        setVolume(0.3); // Set to default volume when unmuted
+      }
+      return newMuteState;
+    });
+  };
+  
+  const handleVolumeChange = (e) => {
+    const newVolume = e.target.value / 100;
+    setVolume(newVolume);
+    if (newVolume > 0 && isMuted) {
+      setIsMuted(false); // Unmute if the volume is adjusted
     }
   };
 
@@ -164,6 +185,25 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
                     ⏭
                   </button>
                 </div>
+
+                {/* Volume Control ------------------------------------ */}
+                <div className="volume-controls">
+                  <button className="control-button" onClick={toggleMute}>
+                    {isMuted ? <FaVolumeMute /> : volume < 0.5 ? <FaVolumeOff /> : <FaVolumeUp />}
+                  </button>
+                  <Draggable axis="x" cancel=".control-button">
+  <input
+    type="range"
+    min="0"
+    max="100"
+    value={isMuted ? 0 : volume * 100} // If muted, set slider to 0
+    onChange={handleVolumeChange}
+    className="volume-slider"
+  />
+</Draggable>
+                </div>
+
+                {/* Playlist ------------------------------------ */}
               </>
             ) : (
               <p>No video selected</p>
