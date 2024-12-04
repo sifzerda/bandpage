@@ -9,7 +9,6 @@ const { Server: SocketIOServer } = require("socket.io"); // Imports Socket.IO
 const cors = require("cors");
 const { typeDefs, resolvers } = require("./schemas");
 const db = require("./config/connection");
-const Calendar = require("./models/Calendar"); // Assuming you have a Calendar model
 
 dotenv.config();
 
@@ -30,32 +29,6 @@ const io = new SocketIOServer(httpServer, {
 // WebSocket server logic
 io.on("connection", (socket) => {
   console.log("A user connected via WebSocket");
-
-  // Load global calendar state from database and send to the connected user
-  socket.on("load-state", async () => {
-    const calendar = await Calendar.findOne({});
-    const state = calendar ? calendar.state : {}; // Get the global state
-    socket.emit("load-state", state);
-  });
-
-  // Listen for calendar state updates and update the global calendar
-  socket.on("update-state", async ({ dateKey, index, state }) => {
-    let calendar = await Calendar.findOne({});
-    if (!calendar) {
-      calendar = new Calendar({ state: {} }); // Initialize global state if not exists
-    }
-
-    if (!calendar.state[dateKey]) {
-      calendar.state[dateKey] = {};
-    }
-    calendar.state[dateKey][index] = state;
-
-    // Save the updated global state to the database
-    await calendar.save();
-
-    // Broadcast the update to all connected clients (no userId, global)
-    io.emit("state-updated", { dateKey, index, state });
-  });
 
   // Handle user disconnects
   socket.on("disconnect", () => {
