@@ -768,44 +768,44 @@ font-size: 18px;
 
 @keyframes rainbow {
   0% { 
-    color: red; 
-    text-shadow: 0 0 10px red, 0 0 20px red; 
+    color: var(--light-red); 
+    text-shadow: 0 0 10px var(--light-red), 0 0 20px var(--light-red); 
     filter: blur(0px);
     transform: translateX(0px);
   }
   16% { 
-    color: orange; 
-    text-shadow: 0 0 15px orange, 0 0 30px orange; 
+    color: white; 
+    text-shadow: 0 0 15px white, 0 0 30px white; 
     filter: blur(1px);
     transform: translateX(-1px);
   }
   33% { 
-    color: yellow; 
-    text-shadow: 0 0 15px yellow, 0 0 30px yellow; 
+    color: var(--cyan); 
+    text-shadow: 0 0 15px var(--cyan), 0 0 30px var(--cyan); 
     filter: blur(0.5px);
     transform: translateX(1px);
   }
   50% { 
-    color: green; 
-    text-shadow: 0 0 20px green, 0 0 40px green; 
+    color: white; 
+    text-shadow: 0 0 20px white, 0 0 40px white; 
     filter: blur(0px);
     transform: translateX(-1px);
   }
   66% { 
-    color: blue; 
-    text-shadow: 0 0 15px blue, 0 0 30px blue; 
+    color: var(--flame2); 
+    text-shadow: 0 0 15px var(--flame2), 0 0 30px var(--flame2); 
     filter: blur(1px);
     transform: translateX(1px);
   }
   83% { 
-    color: indigo; 
-    text-shadow: 0 0 15px indigo, 0 0 30px indigo; 
+    color: white; 
+    text-shadow: 0 0 15px white, 0 0 30px white; 
     filter: blur(0.5px);
     transform: translateX(-1px);
   }
   100% { 
-    color: violet; 
-    text-shadow: 0 0 10px violet, 0 0 20px violet; 
+    color: var(--light-red); 
+    text-shadow: 0 0 10px var(--light-red), 0 0 20px var(--light-red); 
     filter: blur(0px);
     transform: translateX(0px);
   }
