@@ -530,19 +530,6 @@ font-size: 18px;
   /* Adjust width as needed */
 }
 
-.volume-control {
-  position: absolute;
-  bottom: 50%;
-  /* Adjust based on your layout */
-  right: 0;
-  transform: translateY(50%);
-  /* Center vertically relative to button */
-  display: flex;
-  align-items: center;
-  z-index: 10;
-  /* Ensure it's above other elements */
-}
-
 .progress-bar-container {
   width: 100%;
   background: #ddd;
@@ -754,18 +741,6 @@ button.press-play {
 button.press-play:hover {
   background-color: #72f6ff; 
   color: rgb(0, 0, 0);    
-}
-
-.delete-button {
-  background: none;
-  border: none;
-  color: #ff4d4d;
-  cursor: pointer;
-  font-size: 1.2rem;
-}
-
-.delete-button:hover {
-  color: #ff0000;
 }
 
 /* --------------------- music player: current song CSS -----------------------*/
