@@ -126,6 +126,17 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
     return () => clearInterval(interval);
   }, [isPlaying]);
 
+  useEffect(() => {
+    if (playerRef.current) {
+      // Update volume when the volume or mute state changes
+      if (isMuted) {
+        playerRef.current.setVolume(0);
+      } else {
+        playerRef.current.setVolume(volume * 100);
+      }
+    }
+  }, [volume, isMuted]);
+
   const progress = duration ? (currentTime / duration) * 100 : 0;
 
   return (
@@ -192,15 +203,15 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
                     {isMuted ? <FaVolumeMute /> : volume < 0.5 ? <FaVolumeOff /> : <FaVolumeUp />}
                   </button>
                   <Draggable axis="x" cancel=".control-button">
-  <input
-    type="range"
-    min="0"
-    max="100"
-    value={isMuted ? 0 : volume * 100} // If muted, set slider to 0
-    onChange={handleVolumeChange}
-    className="volume-slider"
-  />
-</Draggable>
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value={isMuted ? 0 : volume * 100} // If muted, set slider to 0
+                      onChange={handleVolumeChange}
+                      className="volume-slider"
+                    />
+                  </Draggable>
                 </div>
 
                 {/* Playlist ------------------------------------ */}
