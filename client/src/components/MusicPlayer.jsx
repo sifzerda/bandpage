@@ -146,16 +146,13 @@ const MusicPlayer = ({ playlist }) => {
                 </div>
                 {/* Play/Pause controls */}
                 <div className="controls">
-                  <button onClick={playPrevious} disabled={currentIndex === 0}>
+                  <button className ="press-play" onClick={playPrevious} disabled={currentIndex === 0}>
                     ⏮
                   </button>
-                  <button onClick={togglePlayPause}>
+                  <button className ="press-play" onClick={togglePlayPause}>
                     {isPlaying ? "⏸️" : "▶️"}
                   </button>
-                  <button
-                    onClick={playNext}
-                    disabled={currentIndex === playlist.length - 1}
-                  >
+                  <button className ="press-play" onClick={playNext} disabled={currentIndex === playlist.length - 1}>
                     ⏭
                   </button>
                 </div>

@@ -1,4 +1,4 @@
-const { User, Video, Calendar } = require('../models');
+const { User, Video } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
@@ -25,13 +25,6 @@ const resolvers = {
     getVideos: async () => {
       return Video.find(); // Ensure all fields (including username) are returned
     },
-
-    // Get the calendar for a specific user
-    getCalendar: async (_, { userId }) => {
-      const calendar = await Calendar.findOne({ userId });
-      return calendar || { userId, state: {} }; // Return empty state if not found
-    },
-  },
 
   Mutation: {
     // Add a new user
@@ -104,36 +97,8 @@ const resolvers = {
       throw new AuthenticationError('You must be logged in to remove a video');
     },
 
-    // Update calendar state for a user
-    updateCalendar: async (_, { userId, state }) => {
-      // Validate the structure of the state input
-      if (!Array.isArray(state)) {
-        throw new Error('State must be an array of CalendarStateInput objects');
-      }
-
-      let calendar = await Calendar.findOne({ userId });
-      if (calendar) {
-        // Update existing calendar state
-        state.forEach(({ dateKey, index, state: newState }) => {
-          if (!calendar.state[dateKey]) {
-            calendar.state[dateKey] = {};
-          }
-          calendar.state[dateKey][index] = newState;
-        });
-        await calendar.save();
-      } else {
-        // Create new calendar with the state
-        calendar = await Calendar.create({ userId, state: state.reduce((acc, { dateKey, index, state: newState }) => {
-          if (!acc[dateKey]) {
-            acc[dateKey] = {};
-          }
-          acc[dateKey][index] = newState;
-          return acc;
-        }, {}) });
-      }
-      return calendar;
-    },
   },
+},
 };
 
 module.exports = resolvers;

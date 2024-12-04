@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import {
   format,
   startOfMonth,
@@ -12,10 +12,6 @@ import {
   isToday,
   startOfDay,
 } from "date-fns";
-import debounce from "lodash.debounce"; // Install via npm
-import { useQuery, useMutation } from "@apollo/client";
-import { QUERY_CALENDAR } from "../utils/queries"; // GraphQL queries and mutations
-import { UPDATE_CALENDAR } from "../utils/mutations";
 
 const socket = io("http://localhost:3001");
 
@@ -37,9 +33,6 @@ function Cal() {
   const names = ["Troy", "Megan", "Brad", "Harold", "Jonathan"];
   const today = startOfDay(new Date());
 
-  const { loading, error, data } = useQuery(QUERY_CALENDAR);
-  const { updateCalendar } = useMutation(UPDATE_CALENDAR);
- 
   const changeMonth = (offset) => {
     setSelectedDate((prevDate) => addMonths(prevDate, offset));
   };
@@ -64,32 +57,19 @@ function Cal() {
         },
       };
 
+      // Emit the update to the server for all clients to listen to
       socket.emit("update-state", { dateKey, index, state: nextState });
       return updatedState;
     });
   };
 
-  const debounceSave = useCallback(
-    debounce(() => {
-      updateCalendar({ variables: { state: rowStates } });
-    }, 1000),
-    [rowStates, updateCalendar]
-  );
-
   useEffect(() => {
-    debounceSave();
-    return debounceSave.cancel;
-  }, [rowStates, debounceSave]);
-
-  useEffect(() => {
-    if (data && data.getCalendarState) {
-      setRowStates(data.getCalendarState);
-    }
-
+    // Load initial state from the server
     socket.on("load-state", (savedState) => {
       if (savedState) setRowStates(savedState);
     });
 
+    // Listen for state updates from other clients
     socket.on("state-updated", ({ dateKey, index, state }) => {
       setRowStates((prev) => ({
         ...prev,
@@ -104,6 +84,7 @@ function Cal() {
         [dateKey]: { ...prev[dateKey], [index]: true },
       }));
 
+      // Remove highlight after 2 seconds
       setTimeout(() => {
         setHighlightedRows((prev) => ({
           ...prev,
@@ -116,10 +97,7 @@ function Cal() {
       socket.off("load-state");
       socket.off("state-updated");
     };
-  }, [data]);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  }, []);
 
   return (
     <div className="calendar">

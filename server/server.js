@@ -8,7 +8,6 @@ const http = require("http"); // For creating an HTTP server
 const { Server: SocketIOServer } = require("socket.io"); // Imports Socket.IO
 const cors = require("cors");
 const { typeDefs, resolvers } = require("./schemas");
-const Calendar = require("./models/Calendar"); // MongoDB model for calendar states
 const db = require("./config/connection");
 
 dotenv.config();
@@ -31,18 +30,18 @@ const io = new SocketIOServer(httpServer, {
 io.on("connection", (socket) => {
   console.log("A user connected via WebSocket");
 
-  // Load calendar state from database and send to the connected user
-  socket.on("load-state", async (userId) => {
-    const calendar = await Calendar.findOne({ userId });
-    const state = calendar ? calendar.state : {};
+  // Load global calendar state from database and send to the connected user
+  socket.on("load-state", async () => {
+    const calendar = await Calendar.findOne({});
+    const state = calendar ? calendar.state : {}; // Get the global state
     socket.emit("load-state", state);
   });
 
-  // Listen for calendar state updates and update the database
-  socket.on("update-state", async ({ userId, dateKey, index, state }) => {
-    let calendar = await Calendar.findOne({ userId });
+  // Listen for calendar state updates and update the global calendar
+  socket.on("update-state", async ({ dateKey, index, state }) => {
+    let calendar = await Calendar.findOne({});
     if (!calendar) {
-      calendar = new Calendar({ userId, state: {} });
+      calendar = new Calendar({ state: {} }); // Initialize global state if not exists
     }
 
     if (!calendar.state[dateKey]) {
@@ -50,11 +49,11 @@ io.on("connection", (socket) => {
     }
     calendar.state[dateKey][index] = state;
 
-    // Save the updated state to the database
+    // Save the updated global state to the database
     await calendar.save();
 
-    // Broadcast the update to all clients
-    io.emit("state-updated", { userId, dateKey, index, state });
+    // Broadcast the update to all connected clients (no userId, global)
+    io.emit("state-updated", { dateKey, index, state });
   });
 
   // Handle user disconnects

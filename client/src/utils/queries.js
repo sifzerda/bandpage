@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 // Fetch a single user by ID
 export const QUERY_USER = gql`
-  query getUser($userId: ID!) {
+  query user($userId: ID!) {
     user(userId: $userId) {
       _id
       username
@@ -12,7 +12,7 @@ export const QUERY_USER = gql`
 
 // Fetch all users
 export const QUERY_USERS = gql`
-  query getUsers {
+  query users {
     users {
       _id
       username
@@ -42,14 +42,4 @@ export const QUERY_VIDEOS = gql`
       updatedAt
     }
   }
-`;
-
-export const QUERY_CALENDAR = gql`
-query GET_CALENDAR {
-  getCalendar {
-    dateKey
-    index
-    state
-  }
-}
 `;
