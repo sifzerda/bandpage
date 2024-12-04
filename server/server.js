@@ -9,6 +9,7 @@ const { Server: SocketIOServer } = require("socket.io"); // Imports Socket.IO
 const cors = require("cors");
 const { typeDefs, resolvers } = require("./schemas");
 const db = require("./config/connection");
+const Calendar = require("./models/Calendar"); // Assuming you have a Calendar model
 
 dotenv.config();
 

@@ -11,7 +11,7 @@ TO DO:
 [ ] Main Page Updates (Create, Read, Update, Delete)
 [x] Save song video id from search page, send to global music player
 [ ] Submit calendar availability to DB and retrieve so all users can see
-[ ] Add functionality to music player: run through playlist, enhanced GUI
+[x] Add functionality to music player: run through playlist, enhanced GUI
 [ ] Fix up global GUI, styling
 [x] Post Song suggestions from YT search to song suggestion page via retrieving video id
 [ ]
