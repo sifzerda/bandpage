@@ -67,3 +67,12 @@ export const REMOVE_VIDEO = gql`
     }
   }
 `;
+
+export const UPDATE_CALENDAR = gql` 
+mutation UPDATE_CALENDAR($state: CalendarStateInput!) {
+  updateCalendar(state: $state) {
+    success
+    message
+  }
+}
+`;

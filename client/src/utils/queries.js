@@ -43,3 +43,13 @@ export const QUERY_VIDEOS = gql`
     }
   }
 `;
+
+export const QUERY_CALENDAR = gql`
+query GET_CALENDAR {
+  getCalendar {
+    dateKey
+    index
+    state
+  }
+}
+`;

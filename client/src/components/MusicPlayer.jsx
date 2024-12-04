@@ -123,7 +123,9 @@ const MusicPlayer = ({ playlist }) => {
               <>
                 <span className="now-playing-label">Now Playing:</span>
                 <div className="title-x">
-                  <div className="title"> {currentVideo.title}</div>
+                <div className="marquee-text">
+                <div className={`title rainbow-text`}>{currentVideo.title}</div>
+                </div>
                 </div>
                 <YouTube
                   videoId={currentVideo.videoId}

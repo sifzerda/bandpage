@@ -469,7 +469,7 @@ font-size: 18px;
   background-color: #000000;
 }
 
-.title {
+.marquee-text {
   display: inline-block;
   width: 105%;
   animation: marquee 15s linear infinite;
@@ -762,4 +762,65 @@ font-size: 18px;
 
 .progress-bar-container {
   cursor: pointer;
+}
+
+/* --------------------- music player: current song CSS -----------------------*/
+
+@keyframes rainbow {
+  0% { 
+    color: red; 
+    text-shadow: 0 0 10px red, 0 0 20px red; 
+    filter: blur(0px);
+    transform: translateX(0px);
+  }
+  16% { 
+    color: orange; 
+    text-shadow: 0 0 15px orange, 0 0 30px orange; 
+    filter: blur(1px);
+    transform: translateX(-1px);
+  }
+  33% { 
+    color: yellow; 
+    text-shadow: 0 0 15px yellow, 0 0 30px yellow; 
+    filter: blur(0.5px);
+    transform: translateX(1px);
+  }
+  50% { 
+    color: green; 
+    text-shadow: 0 0 20px green, 0 0 40px green; 
+    filter: blur(0px);
+    transform: translateX(-1px);
+  }
+  66% { 
+    color: blue; 
+    text-shadow: 0 0 15px blue, 0 0 30px blue; 
+    filter: blur(1px);
+    transform: translateX(1px);
+  }
+  83% { 
+    color: indigo; 
+    text-shadow: 0 0 15px indigo, 0 0 30px indigo; 
+    filter: blur(0.5px);
+    transform: translateX(-1px);
+  }
+  100% { 
+    color: violet; 
+    text-shadow: 0 0 10px violet, 0 0 20px violet; 
+    filter: blur(0px);
+    transform: translateX(0px);
+  }
+}
+
+.rainbow-text {
+  animation: rainbow 3s infinite ease-in-out; /* Smooth and dynamic */
+  font-weight: bold;
+  font-size: 1.5em; /* Enhance visibility */
+  text-transform: uppercase; /* Stylize text */
+  letter-spacing: 2px; /* Add spacing for aesthetics */
+}
+
+.rainbow-text {
+  animation: rainbow 3s infinite;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }

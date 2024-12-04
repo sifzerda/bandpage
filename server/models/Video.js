@@ -1,3 +1,5 @@
+// this model is for storing song suggestion videos found and saved on the YT search
+
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 

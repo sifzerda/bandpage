@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   format,
   startOfMonth,
@@ -12,48 +12,42 @@ import {
   isToday,
   startOfDay,
 } from "date-fns";
+import debounce from "lodash.debounce"; // Install via npm
+import { useQuery, useMutation } from "@apollo/client";
+import { QUERY_CALENDAR } from "../utils/queries"; // GraphQL queries and mutations
+import { UPDATE_CALENDAR } from "../utils/mutations";
 
-const socket = io("http://localhost:3001"); // Adjust to match your server's URL and port
+const socket = io("http://localhost:3001");
 
-// Function to add suffix to date number (e.g., 1st, 2nd, 3rd, etc.)
 const getDayWithSuffix = (day) => {
   const dayOfMonth = format(day, "d");
   const lastDigit = dayOfMonth % 10;
 
-  if (dayOfMonth >= 11 && dayOfMonth <= 13) {
-    return `${dayOfMonth}th`;
-  }
-
-  switch (lastDigit) {
-    case 1:
-      return `${dayOfMonth}st`;
-    case 2:
-      return `${dayOfMonth}nd`;
-    case 3:
-      return `${dayOfMonth}rd`;
-    default:
-      return `${dayOfMonth}th`;
-  }
+  if (dayOfMonth >= 11 && dayOfMonth <= 13) return `${dayOfMonth}th`;
+  if (lastDigit === 1) return `${dayOfMonth}st`;
+  if (lastDigit === 2) return `${dayOfMonth}nd`;
+  if (lastDigit === 3) return `${dayOfMonth}rd`;
+  return `${dayOfMonth}th`;
 };
 
 function Cal() {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [rowStates, setRowStates] = useState({}); // State to track row colors
+  const [rowStates, setRowStates] = useState({});
+  const [highlightedRows, setHighlightedRows] = useState({});
   const names = ["Troy", "Megan", "Brad", "Harold", "Jonathan"];
+  const today = startOfDay(new Date());
 
-  // Function to navigate months
+  const { loading, error, data } = useQuery(QUERY_CALENDAR);
+  const { updateCalendar } = useMutation(UPDATE_CALENDAR);
+ 
   const changeMonth = (offset) => {
     setSelectedDate((prevDate) => addMonths(prevDate, offset));
   };
 
-  // Generate days for the current month
   const startDate = startOfWeek(startOfMonth(selectedDate));
   const endDate = endOfWeek(endOfMonth(selectedDate));
   const days = eachDayOfInterval({ start: startDate, end: endDate });
 
-  const today = startOfDay(new Date());
-
-  // Handle row click to toggle colors and emit changes via WebSocket
   const handleRowClick = (date, index) => {
     const dateKey = format(date, "yyyy-MM-dd");
     setRowStates((prev) => {
@@ -70,58 +64,77 @@ function Cal() {
         },
       };
 
-      socket.emit("update-state", updatedState); // Emit the updated state to the server
+      socket.emit("update-state", { dateKey, index, state: nextState });
       return updatedState;
     });
   };
 
-  // Save the current rowStates to the server (replacing local storage)
-  const saveState = () => {
-    socket.emit("update-state", rowStates); // Sync with server
-    alert("Calendar saved!"); // Simple browser alert
-  };
+  const debounceSave = useCallback(
+    debounce(() => {
+      updateCalendar({ variables: { state: rowStates } });
+    }, 1000),
+    [rowStates, updateCalendar]
+  );
 
-  // Load the initial state from the server
   useEffect(() => {
+    debounceSave();
+    return debounceSave.cancel;
+  }, [rowStates, debounceSave]);
+
+  useEffect(() => {
+    if (data && data.getCalendarState) {
+      setRowStates(data.getCalendarState);
+    }
+
     socket.on("load-state", (savedState) => {
-      if (savedState) {
-        setRowStates(savedState);
-      }
+      if (savedState) setRowStates(savedState);
     });
 
-    // Update local state whenever the server broadcasts a state update
-    socket.on("state-updated", (updatedState) => {
-      setRowStates(updatedState);
+    socket.on("state-updated", ({ dateKey, index, state }) => {
+      setRowStates((prev) => ({
+        ...prev,
+        [dateKey]: {
+          ...prev[dateKey],
+          [index]: state,
+        },
+      }));
+
+      setHighlightedRows((prev) => ({
+        ...prev,
+        [dateKey]: { ...prev[dateKey], [index]: true },
+      }));
+
+      setTimeout(() => {
+        setHighlightedRows((prev) => ({
+          ...prev,
+          [dateKey]: { ...prev[dateKey], [index]: false },
+        }));
+      }, 2000);
     });
 
     return () => {
       socket.off("load-state");
       socket.off("state-updated");
     };
-  }, []);
+  }, [data]);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <div className="calendar">
-      {/* Save Button */}
-      <button onClick={saveState} className="save-button">
-        Save
-      </button>
-
-      {/* Month Navigation */}
       <div className="calendar-header">
         <button onClick={() => changeMonth(-1)}>Previous</button>
         <h2>{format(selectedDate, "MMMM yyyy")}</h2>
         <button onClick={() => changeMonth(1)}>Next</button>
       </div>
 
-      {/* Calendar Grid */}
       <div className="calendar-grid">
         {days.map((day) => {
           const isPast = isBefore(startOfDay(day), today);
           const isCurrentDay = isToday(day);
           const dateKey = format(day, "yyyy-MM-dd");
           const dayState = rowStates[dateKey] || {};
-          const dayName = format(day, "EEE");
 
           return (
             <div
@@ -131,14 +144,17 @@ function Cal() {
               }`}
             >
               <div className="date-label">
-                <span className="day-name">{dayName}</span> {getDayWithSuffix(day)}
+                <span className="day-name">{format(day, "EEE")}</span>{" "}
+                {getDayWithSuffix(day)}
               </div>
               {!isPast && (
                 <div className="note-row">
                   {names.map((name, index) => (
                     <div
                       key={name}
-                      className={`note-row-item ${dayState[index] || "normal"}`}
+                      className={`note-row-item ${dayState[index] || "normal"} ${
+                        highlightedRows[dateKey]?.[index] ? "updated" : ""
+                      }`}
                       onClick={() => handleRowClick(day, index)}
                     >
                       {name}

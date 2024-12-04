@@ -6,10 +6,12 @@ const { authMiddleware } = require("./utils/auth");
 const dotenv = require("dotenv");
 const http = require("http"); // For creating an HTTP server
 const { Server: SocketIOServer } = require("socket.io"); // Imports Socket.IO
-dotenv.config();
-
+const cors = require("cors");
 const { typeDefs, resolvers } = require("./schemas");
+const Calendar = require("./models/Calendar"); // MongoDB model for calendar states
 const db = require("./config/connection");
+
+dotenv.config();
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -25,20 +27,34 @@ const io = new SocketIOServer(httpServer, {
   },
 });
 
-// WebSocket state storage
-let calendarState = {};
-
-// Socket.IO server logic
+// WebSocket server logic
 io.on("connection", (socket) => {
   console.log("A user connected via WebSocket");
 
-  // Send the current calendar state to the newly connected user
-  socket.emit("load-state", calendarState);
+  // Load calendar state from database and send to the connected user
+  socket.on("load-state", async (userId) => {
+    const calendar = await Calendar.findOne({ userId });
+    const state = calendar ? calendar.state : {};
+    socket.emit("load-state", state);
+  });
 
-  // Listen for calendar state updates from clients
-  socket.on("update-state", (newState) => {
-    calendarState = newState; // Update the server's state
-    io.emit("state-updated", calendarState); // Broadcast the updated state to all users
+  // Listen for calendar state updates and update the database
+  socket.on("update-state", async ({ userId, dateKey, index, state }) => {
+    let calendar = await Calendar.findOne({ userId });
+    if (!calendar) {
+      calendar = new Calendar({ userId, state: {} });
+    }
+
+    if (!calendar.state[dateKey]) {
+      calendar.state[dateKey] = {};
+    }
+    calendar.state[dateKey][index] = state;
+
+    // Save the updated state to the database
+    await calendar.save();
+
+    // Broadcast the update to all clients
+    io.emit("state-updated", { userId, dateKey, index, state });
   });
 
   // Handle user disconnects
@@ -51,12 +67,16 @@ io.on("connection", (socket) => {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: ({ req }) => ({
+    user: req.user || null, // Include user context if using authentication
+  }),
 });
 
 // Start Apollo Server and integrate it with Express
 const startApolloServer = async () => {
   await server.start();
 
+  app.use(cors());
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
 

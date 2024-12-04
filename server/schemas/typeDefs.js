@@ -1,17 +1,30 @@
 const typeDefs = `
+  scalar JSON
+
   type User {
     _id: ID
     username: String
   }
 
-type Video {
-  videoId: String
-  title: String
-  comment: String
-  username: String  
-  createdAt: String
-  updatedAt: String
-}
+  type Video {
+    videoId: String
+    title: String
+    comment: String
+    username: String  
+    createdAt: String
+    updatedAt: String
+  }
+
+  type Calendar {
+    userId: ID!
+    state: JSON
+  }
+
+  input CalendarStateInput {
+    dateKey: String!
+    index: Int!
+    state: String!
+  }
 
   type Auth {
     token: ID!
@@ -23,6 +36,7 @@ type Video {
     users: [User]
     getVideos: [Video]   
     me: User
+    getCalendar(userId: ID!): Calendar
   }
 
   type Mutation {
@@ -32,6 +46,7 @@ type Video {
     login(username: String!): Auth
     removeUser: User
     removeVideo(videoId: String!): Video  
+    updateCalendar(userId: ID!, state: [CalendarStateInput]!): Calendar
   }
 `;
 

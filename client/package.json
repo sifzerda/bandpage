@@ -24,6 +24,7 @@
     "@testing-library/react": "^14.0.0",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
+    "cors": "^2.8.5",
     "customize-cra": "^1.0.0",
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.5",
