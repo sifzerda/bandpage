@@ -58,7 +58,6 @@ function Cal() {
     setRowStates((prev) => {
       const dayState = prev[dateKey] || {};
       const currentState = dayState[index] || "normal";
-
       const nextState =
         currentState === "normal" ? "green" : currentState === "green" ? "red" : "normal";
 
@@ -95,9 +94,7 @@ function Cal() {
     <div className="calendar">
 
       {/* Save Button */}
-      <button onClick={saveState} className="save-button">
-        Save
-      </button>
+      <button onClick={saveState} className="save-button">Save</button>
 
       {/* Month Navigation */}
       <div className="calendar-header">
@@ -143,7 +140,6 @@ function Cal() {
           );
         })}
       </div>
-
     </div>
   );
 }

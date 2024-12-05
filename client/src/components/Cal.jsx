@@ -1,4 +1,3 @@
-import { io } from "socket.io-client";
 import React, { useState, useEffect } from "react";
 import {
   format,
@@ -12,8 +11,6 @@ import {
   isToday,
   startOfDay,
 } from "date-fns";
-
-const socket = io("http://localhost:3001");
 
 const getDayWithSuffix = (day) => {
   const dayOfMonth = format(day, "d");
@@ -29,18 +26,20 @@ const getDayWithSuffix = (day) => {
 function Cal() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [rowStates, setRowStates] = useState({});
-  const [highlightedRows, setHighlightedRows] = useState({});
   const names = ["Troy", "Megan", "Brad", "Harold", "Jonathan"];
   const today = startOfDay(new Date());
 
+  // Function to navigate months
   const changeMonth = (offset) => {
     setSelectedDate((prevDate) => addMonths(prevDate, offset));
   };
 
+  // Generate days for the current month
   const startDate = startOfWeek(startOfMonth(selectedDate));
   const endDate = endOfWeek(endOfMonth(selectedDate));
   const days = eachDayOfInterval({ start: startDate, end: endDate });
-
+  
+  // Handle row click to toggle colors
   const handleRowClick = (date, index) => {
     const dateKey = format(date, "yyyy-MM-dd");
     setRowStates((prev) => {
@@ -49,70 +48,56 @@ function Cal() {
       const nextState =
         currentState === "normal" ? "green" : currentState === "green" ? "red" : "normal";
 
-      const updatedState = {
+      return {
         ...prev,
         [dateKey]: {
           ...dayState,
           [index]: nextState,
         },
       };
-
-      // Emit the update to the server for all clients to listen to
-      socket.emit("update-state", { dateKey, index, state: nextState });
-      return updatedState;
     });
   };
 
-  useEffect(() => {
-    // Load initial state from the server
-    socket.on("load-state", (savedState) => {
-      if (savedState) setRowStates(savedState);
-    });
-
-    // Listen for state updates from other clients
-    socket.on("state-updated", ({ dateKey, index, state }) => {
-      setRowStates((prev) => ({
-        ...prev,
-        [dateKey]: {
-          ...prev[dateKey],
-          [index]: state,
-        },
-      }));
-
-      setHighlightedRows((prev) => ({
-        ...prev,
-        [dateKey]: { ...prev[dateKey], [index]: true },
-      }));
-
-      // Remove highlight after 2 seconds
-      setTimeout(() => {
-        setHighlightedRows((prev) => ({
-          ...prev,
-          [dateKey]: { ...prev[dateKey], [index]: false },
-        }));
-      }, 2000);
-    });
-
-    return () => {
-      socket.off("load-state");
-      socket.off("state-updated");
+    // Save the current rowStates to localStorage
+    const saveState = () => {
+      localStorage.setItem("calendarState", JSON.stringify(rowStates));
+      alert("Calendar saved!"); // Simple browser alert
     };
-  }, []);
+
+      // Load the saved state from localStorage
+  const loadState = () => {
+    const savedState = localStorage.getItem("calendarState");
+    if (savedState) {
+      setRowStates(JSON.parse(savedState));
+    }
+  };
+
+    // Load saved state when component mounts
+    useEffect(() => {
+      loadState();
+    }, []);
 
   return (
     <div className="calendar">
+
+      {/* Save Button */}
+      <button onClick={saveState} className="save-button">Save</button>
+
+      {/* Month Navigation */}
       <div className="calendar-header">
         <button onClick={() => changeMonth(-1)}>Previous</button>
         <h2>{format(selectedDate, "MMMM yyyy")}</h2>
         <button onClick={() => changeMonth(1)}>Next</button>
       </div>
 
+      {/* Calendar Grid */}
       <div className="calendar-grid">
         {days.map((day) => {
           const isPast = isBefore(startOfDay(day), today);
           const isCurrentDay = isToday(day);
           const dateKey = format(day, "yyyy-MM-dd");
           const dayState = rowStates[dateKey] || {};
+          const dayName = format(day, "EEE"); // Abbreviated day name (e.g., Mon, Tue, Wed)
 
           return (
             <div
@@ -130,9 +115,7 @@ function Cal() {
                   {names.map((name, index) => (
                     <div
                       key={name}
-                      className={`note-row-item ${dayState[index] || "normal"} ${
-                        highlightedRows[dateKey]?.[index] ? "updated" : ""
-                      }`}
+                      className={`note-row-item ${dayState[index] || "normal"}`}
                       onClick={() => handleRowClick(day, index)}
                     >
                       {name}

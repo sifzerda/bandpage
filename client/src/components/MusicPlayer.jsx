@@ -10,7 +10,6 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
   const [volume, setVolume] = useState(0.3); // Default volume is 30%
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
-  const [showVolumeControl, setShowVolumeControl] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
 
   const playerRef = useRef(null);
@@ -139,9 +138,11 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
 
   const progress = duration ? (currentTime / duration) * 100 : 0;
 
+// RENDER ---------------------------------------------------//
+
   return (
     <div className="music-player-container">
-      <Draggable cancel=".progress-bar-container, .volume-control, .playlist-container">
+      <Draggable cancel=".progress-bar-container, .volume-controls, .playlist-container">
         <div className="music-player">
           <div className="title-bar">
             <button
@@ -202,7 +203,6 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
                   <button className="control-button" onClick={toggleMute}>
                     {isMuted ? <FaVolumeMute /> : volume < 0.5 ? <FaVolumeOff /> : <FaVolumeUp />}
                   </button>
-                  <Draggable axis="x" cancel=".control-button">
                     <input
                       type="range"
                       min="0"
@@ -211,9 +211,7 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
                       onChange={handleVolumeChange}
                       className="volume-slider"
                     />
-                  </Draggable>
                 </div>
-
                 {/* Playlist ------------------------------------ */}
               </>
             ) : (
