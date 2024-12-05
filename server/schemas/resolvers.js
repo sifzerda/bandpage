@@ -26,6 +26,16 @@ const resolvers = {
       return Video.find(); // Ensure all fields (including username) are returned
     },
 
+    // Fetch playlists for a specific user
+    getPlaylists: async (parent, { userId }) => {
+      const user = await User.findById(userId);
+      if (!user) {
+        throw new Error('User not found');
+      }
+      return user.playlists;
+    },
+  },
+
   Mutation: {
     // Add a new user
     addUser: async (parent, { username }) => {
@@ -97,8 +107,71 @@ const resolvers = {
       throw new AuthenticationError('You must be logged in to remove a video');
     },
 
+    // Add a new playlist for the user
+    addPlaylist: async (parent, { name }, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id);
+        if (!user) {
+          throw new Error('User not found');
+        }
+        const newPlaylist = { name, songs: [] };
+        user.playlists.push(newPlaylist);
+        await user.save();
+        return newPlaylist;
+      }
+      throw new AuthenticationError('You must be logged in to add a playlist');
+    },
+
+    // Add a song to a user's playlist
+    addSongToPlaylist: async (parent, { playlistName, videoId, title }, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id);
+        if (!user) {
+          throw new Error('User not found');
+        }
+        const playlist = user.playlists.find(p => p.name === playlistName);
+        if (!playlist) {
+          throw new Error('Playlist not found');
+        }
+        playlist.songs.push({ videoId, title });
+        await user.save();
+        return playlist;
+      }
+      throw new AuthenticationError('You must be logged in to add a song');
+    },
+
+    // Remove a song from a user's playlist
+    removeSongFromPlaylist: async (parent, { playlistName, videoId }, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id);
+        if (!user) {
+          throw new Error('User not found');
+        }
+        const playlist = user.playlists.find(p => p.name === playlistName);
+        if (!playlist) {
+          throw new Error('Playlist not found');
+        }
+        playlist.songs = playlist.songs.filter(song => song.videoId !== videoId);
+        await user.save();
+        return playlist;
+      }
+      throw new AuthenticationError('You must be logged in to remove a song');
+    },
+
+    // Remove a playlist from a user
+    removePlaylist: async (parent, { playlistName }, context) => {
+      if (context.user) {
+        const user = await User.findById(context.user._id);
+        if (!user) {
+          throw new Error('User not found');
+        }
+        user.playlists = user.playlists.filter(p => p.name !== playlistName);
+        await user.save();
+        return { message: 'Playlist removed successfully' };
+      }
+      throw new AuthenticationError('You must be logged in to remove a playlist');
+    },
   },
-},
 };
 
 module.exports = resolvers;

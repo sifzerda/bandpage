@@ -43,3 +43,16 @@ export const QUERY_VIDEOS = gql`
     }
   }
 `;
+
+// Fetch all playlists for a specific user
+export const QUERY_PLAYLISTS = gql`
+  query getPlaylists($userId: ID!) {
+    getPlaylists(userId: $userId) {
+      name
+      songs {
+        videoId
+        title
+      }
+    }
+  }
+`;

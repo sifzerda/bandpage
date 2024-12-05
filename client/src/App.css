@@ -456,8 +456,8 @@ font-size: 18px;
 
 .marquee-text {
   display: inline-block;
-  width: 100%;
-  animation: marquee 15s linear infinite;
+  width: 130%;
+  animation: marquee 7s linear infinite;
   color: rgb(255, 255, 255);
   white-space: nowrap;
   font: 20px monospace;
