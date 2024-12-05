@@ -11,6 +11,7 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
 
   const playerRef = useRef(null);
 
@@ -86,16 +87,46 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
     return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
   };
 
-  const handleProgressBarClick = (e) => {
+  const handleProgressBarChange = (e) => {
     const progressBar = e.currentTarget;
     const rect = progressBar.getBoundingClientRect();
     const offsetX = e.clientX - rect.left;
-    const newProgress = (offsetX / rect.width) * duration;
-    setCurrentTime(newProgress);
+    const newProgress = (offsetX / rect.width) * 100;
+    const newTime = (newProgress / 100) * duration;
     if (playerRef.current) {
-      playerRef.current.seekTo(newProgress, true);
+      playerRef.current.seekTo(newTime, true); // Use seekTo to change the video time
+    }
+    setCurrentTime(newTime);
+  };
+
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    handleProgressBarChange(e);
+  };
+
+  const handleMouseMove = (e) => {
+    if (isDragging) {
+      handleProgressBarChange(e);
     }
   };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  useEffect(() => {
+    if (isDragging) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+    } else {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    }
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging]);
 
   const toggleMute = () => {
     setIsMuted(prevState => {
@@ -108,7 +139,7 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
       return newMuteState;
     });
   };
-  
+
   const handleVolumeChange = (e) => {
     const newVolume = e.target.value / 100;
     setVolume(newVolume);
@@ -146,7 +177,7 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
 
   const progress = duration ? (currentTime / duration) * 100 : 0;
 
-// RENDER ---------------------------------------------------//
+  // RENDER ---------------------------------------------------//
 
   return (
     <div className="music-player-container">
@@ -177,16 +208,16 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
                 />
                 <div
                   className="progress-bar-container"
-                  onClick={handleProgressBarClick}
+                  onMouseDown={handleMouseDown}
+                  onMouseMove={handleMouseMove}
+                  onMouseUp={handleMouseUp}
                 >
-                  <div
-                    className="progress-bar"
-                    style={{ width: `${progress}%` }}
-                  ></div>
+                  <div className="progress-bar" style={{ width: `${progress}%` }}></div>
                   <div className="progress-time">
                     {formatTime(currentTime)} / {formatTime(duration)}
                   </div>
                 </div>
+                {/* Playback Controls ------------------------------------ */}
                 <div className="controls">
                   <button
                     className="press-play"
@@ -212,14 +243,14 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
                   <button className="control-button" onClick={toggleMute}>
                     {isMuted ? <FaVolumeMute /> : volume < 0.5 ? <FaVolumeOff /> : <FaVolumeUp />}
                   </button>
-                    <input
-                      type="range"
-                      min="0"
-                      max="100"
-                      value={isMuted ? 0 : volume * 100} // If muted, set slider to 0
-                      onChange={handleVolumeChange}
-                      className="volume-slider"
-                    />
+                  <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    value={isMuted ? 0 : volume * 100} // If muted, set slider to 0
+                    onChange={handleVolumeChange}
+                    className="volume-slider"
+                  />
                 </div>
                 {/* Playlist ------------------------------------ */}
               </>
