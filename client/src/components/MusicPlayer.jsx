@@ -38,6 +38,14 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
     setDuration(playerRef.current.getDuration());
   };
 
+  const onEnd = () => {
+    if (currentIndex < playlist.length - 1) {
+      setCurrentIndex((prev) => prev + 1); // Move to the next video
+    } else {
+      setIsPlaying(false); // Stop playback if at the end of the playlist
+    }
+  };
+
   const playNext = () => {
     if (currentIndex < playlist.length - 1) {
       setCurrentIndex((prev) => prev + 1);
@@ -165,6 +173,7 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
                   videoId={currentVideo.videoId}
                   opts={opts}
                   onReady={onReady}
+                  onEnd={onEnd} // Trigger playNext when video ends
                 />
                 <div
                   className="progress-bar-container"
