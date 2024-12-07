@@ -27,6 +27,9 @@ const initialPlaylist = [
    { videoId: "YHoGXDYGkIw", title: "Levitate - Twenty One Pilots" }, 
   { videoId: "cOnT6k8itRE", title: "Kerosene - Rachel Lorin" },
   { videoId: "jWbgYLlWJk8", title: "Static Space Lovers - Foster The People" },
+ { videoId: "Tce06Ijzli8", title: "Past Lives - BØRNS" },
+  { videoId: "0w5c5j8m2f4", title: "The Less I Know The Better - Tame Impala" },
+  { videoId: "2zToEPpFEN8", title: "The Way You Used To Do - Queens of the Stone Age" },
 ];
 
 function App() {

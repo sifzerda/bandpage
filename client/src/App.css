@@ -641,14 +641,18 @@ font-size: 18px;
 .playlist-container {
   position: absolute;
   top: 50px; /* Below the button */
-  width: 100%;
-  max-height: 300px;
-  overflow-y: auto;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: auto; /* Adjust width based on content */
+  max-height: 300px; /* You can adjust this to your desired max height */
+  overflow-y: auto; /* Enable vertical scrolling when content exceeds max height */
   background-color: #222;
   color: white;
   padding: 10px;
   border: 1px solid #555;
-  overflow-y: auto; /* Enable vertical scrolling */
+  box-sizing: border-box; /* Ensure padding doesn't affect layout */
+  z-index: 999; /* Optional: to ensure the playlist is above other content */
 }
 
 .playlist-container h3 {
