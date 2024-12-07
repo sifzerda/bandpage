@@ -456,21 +456,19 @@ font-size: 18px;
 
 .marquee-text {
   display: inline-block;
-  width: 130%;
   animation: marquee 7s linear infinite;
   color: rgb(255, 255, 255);
   white-space: nowrap;
   font: 20px monospace;
   overflow: hidden;
 }
-
+  
 @keyframes marquee {
   0% {
-      transform: translateX(100%);
+    transform: translateX(100%);
   }
-
   100% {
-      transform: translateX(-100%);
+    transform: translateX(-100%);
   }
 }
 
