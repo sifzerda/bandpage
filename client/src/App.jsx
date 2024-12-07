@@ -23,11 +23,10 @@ const client = new ApolloClient({
 
 // Define the initial pre-loaded playlist
 const initialPlaylist = [
-  { videoId: "8GW6sLrK40k", title: "Resonance - HOME" }, 
-/*   { videoId: "dwDns8x3Jb4", title: "Around The World - Daft Punk" }, */
+  { videoId: "B3PALzZkGAo", title: "I Miss You - Blink-182" },
+   { videoId: "YHoGXDYGkIw", title: "Levitate - Twenty One Pilots" }, 
   { videoId: "cOnT6k8itRE", title: "Kerosene - Rachel Lorin" },
   { videoId: "jWbgYLlWJk8", title: "Static Space Lovers - Foster The People" },
-  { videoId: "csfirVLj4MI", title: "Shakin' - Rooney" },
 ];
 
 function App() {
