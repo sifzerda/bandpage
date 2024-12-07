@@ -14,9 +14,9 @@ export default function Calender() {
 
 <div className='color-box'>
 
-        <p className='red-text'>Red = Unavailable</p>
-        <p className='green-text'>Green = Available</p>
-        <p className='white-text'>White = Undecided</p>
+        <p className='red'>Red = Unavailable</p>
+        <p className='green'>Green = Available</p>
+        <p className='normal'>White = Undecided</p>
         
 </div>
 
