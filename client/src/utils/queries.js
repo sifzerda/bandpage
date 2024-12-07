@@ -56,3 +56,13 @@ export const QUERY_PLAYLISTS = gql`
     }
   }
 `;
+
+
+export const GET_AVAILABILITIES = gql`
+  query getAvailabilities($date: String!) {
+    getAvailabilities(date: $date) {
+      user
+      status
+    }
+  }
+`;

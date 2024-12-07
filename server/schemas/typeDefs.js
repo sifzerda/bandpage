@@ -25,6 +25,13 @@ type Video {
   updatedAt: String
 }
 
+  type Availability {
+    id: ID!
+    date: String!
+    user: String!
+    status: String!
+  }
+
 type Auth {
   token: ID!
   user: User
@@ -36,6 +43,7 @@ type Query {
   getVideos: [Video]
   me: User
   getPlaylists(userId: ID!): [Playlist!]   
+  getAvailabilities(date: String!): [Availability]
 }
 
 type Mutation {
@@ -49,6 +57,7 @@ type Mutation {
   addSongToPlaylist(userId: ID!, playlistName: String!, videoId: String!, title: String!): Playlist
   removeSongFromPlaylist(userId: ID!, playlistName: String!, videoId: String!): Playlist
   removePlaylist(userId: ID!, playlistName: String!): Playlist
+  setAvailability(date: String!, user: String!, status: String!): Availability
   }
 `;
 

@@ -1,4 +1,4 @@
-const { User, Video } = require('../models');
+const { User, Video, Availability } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
@@ -34,7 +34,20 @@ const resolvers = {
       }
       return user.playlists;
     },
+
+
+
+    getAvailabilities: async (_, { date }) => {
+      try {
+        return await Availability.find({ date });
+      } catch (err) {
+        throw new Error("Error fetching availabilities");
+      }
+    },
   },
+
+
+
 
   Mutation: {
     // Add a new user
@@ -171,6 +184,23 @@ const resolvers = {
       }
       throw new AuthenticationError('You must be logged in to remove a playlist');
     },
+
+
+
+ setAvailability: async (_, { date, user, status }) => {
+      try {
+        const availability = await Availability.findOneAndUpdate(
+          { date, user },
+          { status },
+          { new: true, upsert: true } // Upsert to create if it doesn't exist
+        );
+        return availability;
+      } catch (err) {
+        throw new Error("Error updating availability");
+      }
+    },
+
+
   },
 };
 

@@ -121,3 +121,13 @@ export const REMOVE_PLAYLIST = gql`
     }
   }
 `;
+
+
+export const SET_AVAILABILITY = gql`
+  mutation setAvailability($date: String!, $user: String!, $status: String!) {
+    setAvailability(date: $date, user: $user, status: $status) {
+      user
+      status
+    }
+  }
+`;
