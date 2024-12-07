@@ -1,10 +1,9 @@
-
 // + row clicks save to db, graph, server
 // + row clicks update local state
 // + row clicks update server state
 // + row clicks update db state
 // + row clicks update graph state
-
+// + does not use calendar package (no react-calendar)
 
 import React, { useState, useEffect } from "react";
 import {
