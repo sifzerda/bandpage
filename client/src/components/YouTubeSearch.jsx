@@ -106,7 +106,7 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
       <div>
         <h4>Search History:</h4>
         {searchHistory.length > 0 ? (
-          <ul>
+          <ul className='no-bullets'>
             {searchHistory.map((query, index) => (
               <li key={index}>
                 <button
