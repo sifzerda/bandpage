@@ -8,7 +8,6 @@ function Header() {
             <span className="glitch" data-text="Horror">Name</span> 
           </p>
         </div>
-
       </header>
     </header>
   );
