@@ -79,6 +79,11 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleSearch();
+            }
+          }}
           placeholder="Search YouTube videos..."
         />
         <button onClick={handleSearch}>Search</button>
