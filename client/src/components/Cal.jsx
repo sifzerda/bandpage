@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   format,
   startOfMonth,
   endOfMonth,
   eachDayOfInterval,
-  addMonths
+  addMonths,
+  isBefore,
+  isSameDay,
 } from "date-fns";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_AVAILABILITIES } from "../utils/queries";
@@ -14,8 +16,9 @@ function Cal() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [availabilityStates, setAvailabilityStates] = useState({});
   const names = ["Person 1", "Person 2", "Person 3", "Person 4", "Person 5"];
+  const currentDate = new Date();
   const [setAvailability] = useMutation(SET_AVAILABILITY, {
-    refetchQueries: [GET_AVAILABILITIES], // Refetch to get updated availability from the server after mutation
+    refetchQueries: [GET_AVAILABILITIES],
   });
 
   const days = eachDayOfInterval({
@@ -23,12 +26,12 @@ function Cal() {
     end: endOfMonth(selectedDate),
   });
 
-  // Handle row click to toggle status locally
   const handleRowClick = (date, user, currentState) => {
+    if (isBefore(date, currentDate) && !isSameDay(date, currentDate)) return; // Allow interaction only for today or future dates
+
     const nextState =
       currentState === "normal" ? "green" : currentState === "green" ? "red" : "normal";
 
-    // Update the local state for the clicked user on that date
     setAvailabilityStates((prevState) => ({
       ...prevState,
       [format(date, "yyyy-MM-dd")]: {
@@ -37,19 +40,18 @@ function Cal() {
       },
     }));
 
-    // Save the new availability state to the server
     setAvailability({
       variables: {
         date: format(date, "yyyy-MM-dd"),
         user,
-        status: nextState
+        status: nextState,
       },
     });
   };
 
   return (
     <div className="calendar">
-      {/* Calendar Header with Navigation */}
+      {/* Calendar Header */}
       <div className="calendar-header">
         <button onClick={() => setSelectedDate((d) => addMonths(d, -1))}>Previous</button>
         <h2>{format(selectedDate, "MMMM yyyy")}</h2>
@@ -61,13 +63,19 @@ function Cal() {
         {days.map((day) => {
           const dateKey = format(day, "yyyy-MM-dd");
           const { data } = useQuery(GET_AVAILABILITIES, { variables: { date: dateKey } });
+          const isToday = isSameDay(day, currentDate); // Check if the day is today
+          const isPast = isBefore(day, currentDate) && !isToday; // Check if the day is in the past but not today
 
           return (
-            <div key={dateKey} className="calendar-day">
+            <div
+              key={dateKey}
+              className={`calendar-day ${isToday ? "current-date" : ""} ${
+                isPast ? "past-date" : ""
+              }`}
+            >
               <div className="date-label">{format(day, "EEE, MMM d")}</div>
               <div className="note-row">
                 {names.map((name) => {
-                  // Use the local state first, if available, or fallback to the server data
                   const userState =
                     availabilityStates[dateKey]?.[name] ||
                     data?.getAvailabilities.find((entry) => entry.user === name)?.status ||

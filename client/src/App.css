@@ -406,6 +406,19 @@ div.color-box {
   margin: 0 20px;  /* Spacing between buttons and heading */
 }
 
+.current-date {
+  border: 2px solid #ff9800;
+  background-color: #fff3e0;
+  border-radius: 8px;
+}
+
+.past-date {
+  color: #aaa; /* Grey text */
+  background-color: #f0f0f0; /* Light grey background */
+  pointer-events: none; /* Prevent interactions */
+  opacity: 0.7;
+}
+
 /* --------------------- music player -----------------------*/
 
 .music-player.react-draggable.react-draggable-dragged {
