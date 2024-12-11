@@ -73,7 +73,6 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
   return (
     <div className="youtube-search">
       <h1>YouTube Search</h1>
-
       <div className="search-bar">
         <input
           type="text"
