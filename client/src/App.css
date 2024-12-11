@@ -946,7 +946,7 @@ button.press-play:hover {
 }
 
 .video-result img {
-  width: 30%;
+  width: 100%;
   height: auto;
   border-radius: 6px;
 }
