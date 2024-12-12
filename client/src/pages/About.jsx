@@ -14,11 +14,7 @@ export default function About () {
         Current news and activities goes here:
       </p>
 
-      <p>
-        
-      I could put a messaging system here to provide updates but since <br></br>
-      we have facebook, it's not a priority.
-      </p>
+      <p>A messaging system could be put here to provide updates.</p>
 
       <div className="separator-line"></div>
 

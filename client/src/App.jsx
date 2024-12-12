@@ -23,13 +23,13 @@ const client = new ApolloClient({
 
 // Define the initial pre-loaded playlist
 const initialPlaylist = [
-  { videoId: "B3PALzZkGAo", title: "I Miss You - Blink-182" },
-   { videoId: "YHoGXDYGkIw", title: "Levitate - Twenty One Pilots" }, 
-  { videoId: "cOnT6k8itRE", title: "Kerosene - Rachel Lorin" },
   { videoId: "jWbgYLlWJk8", title: "Static Space Lovers - Foster The People" },
  { videoId: "Tce06Ijzli8", title: "Past Lives - BØRNS" },
-  { videoId: "0w5c5j8m2f4", title: "The Less I Know The Better - Tame Impala" },
-  { videoId: "2zToEPpFEN8", title: "The Way You Used To Do - Queens of the Stone Age" },
+  { videoId: "csfirVLj4MI", title: "I'm Shakin' - Rooney" },
+  { videoId: "YHoGXDYGkIw", title: "Levitate - Twenty One Pilots" }, 
+  { videoId: "tfr-h6BaYN8", title: "Let It Happen (Soulwax Remix) - Tame Impala" },
+  { videoId: "3gCxSWYWqug", title: "Real Window - Quantum Lovers" },
+  { videoId: "r4zNUgEJpQI", title: "Là haut - L'impératrice" },
 ];
 
 function App() {
