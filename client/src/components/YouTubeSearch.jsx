@@ -64,7 +64,6 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
           username,
         },
       });
-      navigate("/Suggestions");
     } catch (err) {
       console.error("Error posting video:", err);
     }
