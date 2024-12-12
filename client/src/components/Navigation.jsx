@@ -100,13 +100,6 @@ function Navigation() {
         </Link>
       </li>
 
-                 {/* New Tab Linking to Fiction-Map - currently a Google placeholder */}
-                 <li className="nav-item">
-        <a href="https://www.facebook.com/groups/924179039723377" className="nav-link" target="_blank" rel="noopener noreferrer">
-          FB Band Group
-        </a>
-      </li>
-
     {/* ---------------------------------- log in conditional function --------------------------------  */}
 
     {showNavigation()}

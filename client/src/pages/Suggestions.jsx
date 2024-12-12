@@ -42,7 +42,7 @@ const Suggestions = () => {
       <h1>Video Suggestions</h1>
       <div>
         {videosData?.getVideos?.length > 0 ? (
-          <ul>
+          <ul className='no-bullets'>
             {videosData.getVideos.map((video) => (
               <li key={video.videoId}>
                 <h3>{video.title}</h3>
