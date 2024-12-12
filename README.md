@@ -125,6 +125,9 @@ Features:
 
 ## (8) Bugs and Further Development: 
 
++ Sometimes page buttons don't work until page refreshed, or scrolled down, may be an issue with an invisible absolutely positioned div connected to the global music player (?)
++ Song suggestion page may not show newly posted song until refreshed
+
 Optimization:
 - use react-virtualized to only render visible stuff
 - use a bundler like Webpack or Parcel to optimize build output: Enable code splitting, tree-shaking, and minification to reduce bundle size and improve load times.
