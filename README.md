@@ -56,9 +56,11 @@ This was built with React, Express, GraphQl, MongoDB, Node, Javascript, and CSS.
 
 ## (3) Visuals
 
-[Visit App deployed to Heroku](.../)
+[Visit App deployed to Heroku](https://bandpage-c5ed89244375.herokuapp.com/)
 
-![bandpage-screenshot](...)
+![bandpage-screenshot1](https://github.com/user-attachments/assets/dc123bbc-dc1e-49e7-a143-0358f60db85a)
+![bandpage-screenshot2](https://github.com/user-attachments/assets/84dc15d4-ffa9-4152-852c-25191ac5e077)
+![bandpage-screenshot3](https://github.com/user-attachments/assets/8666a2a6-ad0a-45f4-adba-1a6f31c59732)
 
 ## (4) Installation
 
