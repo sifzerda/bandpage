@@ -23,13 +23,15 @@ const client = new ApolloClient({
 
 // Define the initial pre-loaded playlist
 const initialPlaylist = [
-  { videoId: "jWbgYLlWJk8", title: "Static Space Lovers - Foster The People" },
- { videoId: "Tce06Ijzli8", title: "Past Lives - BØRNS" },
-  { videoId: "csfirVLj4MI", title: "I'm Shakin' - Rooney" },
-  { videoId: "YHoGXDYGkIw", title: "Levitate - Twenty One Pilots" }, 
-  { videoId: "tfr-h6BaYN8", title: "Let It Happen (Soulwax Remix) - Tame Impala" },
+  { videoId: "8GW6sLrK40k", title: "Resonance - HOME" },
   { videoId: "3gCxSWYWqug", title: "Real Window - Quantum Lovers" },
   { videoId: "r4zNUgEJpQI", title: "Là haut - L'impératrice" },
+  { videoId: "tfr-h6BaYN8", title: "Let It Happen (Soulwax Remix) - Tame Impala" },
+  { videoId: "F0g6216008I", title: "Don't Start Now (Kenan Remix) - Dua Lipa" },
+  { videoId: "aPin82pIThM", title: "Apex - Jaga Jazzist" },
+  { videoId: "jHKQof8WIlI", title: "Ride - Twenty One Pilots" },
+  { videoId: "3-0-vDbjdqQ", title: "Track Uno - Kaytranada" },
+  { videoId: "kOn-HdEg6AQ", title: "Beat It - Michael Jackson" },
 ];
 
 function App() {
