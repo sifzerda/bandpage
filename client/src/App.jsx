@@ -6,6 +6,8 @@ import MusicPlayer from "./components/MusicPlayer";
 import Footer from "./components/Footer";
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const httpLink = createHttpLink({ uri: "/graphql" });
 
@@ -51,6 +53,9 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <>
+
+      <ToastContainer />
+
         <header className="header">
           <Header />
           <Navigation />

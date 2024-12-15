@@ -84,6 +84,7 @@ Technologies:
 + react-youtube
 + react-draggable
 + react-player
++ react-toastify
 
 ## (6) Dev Stuff: Building:
 
@@ -93,6 +94,7 @@ Features:
 
 (1) User Authentication and Accounts
 + Sign Up, Login, Logout
++ Currently sign in only using name, since that's all my band needed
 
 (2) Current Activity Landing Page
 + Currently Unused

@@ -4,6 +4,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import { ADD_VIDEO } from "./../utils/mutations";
 import { QUERY_ME } from "./../utils/queries";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -45,16 +46,29 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
   const handleSave = (videoId, title) => {
     if (onSaveVideo) onSaveVideo(videoId, title);
     if (onAddToPlaylist) onAddToPlaylist({ videoId, title });
+  
+    toast.success(`Added "${title}" to your playlist!`, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
-
+  
   const handlePost = async (video) => {
     const username = userData?.me?.username;
-
+  
     if (!username) {
-      alert("You must be logged in to post a video.");
+      toast.error("You must be logged in to post a video.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
       return;
     }
-
+  
     try {
       await addVideo({
         variables: {
@@ -64,7 +78,9 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
           username,
         },
       });
+      toast.success(`Posted "${video.snippet.title}" successfully!`);
     } catch (err) {
+      toast.error("Error posting the video. Please try again.");
       console.error("Error posting video:", err);
     }
   };

@@ -42,14 +42,50 @@ const Suggestions = () => {
       <h1>Video Suggestions</h1>
       <div>
         {videosData?.getVideos?.length > 0 ? (
-          <ul className='no-bullets'>
+          <ul className="no-bullets">
             {videosData.getVideos.map((video) => (
-              <li key={video.videoId}>
+              <li key={video.videoId} style={{ marginBottom: "20px" }}>
                 <h3>{video.title}</h3>
                 <p>{video.comment}</p>
                 <p>Posted by: {video.username || "Anonymous"}</p>
+                
+                {/* Thumbnail with link to the video 
+                <a
+                  href={`https://www.youtube.com/watch?v=${video.videoId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src={`https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`}
+                    alt={`Thumbnail for ${video.title}`}
+                    style={{ width: "100%", maxWidth: "400px", cursor: "pointer" }}
+                  />
+                </a> 
+                */}
+
+                {/* Optional: Embed the video directly */}
+                <iframe
+                  title={video.title}
+                  width="400"
+                  height="225"
+                  src={`https://www.youtube.com/embed/${video.videoId}`}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  style={{ marginTop: "10px" }}
+                ></iframe>
+
+                {/* Delete button */}
                 <button
                   onClick={() => handleDelete(video.videoId, video.username)}
+                  style={{
+                    marginTop: "10px",
+                    backgroundColor: "red",
+                    color: "white",
+                    border: "none",
+                    padding: "5px 10px",
+                    cursor: "pointer",
+                  }}
                 >
                   Delete Post
                 </button>
