@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 
 const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [suggestions, setSuggestions] = useState([]); // State for autocomplete suggestions
   const [videos, setVideos] = useState([]);
   const [searchHistory, setSearchHistory] = useState([]);
   const [pageToken, setPageToken] = useState("");
@@ -29,6 +30,20 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
       setPrevPageToken(response.data.prevPageToken || "");
     } catch (error) {
       console.error("Error fetching YouTube data", error);
+    }
+  };
+
+  const fetchSuggestions = async (query) => {
+    if (!query) {
+      setSuggestions([]); // Clear suggestions if query is empty
+      return;
+    }
+    const API_URL = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${query}&type=video&key=${API_KEY}`;
+    try {
+      const response = await axios.get(API_URL);
+      setSuggestions(response.data.items);
+    } catch (error) {
+      console.error("Error fetching YouTube suggestions", error);
     }
   };
 
@@ -99,7 +114,10 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
         <input
           type="text"
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={(e) => {
+            setSearchQuery(e.target.value);
+            fetchSuggestions(e.target.value); // Fetch suggestions on input change
+          }}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               handleSearch();
@@ -109,6 +127,25 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
         />
         <button onClick={handleSearch}>Search</button>
       </div>
+
+      {suggestions.length > 0 && (
+        <div className="autocomplete-suggestions">
+          <ul>
+            {suggestions.map((suggestion) => (
+              <li key={suggestion.id.videoId}>
+                <button className='suggestion-btn'
+                  onClick={() => {
+                    setSearchQuery(suggestion.snippet.title);
+                    fetchVideos(suggestion.snippet.title);
+                  }}
+                >
+                  {suggestion.snippet.title}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {searchHistory.length > 0 && (
         <div className="search-history">
@@ -131,7 +168,14 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
       )}
 
       <div>
+        <br></br>
         <h3>Video Results:</h3>
+
+        <div className="pagination">
+  {prevPageToken && <button onClick={() => fetchVideos(searchQuery, prevPageToken)}>Previous</button>}
+  {nextPageToken && <button onClick={() => fetchVideos(searchQuery, nextPageToken)}>Next</button>}
+</div>
+
         {videos.map((video) => {
           const videoId = video.id?.videoId;
           if (!videoId) return null;
