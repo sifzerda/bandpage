@@ -25,7 +25,6 @@ export default function Search() {
 <div className='center-text'>
 <p className='yellow-text'>The YouTube API has a daily limit, so if the search doesn't work, the limit has probably been exceeded. Try again tomorrow.</p>
 </div>
-
       </div>
 
       <div className="separator-line"></div>
