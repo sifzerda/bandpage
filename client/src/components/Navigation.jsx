@@ -9,10 +9,10 @@ function Navigation() {
   const currentPage = useLocation().pathname;
   const isLoggedIn = Auth.loggedIn();
 
-    // Fetch user data if logged in
-    const { data, loading, error } = useQuery(QUERY_ME, {
-      skip: !isLoggedIn,  // Skip the query if not logged in
-    });
+  // Fetch user data if logged in
+  const { data, loading, error } = useQuery(QUERY_ME, {
+    skip: !isLoggedIn,  // Skip the query if not logged in
+  });
 
   // login condition //
 
@@ -59,52 +59,52 @@ function Navigation() {
 
   // end login condition function-----------------------------------------------//
 
-// ------------------------------- MAIN NAVIGATION LINKS ------------------//
+  // ------------------------------- MAIN NAVIGATION LINKS ------------------//
 
   return (
     <ul className="nav nav-tabs">
       <li className="nav-item">
 
-        <Link
-          to="/"
-          className={currentPage === '/' ? 'nav-link active' : 'nav-link'}
-        >
+        <Link to="/" className={currentPage === '/' ? 'nav-link active' : 'nav-link'}>
           Current Activity
         </Link>
       </li>
 
       <li className="nav-item">
-        <Link
-          to="/Calender"
-          className={currentPage === '/Calender' ? 'nav-link active' : 'nav-link'}
-        >
+        <Link to="/Calender" className={currentPage === '/Calender' ? 'nav-link active' : 'nav-link'}>
           Calender
         </Link>
       </li>
 
       <li className="nav-item">
-        <Link
-          to="/Search"
-          className={currentPage === '/Search' ? 'nav-link active' : 'nav-link'}
-        >
+        <Link to="/Search" className={currentPage === '/Search' ? 'nav-link active' : 'nav-link'}>
           Search
         </Link>
       </li>
 
       <li className="nav-item">
-        <Link
-          to="/Suggestions"
-          className={currentPage === '/Suggestions' ? 'nav-link active' : 'nav-link'}
-        >
+        <Link to="/Suggestions" className={currentPage === '/Suggestions' ? 'nav-link active' : 'nav-link'}>
           Song Suggestions
         </Link>
       </li>
 
-    {/* ---------------------------------- log in conditional function --------------------------------  */}
+      {/* ------------------------- link to band's external website -----------------------  */}
 
-    {showNavigation()}
+      <li className="nav-item">
+        <a href="https://example.com" // Replace with your external URL
+          className={currentPage === '/Platform' ? 'nav-link active' : 'nav-link'}
+          target="_blank" // Opens the link in a new tab
+          rel="noopener noreferrer" // Adds security for external links
+        >
+          Your Platform
+        </a>
+      </li>
 
-    {/* ----------------------------------end --------------------------------  */}
+      {/* ---------------------------------- log in conditional function --------------------------------  */}
+
+      {showNavigation()}
+
+      {/* ----------------------------------end --------------------------------  */}
 
     </ul>
   );

@@ -37,7 +37,7 @@ function Login(props) {
       <h2 className='login-title'>Login</h2>
       <form onSubmit={handleFormSubmit}>
         <div className="form-group-z">
-          <label htmlFor="username" className="label-z">Username:</label>
+          <label htmlFor="username" className="label-z">Enter your name:</label>
           <input
             className="input-z"
             placeholder="your name"
