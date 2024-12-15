@@ -757,7 +757,7 @@ font-size: 18px;
   position: fixed; /* Ensures the music player stays in place */
   bottom: 0; /* Anchors the player to the bottom of the viewport */
   left: 0;
-  right: 0;
+
   z-index: 1000; /* Ensures it appears on top of other content */
   padding: 10px; /* Optional: Add padding for better aesthetics */
 }
