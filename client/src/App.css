@@ -1201,3 +1201,22 @@ button.suggestion-btn {
   cursor: not-allowed;
   color: #888;
 }
+
+.center-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;   /* Full width of the viewport */
+}
+
+.center-text p {
+  text-align: center; /* Centers the text within the paragraph */
+  margin: 0 auto;     /* Ensures proper centering */
+  max-width: 500px;   /* Makes the container narrower */
+  font-size: 1rem;    /* Adjusts the font size for readability */
+}
+
+.yellow-text {
+  color: #e5ff00;
+  background: black;
+}
