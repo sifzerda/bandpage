@@ -15,7 +15,7 @@ import { SET_AVAILABILITY } from "../utils/mutations";
 function Cal() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [availabilityStates, setAvailabilityStates] = useState({});
-  const names = ["Troy", "Megan", "Brad", "Harold", "Jonathan"];
+  const names = ["T.D", "M.M", "B.W", "H.B", "J.T.H"];
   const currentDate = new Date();
   const [setAvailability] = useMutation(SET_AVAILABILITY, {
     refetchQueries: [GET_AVAILABILITIES],
