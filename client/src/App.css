@@ -74,8 +74,6 @@ header {
   text-align: center;
 }
 
-
-
 /* ------------------- nav tabs -----------------------*/
 
 .nav-tabs {
@@ -421,6 +419,36 @@ div.color-box {
   opacity: 0.7;
 }
 
+.comment-input {
+  width: 100%; /* Default width */
+  min-height: 40px; /* Minimum height for better UX */
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  resize: none; /* Disable native resizing */
+  overflow: auto;
+}
+
+.comment-input.resizable {
+  resize: both; /* Enable both horizontal and vertical resizing */
+}
+
+.confirmation-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+.confirmation-dialog button {
+  margin: 0.5rem;
+}
+
 /* ---------------------- suggestions ------------------------*/
 
 .no-bullets {
@@ -428,6 +456,106 @@ div.color-box {
   padding: 0;
   margin: 0;
 }
+
+/* Container styling */
+.suggestions-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  color: #333;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Title styling */
+.title {
+  text-align: center;
+  color: #222;
+  margin-bottom: 20px;
+}
+
+/* Loading and error messages */
+.loading,
+.error {
+  text-align: center;
+  font-size: 1.2em;
+  color: #555;
+}
+
+/* Video list styling */
+.video-list {
+  list-style: none;
+  padding: 0;
+}
+
+.video-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease;
+}
+
+.video-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Video details */
+.video-title {
+  font-size: 1.2em;
+  margin-bottom: 8px;
+  color: #444;
+}
+
+.video-comment {
+  font-size: 1em;
+  margin-bottom: 8px;
+  color: #666;
+}
+
+.video-user {
+  font-size: 0.9em;
+  color: #888;
+  margin-bottom: 12px;
+}
+
+/* Embedded video frame */
+.video-frame {
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+/* Delete button */
+.delete-button {
+  background-color: #e74c3c;
+  color: #fff;
+  border: 3px solid transparent; /* Initial transparent border */
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 0.9em;
+  cursor: pointer;
+  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+  box-sizing: border-box; /* Ensures border is included in total size */
+}
+
+.delete-button:hover {
+  background-color: #ffffff;
+  border-color: #ff4530; /* Change border color instead of size */
+  color: #ff4530;
+}
+
+/* No videos message */
+.no-videos {
+  text-align: center;
+  font-size: 1.1em;
+  color: #555;
+}
+
 
 /* --------------------- music player -----------------------*/
 

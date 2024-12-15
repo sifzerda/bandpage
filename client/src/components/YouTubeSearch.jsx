@@ -13,6 +13,7 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
   const [pageToken, setPageToken] = useState("");
   const [nextPageToken, setNextPageToken] = useState("");
   const [prevPageToken, setPrevPageToken] = useState("");
+  const [showConfirmation, setShowConfirmation] = useState(false); // Show confirmation dialog
   const navigate = useNavigate();
 
   const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
@@ -46,7 +47,7 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
   const handleSave = (videoId, title) => {
     if (onSaveVideo) onSaveVideo(videoId, title);
     if (onAddToPlaylist) onAddToPlaylist({ videoId, title });
-  
+
     toast.success(`Added "${title}" to your playlist!`, {
       position: "top-right",
       autoClose: 3000,
@@ -57,10 +58,10 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
       progress: undefined,
     });
   };
-  
+
   const handlePost = async (video) => {
     const username = userData?.me?.username;
-  
+
     if (!username) {
       toast.error("You must be logged in to post a video.", {
         position: "top-right",
@@ -68,17 +69,23 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
       });
       return;
     }
-  
+
+    if (!video.comment.trim()) {
+      setShowConfirmation(true); // Show confirmation dialog
+      return;
+    }
+
     try {
       await addVideo({
         variables: {
           videoId: video.id.videoId,
           title: video.snippet.title,
-          comment: "Posted from YouTube search",
+          comment: video.comment || "Posted from YouTube search", // Use custom comment or default
           username,
         },
       });
       toast.success(`Posted "${video.snippet.title}" successfully!`);
+      video.comment = ""; // Clear the comment after posting
     } catch (err) {
       toast.error("Error posting the video. Please try again.");
       console.error("Error posting video:", err);
@@ -131,22 +138,40 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
 
           return (
             <div key={videoId} className="video-result">
-              
               <a href={`https://www.youtube.com/watch?v=${videoId}`} target="_blank" rel="noopener noreferrer">
-              <img src={video.snippet.thumbnails.medium.url} alt={video.snippet.title} width="160" height="90" />
+                <img src={video.snippet.thumbnails.medium.url} alt={video.snippet.title} width="160" height="90" />
               </a>
 
               <div>
                 <h4>{video.snippet.title}</h4>
-                <button onClick={() => handleSave(videoId, video.snippet.title)}>
-                  Add to Playlist
-                </button>
+                <input
+                  type="text"
+                  value={video.comment}
+                  onChange={(e) => (video.comment = e.target.value)} // Update the comment for this specific video
+                  placeholder="Add a custom comment (optional)"
+                  className="comment-input"
+                />
+                <button onClick={() => handleSave(videoId, video.snippet.title)}>Add to Playlist</button>
                 <button onClick={() => handlePost(video)}>Post</button>
               </div>
             </div>
           );
         })}
       </div>
+
+      {showConfirmation && (
+        <div className="confirmation-dialog">
+          <p>Do you want to leave a comment?</p>
+          <button
+            onClick={() => {
+              setShowConfirmation(false);
+            }}
+          >
+            No
+          </button>
+          <button onClick={() => handlePost(video)}>Yes</button>
+        </div>
+      )}
     </div>
   );
 };
