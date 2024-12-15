@@ -115,12 +115,11 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
 
           return (
             <div key={videoId} className="video-result">
-              <img
-                src={video.snippet.thumbnails.medium.url}
-                alt={video.snippet.title}
-                width="160"
-                height="90"
-              />
+              
+              <a href={`https://www.youtube.com/watch?v=${videoId}`} target="_blank" rel="noopener noreferrer">
+              <img src={video.snippet.thumbnails.medium.url} alt={video.snippet.title} width="160" height="90" />
+              </a>
+
               <div>
                 <h4>{video.snippet.title}</h4>
                 <button onClick={() => handleSave(videoId, video.snippet.title)}>
