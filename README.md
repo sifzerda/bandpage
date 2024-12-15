@@ -79,12 +79,13 @@ Technologies:
 + graphql
 + mongodb
 + axios
-~~+ socket.io~~ : scrapped in favour of mongodb and graphql
++ socket.io : A websocket server has been left to run, but is currently unused. Socket multi-user live updating was scrapped in favour of mongodb and graphql.
 + react-router
 + react-youtube
 + react-draggable
 + react-player
 + react-toastify
++ YouTube Data API v3: has 10,000 unit daily limit
 
 ## (6) Dev Stuff: Building:
 
