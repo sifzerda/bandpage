@@ -23,7 +23,7 @@ export default function Search() {
         </div>
 
 <div className='center-text'>
-<p className='yellow-text'>The YouTube API has a daily limit, so if the search doesn't work, the limit has probably been exceeded. Try again tomorrow.</p>
+<p className='yellow-text'>The YouTube API has a daily limit, so if the search doesn't work, the limit has probably been exceeded for the day.</p>
 </div>
       </div>
 
