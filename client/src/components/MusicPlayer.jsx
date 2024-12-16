@@ -193,8 +193,6 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
 
   const progress = duration ? (currentTime / duration) * 100 : 0;
 
-
-
   // RENDER ---------------------------------------------------//
 
   return (

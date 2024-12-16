@@ -564,7 +564,7 @@ div.color-box {
 /* --------------------- music player -----------------------*/
 
 .music-player.react-draggable.react-draggable-dragged {
-  background-color:  #1d224e;
+  background-color: black;
 }
 
 .music-player {
@@ -581,16 +581,12 @@ div.color-box {
   cursor: grab;
 }
 
-.music-player-body {
-  background-color:  #1d224e;
-}
-
 .title-bar {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 40px;
-  background-color: #444;
+  background-color: #000000;
   color: #fff;
   border: 2px solid #51ff00;
 }
@@ -703,10 +699,13 @@ font-size: 18px;
 
 .progress-time {
   position: absolute;
-  top: 10px;
+  top: -32px; /* Adjust to place it above the bar */
   right: 0;
-  font-size: 12px;
-  color: #333;
+  text-align: center;
+  padding: 2px 5px;
+  font-size: 18px;
+  color: var(--blue);
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
 .music-player:active {
@@ -795,6 +794,7 @@ font-size: 18px;
 
 .playlist-container {
   position: absolute;
+  list-style: none;
   top: 50px; /* Below the button */
   left: 0;
   right: 0;
@@ -802,9 +802,11 @@ font-size: 18px;
   width: auto; /* Adjust width based on content */
   max-height: 300px; /* You can adjust this to your desired max height */
   overflow-y: auto; /* Enable vertical scrolling when content exceeds max height */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
   background-color: #222;
   color: white;
-  padding: 10px;
+  padding: 0px;
+  margin: 0;
   border: 1px solid #555;
   box-sizing: border-box; /* Ensure padding doesn't affect layout */
   z-index: 999; /* Optional: to ensure the playlist is above other content */
@@ -822,14 +824,28 @@ font-size: 18px;
 }
 
 .playlist-container li {
-  padding: 5px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background 0.3s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  margin-bottom: 4px;
+  font-size: 16px;
+  font-weight: normal;
+  background-color: #2a2a2a;
+  color: #fff;
+  font-size: 18px;
+  border: 1px solid #444;
+  border-radius: 4px;
+  cursor: grab;
+  transition: background-color 0.3s, transform 0.2s;
+  background: linear-gradient(90deg, #4a90e2, #50e3c2); /* gradient background */
 }
 
-.playlist-container li:hover {
-  background: #444;
+.playlist-container li[style*="position: absolute;"] {
+  /* Highlight the dragged item */
+  z-index: 10;
+  background-color: #444;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.5);
 }
 
 .playlist-container li[style*="bold"] {
@@ -837,9 +853,23 @@ font-size: 18px;
   color: var(--volt);
 }
 
-.playlist-toggle {
-  background-color: #222;
+.playlist-container li:hover {
+  background: linear-gradient(90deg,  #bbff00, #42eb00); /* New gradient hover color */
+  transform: scale(1.02); /* Slightly enlarge on hover */
+  color: black;
+  text-transform: uppercase;
+}
+
+.playlist-container li:active {
+  cursor: grabbing;
+  background: linear-gradient(45deg, #ff3859, #5a3dff); /* Darker gradient while dragging */
   color: white;
+}
+
+.playlist-toggle {
+  background-color: var(--flame2);
+  color: rgb(0, 0, 0);
+  text-transform: uppercase;
   border: none;
   padding: 5px 10px;
   cursor: pointer;
@@ -877,6 +907,44 @@ font-size: 18px;
 
 .playlist li:hover {
   background-color: #555;
+}
+
+.playlist-container li span {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.playlist-container li button {
+  background: none;
+  border: none;
+  color: #ff3b3b;
+  cursor: pointer;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+.playlist-container li button:hover {
+  color: #ff3b3b;
+}
+
+.playlist-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.playlist-container::-webkit-scrollbar-track {
+  background: #1f1f1f;
+  border-radius: 8px;
+}
+
+.playlist-container::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 8px;
+}
+
+.playlist-container::-webkit-scrollbar-thumb:hover {
+  background: #777;
 }
 
 .progress-bar-container {
