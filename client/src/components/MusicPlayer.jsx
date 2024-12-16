@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Draggable from "react-draggable";
 import YouTube from "react-youtube";
+import { DragDropContext, Droppable, Draggable as DnDItem } from "react-beautiful-dnd";
 import { FaVolumeUp, FaVolumeMute, FaVolumeOff } from "react-icons/fa";
 
 const MusicPlayer = ({ playlist, setPlaylist }) => {
@@ -79,6 +80,21 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
       setCurrentIndex((prevIndex) => (prevIndex > indexToDelete ? prevIndex - 1 : prevIndex));
       return newPlaylist;
     });
+  };
+
+  const handleDragEnd = (result) => {
+    if (!result.destination) return;
+
+    const items = Array.from(playlist);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    setPlaylist(items);
+
+    // Adjust currentIndex if needed
+    if (result.source.index === currentIndex) {
+      setCurrentIndex(result.destination.index);
+    }
   };
 
   const formatTime = (seconds) => {
@@ -177,6 +193,8 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
 
   const progress = duration ? (currentTime / duration) * 100 : 0;
 
+
+
   // RENDER ---------------------------------------------------//
 
   return (
@@ -190,6 +208,7 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
             >
               {showPlaylist ? "Hide Playlist" : "Playlist"}
             </button>
+{/*-------------------------------------------------------------------------------*/ }
           </div>
           <div className="music-player-body">
             {currentVideo ? (
@@ -259,34 +278,48 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
             )}
           </div>
           {showPlaylist && (
-            <div className="playlist-container">
-              <ul>
-                {playlist.map((video, index) => (
-                  <li
-                    key={video.videoId}
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      fontWeight: index === currentIndex ? "bold" : "normal",
-                    }}
+            <DragDropContext onDragEnd={handleDragEnd}>
+              <Droppable droppableId="playlist">
+                {(provided) => (
+                  <ul
+                    className="playlist-container"
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
                   >
-                    <span onClick={() => setCurrentIndex(index)}>
-                      {video.title}
-                    </span>
-                    <button
-                      className="delete-button"
-                      onClick={() => handleDelete(index)}
-                    >
-                      🗑️
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
+                    {playlist.map((video, index) => (
+                      <DnDItem key={video.videoId} draggableId={video.videoId} index={index}>
+                        {(provided) => (
+                          <li
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            style={{
+                              ...provided.draggableProps.style,
+                              display: "flex",
+                              justifyContent: "space-between",
+                              alignItems: "center",
+                              fontWeight: index === currentIndex ? "bold" : "normal",
+                              backgroundColor: "#f0f0f0",
+                              padding: "8px",
+                              marginBottom: "4px",
+                              borderRadius: "4px",
+                            }}
+                          >
+                            <span onClick={() => setCurrentIndex(index)}>{video.title}</span>
+                            <button onClick={() => handleDelete(index)}>🗑️</button>
+                          </li>
+                        )}
+                      </DnDItem>
+                    ))}
+                    {provided.placeholder}
+                  </ul>
+                )}
+              </Droppable>
+            </DragDropContext>
           )}
         </div>
       </Draggable>
+
     </div>
   );
 };
