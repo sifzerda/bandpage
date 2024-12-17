@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import { ADD_VIDEO } from "./../utils/mutations";
@@ -15,11 +15,26 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
   const [nextPageToken, setNextPageToken] = useState("");
   const [prevPageToken, setPrevPageToken] = useState("");
   const [showConfirmation, setShowConfirmation] = useState(false); // Show confirmation dialog
+  
+  const suggestionsRef = useRef(null); // Ref for suggestion list
   const navigate = useNavigate();
 
   const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
   const { data: userData } = useQuery(QUERY_ME);
   const [addVideo] = useMutation(ADD_VIDEO);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (suggestionsRef.current && !suggestionsRef.current.contains(event.target)) {
+        setSuggestions([]); // Hide suggestions if click is outside
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const fetchVideos = async (query, token = "") => {
     const API_URL = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${query}&pageToken=${token}&key=${API_KEY}`;
@@ -129,7 +144,7 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
       </div>
 
       {suggestions.length > 0 && (
-        <div className="autocomplete-suggestions">
+        <div className="autocomplete-suggestions" ref={suggestionsRef}>
           <ul>
             {suggestions.map((suggestion) => (
               <li key={suggestion.id.videoId}>
