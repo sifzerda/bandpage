@@ -570,6 +570,15 @@ div.color-box {
   color: #555;
 }
 
+.no-results {
+  color: #000000;
+  font-size: 1.2rem;
+  margin-top: 20px;
+  padding: 10px;
+  text-align: center;
+  border: 3px dashed #ff4530; 
+}
+
 
 /* --------------------- music player -----------------------*/
 
@@ -1297,14 +1306,26 @@ button.suggestion-btn {
 .yellow-text {
   color: #e5ff00;
   background: black;
+  border: 2px dashed #e5ff00;
+  padding: 5px;
 }
 
+.spinner {
+  text-align: center;
+  margin: 20px 0;
+}
+.spinner p {
+  font-size: 1.2rem;
+  color: #555;
+}
 
+.spinner img {
+  width: 120px; /* Adjust width */
+  height: 120px; /* Adjust height */
+  display: inline-block;
+}
 
-
-
-
-
+/* ---------------------------- MEDIA QUERIES ------------------------*/
 
 /* Tablet Size (768px and below) */
 @media (max-width: 768px) {

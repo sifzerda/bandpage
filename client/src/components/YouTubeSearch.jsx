@@ -5,6 +5,7 @@ import { ADD_VIDEO } from "./../utils/mutations";
 import { QUERY_ME } from "./../utils/queries";
 import axios from "axios";
 import { toast } from "react-toastify";
+import spinner from "../assets/VZvw.gif";
 
 const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -15,7 +16,8 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
   const [nextPageToken, setNextPageToken] = useState("");
   const [prevPageToken, setPrevPageToken] = useState("");
   const [showConfirmation, setShowConfirmation] = useState(false); // Show confirmation dialog
-  
+  const [loading, setLoading] = useState(false); // loading state
+
   const suggestionsRef = useRef(null); // Ref for suggestion list
   const navigate = useNavigate();
 
@@ -38,6 +40,7 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
 
   const fetchVideos = async (query, token = "") => {
     const API_URL = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${query}&pageToken=${token}&key=${API_KEY}`;
+    setLoading(true); // Start loading
     try {
       const response = await axios.get(API_URL);
       setVideos(response.data.items);
@@ -45,6 +48,8 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
       setPrevPageToken(response.data.prevPageToken || "");
     } catch (error) {
       console.error("Error fetching YouTube data", error);
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
@@ -190,6 +195,17 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
   {prevPageToken && <button onClick={() => fetchVideos(searchQuery, prevPageToken)}>Previous</button>}
   {nextPageToken && <button onClick={() => fetchVideos(searchQuery, nextPageToken)}>Next</button>}
 </div>
+
+{loading && (
+        <div className="spinner">
+          <p>Loading...</p>
+          <img src={spinner} alt="Loading..." />
+        </div>
+      )}
+
+{videos.length === 0 && (
+    <p className="no-results">No results found. Try searching again.</p>
+  )}
 
         {videos.map((video) => {
           const videoId = video.id?.videoId;
