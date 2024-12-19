@@ -252,7 +252,7 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
             </button>
 
             <button className="save-playlist-button" onClick={handleSaveModal}>
-              <FaSave /> Save P
+              <FaSave /> Save Playlist
             </button>
 
             <Modal
@@ -269,10 +269,16 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
                 value={playlistName}
                 onChange={(e) => setPlaylistName(e.target.value)}
               />
-              <button onClick={handleSavePlaylist} disabled={!playlistName}>
+              <button className='save-playlist' onClick={handleSavePlaylist} disabled={!playlistName}>
                 Save
               </button>
-            </Modal>
+              <button
+              className="close-btn"
+              onClick={() => setIsModalOpen(false)}
+            >
+              X
+            </button>
+          </Modal>
 
 
 

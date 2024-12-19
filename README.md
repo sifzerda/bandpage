@@ -85,6 +85,7 @@ Technologies:
 + react-draggable
 + react-player
 + react-toastify
++ react-modal
 + YouTube Data API v3: has 10,000 unit daily limit
 
 ## (6) Dev Stuff: Building:
@@ -114,6 +115,7 @@ Features:
 + Music Player is draggable
 + Progress bar is draggable to skip forward or back in song
 + Saved songs kept in playlist 
++ Logged on user can save current playlist to their user file and view saved playlists on profile page
 
 (5) Search:
 + Embedded YouTube search using YouTube Data API v3
@@ -144,11 +146,12 @@ Optimization:
 [x] Add functionality to music player: run through playlist, enhanced GUI
 [x] Fix up global GUI, styling
 [x] Post Song suggestions from YT search to song suggestion page via retrieving video id
-[ ] Enhance song suggestion page GUI to look better
-[ ] Save user playlists to MongDB, retrievable by graphQL
+[x] Enhance song suggestion page GUI to look better
+[x] Save user playlists to MongDB, retrievable by graphQL
 [ ] Add Profile page functions, including viewing:
     [ ] User's song posts
-    [ ] User's created playlists
+    [x] User's created playlists
+    [ ] Load saved playlists back into music player
 
 ## (10) Support
 

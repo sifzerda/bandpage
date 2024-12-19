@@ -18,7 +18,7 @@
   --bootstrap-lighter: #364459;
   --bootstrap-lightest: #96a4b3;
   --cyan: #01fff7;
-  --light-red: #f02652;
+  --light-red: #ff3859;
   --gold: #ffc107;
   --creepy-green: #9cffd9;
   --creepy-green2:  #cefff4;
@@ -892,10 +892,23 @@ font-size: 18px;
   border: none;
   padding: 5px 10px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.playlist-toggle:hover {
-  background-color: #555;
+.save-playlist-button {
+  background-color: var(--light-red);
+  color: rgb(0, 0, 0);
+  text-transform: uppercase;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.playlist-toggle:hover,
+.save-playlist-button:hover {
+  background-color: #ffffff;
+  color: black;
 }
 
 .playlist-container.visible {
@@ -987,7 +1000,7 @@ button.press-play:hover {
   color: rgb(0, 0, 0);    
 }
 
-/* save playlist modal*/
+/* save playlist modal ----------------------------*/
 
 /* Overlay styling */
 .custom-overlay {
@@ -1015,6 +1028,7 @@ button.press-play:hover {
   max-width: 500px;
   text-align: center; /* Center content */
   z-index: 1100; /* Above overlay */
+  border: 1px solid #c8ff00;
 }
 
 /* Input field */
@@ -1028,10 +1042,11 @@ button.press-play:hover {
 }
 
 /* Save button */
-.custom-modal button {
-  background-color: #4caf50; /* Green */
+.save-playlist {
+  background-color: #00bb06; /* Green */
   color: white;
   padding: 10px 20px;
+  margin-top: 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -1040,28 +1055,27 @@ button.press-play:hover {
 }
 
 /* Save button hover effect */
-.custom-modal button:hover {
-  background-color: #45a049; /* Darker green */
+.save-playlist:hover {
+  background-color: #c8ff00;  
+  color: black;
 }
 
-/* Close button */
-.close-modal-btn {
-  background-color: #ff4d4d; /* Red */
-  color: white;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 14px;
+.close-btn {
   position: absolute;
   top: 10px;
   right: 10px;
+  background-color: #ff4444;
+  color: white;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
   transition: background-color 0.3s;
 }
 
-/* Close button hover effect */
-.close-modal-btn:hover {
-  background-color: #ff1a1a; /* Darker red */
+.close-btn:hover {
+  background-color: #fc7575;
 }
 
 /* --------------------- music player: current song CSS -----------------------*/
