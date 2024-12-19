@@ -2,9 +2,17 @@ import React, { useState, useEffect, useRef } from "react";
 import Draggable from "react-draggable";
 import YouTube from "react-youtube";
 import { DragDropContext, Droppable, Draggable as DnDItem } from "react-beautiful-dnd";
-import { FaVolumeUp, FaVolumeMute, FaVolumeOff } from "react-icons/fa";
+import { FaVolumeUp, FaVolumeMute, FaVolumeOff, FaSave } from "react-icons/fa";
+import { useQuery, useMutation } from "@apollo/client";
+import { ADD_PLAYLIST } from "./../utils/mutations";
+import { QUERY_ME } from "./../utils/queries";
 
 const MusicPlayer = ({ playlist, setPlaylist }) => {
+  const { data: userData, loading: userLoading, error: userError } = useQuery(QUERY_ME);
+  console.log('userData:', userData);
+
+  const [addPlaylist, { loading, error }] = useMutation(ADD_PLAYLIST);
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showPlaylist, setShowPlaylist] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -164,6 +172,35 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
     }
   };
 
+  const handleSavePlaylist = async () => {
+    if (userData && userData.me) {
+      const { _id: userId, username } = userData.me; // Correctly extract userId and username
+
+      console.log('User ID:', userId);
+      console.log('Username:', username);
+      console.log('Playlist:', playlist);
+
+      try {
+        await addPlaylist({
+          variables: {
+            userId: userId, // Correct userId provided
+            name: 'My Saved Playlist', // Define the playlist name
+            songs: playlist.map((song) => ({
+              videoId: song.videoId,
+              title: song.title,
+            })),
+          },
+        });
+        alert("Playlist saved successfully!");
+      } catch (err) {
+        console.error("Failed to save playlist", err);
+        alert("Failed to save playlist.");
+      }
+    } else {
+      alert("Please log in to save your playlist.");
+    }
+  };
+
   useEffect(() => {
     const interval = setInterval(() => {
       if (playerRef.current && isPlaying) {
@@ -193,6 +230,9 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
 
   const progress = duration ? (currentTime / duration) * 100 : 0;
 
+  if (userLoading) return <p>Loading user information...</p>;
+  if (userError) return <p>Error loading user information: {userError.message}</p>;
+  
   // RENDER ---------------------------------------------------//
 
   return (
@@ -205,6 +245,13 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
               onClick={() => setShowPlaylist((prev) => !prev)}
             >
               {showPlaylist ? "Hide Playlist" : "Playlist"}
+            </button>
+
+            <button
+              className="save-playlist-button"
+              onClick={handleSavePlaylist}
+            >
+              <FaSave /> Save P
             </button>
 {/*-------------------------------------------------------------------------------*/ }
           </div>
