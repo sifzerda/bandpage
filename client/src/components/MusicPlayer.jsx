@@ -6,6 +6,7 @@ import { FaVolumeUp, FaVolumeMute, FaVolumeOff, FaSave } from "react-icons/fa";
 import { useQuery, useMutation } from "@apollo/client";
 import { ADD_PLAYLIST } from "./../utils/mutations";
 import { QUERY_ME } from "./../utils/queries";
+import Modal from "react-modal"; // Import react-modal
 
 const MusicPlayer = ({ playlist, setPlaylist }) => {
   const { data: userData, loading: userLoading, error: userError } = useQuery(QUERY_ME);
@@ -21,6 +22,9 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
+  const [playlistName, setPlaylistName] = useState(""); // State to capture the playlist name
 
   const playerRef = useRef(null);
 
@@ -172,19 +176,19 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
     }
   };
 
-  const handleSavePlaylist = async () => {
-    if (userData && userData.me) {
-      const { _id: userId, username } = userData.me; // Correctly extract userId and username
+  const handleSaveModal = () => {
+    setIsModalOpen(true); // Open modal when save button is clicked
+  };
 
-      console.log('User ID:', userId);
-      console.log('Username:', username);
-      console.log('Playlist:', playlist);
+  const handleSavePlaylist = async () => {
+    if (userData && userData.me && playlistName) {
+      const { _id: userId } = userData.me; // Correctly extract userId and username
 
       try {
         await addPlaylist({
           variables: {
             userId: userId, // Correct userId provided
-            name: 'My Saved Playlist', // Define the playlist name
+            name: playlistName, // Use the provided playlist name
             songs: playlist.map((song) => ({
               videoId: song.videoId,
               title: song.title,
@@ -247,12 +251,31 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
               {showPlaylist ? "Hide Playlist" : "Playlist"}
             </button>
 
-            <button
-              className="save-playlist-button"
-              onClick={handleSavePlaylist}
-            >
+            <button className="save-playlist-button" onClick={handleSaveModal}>
               <FaSave /> Save P
             </button>
+
+            <Modal
+              isOpen={isModalOpen}
+              onRequestClose={() => setIsModalOpen(false)}
+              contentLabel="Save Playlist Modal"
+              className="custom-modal"
+              overlayClassName="custom-overlay"
+            >
+              <h2>Save Playlist</h2>
+              <input
+                type="text"
+                placeholder="Enter playlist name"
+                value={playlistName}
+                onChange={(e) => setPlaylistName(e.target.value)}
+              />
+              <button onClick={handleSavePlaylist} disabled={!playlistName}>
+                Save
+              </button>
+            </Modal>
+
+
+
 {/*-------------------------------------------------------------------------------*/ }
           </div>
           <div className="music-player-body">

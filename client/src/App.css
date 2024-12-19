@@ -987,6 +987,83 @@ button.press-play:hover {
   color: rgb(0, 0, 0);    
 }
 
+/* save playlist modal*/
+
+/* Overlay styling */
+.custom-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75); /* Dim background */
+  z-index: 1000; /* Ensure it is above other content */
+}
+
+/* Modal content styling */
+.custom-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #222; /* Dark background */
+  color: #fff; /* White text */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Drop shadow */
+  width: 90%;
+  max-width: 500px;
+  text-align: center; /* Center content */
+  z-index: 1100; /* Above overlay */
+}
+
+/* Input field */
+.custom-modal input[type="text"] {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* Save button */
+.custom-modal button {
+  background-color: #4caf50; /* Green */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+/* Save button hover effect */
+.custom-modal button:hover {
+  background-color: #45a049; /* Darker green */
+}
+
+/* Close button */
+.close-modal-btn {
+  background-color: #ff4d4d; /* Red */
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transition: background-color 0.3s;
+}
+
+/* Close button hover effect */
+.close-modal-btn:hover {
+  background-color: #ff1a1a; /* Darker red */
+}
+
 /* --------------------- music player: current song CSS -----------------------*/
 
 @keyframes rainbow {
