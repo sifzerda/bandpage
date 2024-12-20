@@ -25,12 +25,12 @@ type Video {
   updatedAt: String
 }
 
-  type Availability {
-    id: ID!
-    date: String!
-    user: String!
-    status: String!
-  }
+type Availability {
+  id: ID!
+  date: String!
+  user: String!
+  status: String!
+}
 
 type Auth {
   token: ID!
@@ -53,12 +53,22 @@ type Mutation {
   login(username: String!): Auth
   removeUser: User
   removeVideo(videoId: String!): Video
-  addPlaylist(userId: ID!, name: String!): Playlist
+  
+  # Add the songs argument to the addPlaylist mutation
+  addPlaylist(userId: ID!, name: String!, songs: [SongInput]!): Playlist
+
+  # Add SongInput type for adding songs
   addSongToPlaylist(userId: ID!, playlistName: String!, videoId: String!, title: String!): Playlist
   removeSongFromPlaylist(userId: ID!, playlistName: String!, videoId: String!): Playlist
   removePlaylist(userId: ID!, playlistName: String!): Playlist
   setAvailability(date: String!, user: String!, status: String!): Availability
-  }
+}
+
+# Input type for adding songs to a playlist
+input SongInput {
+  videoId: String!
+  title: String!
+}
 `;
 
 module.exports = typeDefs;

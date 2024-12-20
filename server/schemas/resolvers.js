@@ -35,8 +35,6 @@ const resolvers = {
       return user.playlists;
     },
 
-
-
     getAvailabilities: async (_, { date }) => {
       try {
         return await Availability.find({ date });
@@ -45,9 +43,6 @@ const resolvers = {
       }
     },
   },
-
-
-
 
   Mutation: {
     // Add a new user
@@ -121,17 +116,29 @@ const resolvers = {
     },
 
     // Add a new playlist for the user
-    addPlaylist: async (parent, { name }, context) => {
+    addPlaylist: async (parent, { userId, name, songs }, context) => {
       if (context.user) {
-        const user = await User.findById(context.user._id);
+        const user = await User.findById(userId);
         if (!user) {
           throw new Error('User not found');
         }
-        const newPlaylist = { name, songs: [] };
+    
+        // Map the songs to ensure each song has a videoId and title
+        const newPlaylist = { 
+          name, 
+          songs: songs.map(song => ({
+            videoId: song.videoId,
+            title: song.title
+          }))
+        };
+    
+        // Add the new playlist to the user's playlists array
         user.playlists.push(newPlaylist);
         await user.save();
+    
         return newPlaylist;
       }
+    
       throw new AuthenticationError('You must be logged in to add a playlist');
     },
 
@@ -184,8 +191,6 @@ const resolvers = {
       }
       throw new AuthenticationError('You must be logged in to remove a playlist');
     },
-
-
 
  setAvailability: async (_, { date, user, status }) => {
       try {

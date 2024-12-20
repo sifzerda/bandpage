@@ -183,16 +183,17 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
   const handleSavePlaylist = async () => {
     if (userData && userData.me && playlistName) {
       const { _id: userId } = userData.me; // Correctly extract userId and username
-
+      // Prepare the songs array with videoId and title
+      const songs = playlist.map(song => ({
+        videoId: song.videoId,
+        title: song.title,
+      }));
       try {
         await addPlaylist({
           variables: {
             userId: userId, // Correct userId provided
             name: playlistName, // Use the provided playlist name
-            songs: playlist.map((song) => ({
-              videoId: song.videoId,
-              title: song.title,
-            })),
+            songs: songs, // Pass the songs array
           },
         });
         alert("Playlist saved successfully!");
@@ -235,7 +236,7 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
   const progress = duration ? (currentTime / duration) * 100 : 0;
 
   if (userLoading) return <p>Loading user information...</p>;
-  if (userError) return <p>Error loading user information: {userError.message}</p>;
+  //if (userError) return <p>Error loading user information: {userError.message}</p>;
   
   // RENDER ---------------------------------------------------//
 

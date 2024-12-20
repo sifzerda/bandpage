@@ -72,12 +72,12 @@ export const REMOVE_VIDEO = gql`
 
 // Add a new playlist to a user
 export const ADD_PLAYLIST = gql`
-  mutation addPlaylist($userId: ID!, $name: String!) {
-    addPlaylist(userId: $userId, name: $name) {
-      name
-      songs {
-        videoId
-        title
+mutation AddPlaylist($userId: ID!, $name: String!, $songs: [SongInput]!) {
+    addPlaylist(userId: $userId, name: $name, songs: $songs) {
+    name
+    songs {
+      videoId
+      title
       }
     }
   }
