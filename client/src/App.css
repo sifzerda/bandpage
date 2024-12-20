@@ -1416,6 +1416,91 @@ button.suggestion-btn {
   display: inline-block;
 }
 
+/* ---------------------------- Profile ------------------------*/
+
+/* General Profile Container */
+.profile-container {
+  font-family: 'Arial', sans-serif;
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+/* Jumbo Background */
+.jumbo-bg-dark {
+  background-color: #242424;
+  padding: 50px 0;
+  text-align: center;
+  color: white;
+}
+
+.jumbo-bg-dark-text {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+/* Playlist Section */
+.playlists-container {
+  margin-top: 20px;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Playlist Cards Grid */
+.playlist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* Individual Playlist Card */
+.playlist-card {
+  background-color: #242424;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+}
+
+.playlist-card:hover {
+  transform: translateY(-5px);
+}
+
+.playlist-title {
+  font-size: 20px;
+  font-weight: 600;
+  background: linear-gradient(90deg, #4a90e2, #50e3c2); /* gradient background */
+  color: black;
+  padding: 10px;
+  margin: 0;
+}
+
+/* Song List Styles */
+.song-list {
+  padding: 10px;
+  list-style-type: none;
+  margin: 0;
+}
+
+.song-item {
+  font-size: 16px;
+  padding: 5px 0;
+  border-bottom: 1px solid #ddd;
+  color: var(--volt);
+}
+
+.song-item:last-child {
+  border-bottom: none;
+}
+
+.video-id {
+  font-size: 12px;
+  color: #888;
+}
+
+
 /* ---------------------------- MEDIA QUERIES ------------------------*/
 
 /* Tablet Size (768px and below) */

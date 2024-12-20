@@ -24,21 +24,24 @@ const Profile = () => {
       ) : errorPlaylists ? (
         <p>Error loading playlists: {errorPlaylists.message}</p>
       ) : (
-        <div className="thought-cards-p">
+        <div className="playlists-container">
           <h2>Your Playlists</h2>
           {playlistsData?.getPlaylists?.length ? (
-            playlistsData.getPlaylists.map((playlist, index) => (
-              <div key={index} className="playlist-card">
-                <h3>{playlist.name}</h3>
-                <ul>
-                  {playlist.songs.map((song) => (
-                    <li key={song.videoId}>
-                      {song.title} (Video ID: {song.videoId})
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))
+            <div className="playlist-grid">
+              {playlistsData.getPlaylists.map((playlist, index) => (
+                <div key={index} className="playlist-card">
+                  <h3 className="playlist-title">{playlist.name}</h3>
+                  <ul className="song-list">
+                    {playlist.songs.map((song) => (
+                      <li key={song.videoId} className="song-item">
+                        {song.title} 
+                        <span className="video-id"> (ID: {song.videoId})</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
           ) : (
             <p>No playlists found.</p>
           )}
