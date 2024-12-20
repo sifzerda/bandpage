@@ -70,12 +70,12 @@ body {
   flex: 1; /* Allows content to grow and push the footer down */
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* Prevents resizing due to content overflow */
 }
 
 .main-content {
   flex: 1; /* Take remaining space */
   padding-bottom: 30px; /* Space for footer */
+  overflow-y: auto; /* Enable vertical scrolling */
 }
 
 /* this pushes footer to hug the bottom */
