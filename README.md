@@ -134,27 +134,26 @@ Features:
 + Song suggestion page may not show newly posted song until refreshed
 
 Optimization:
-- use react-virtualized to only render visible stuff
 - use a bundler like Webpack or Parcel to optimize build output: Enable code splitting, tree-shaking, and minification to reduce bundle size and improve load times.
 - Consider memoizing components to prevent unnecessary re-renders, especially if their props rarely change.
 
 ## (9) To do: 
 
-[ ] Main Page Updates (Create, Read, Update, Delete):
-  [ ] Add message/post/comment array to user file
-  [ ] Enable users to comment on posts
-  [ ] Enable users to 'like' posts (thumbs up emoji)
-[x] Save song video id from search page, send to global music player
-[x] Submit calendar availability to DB and retrieve so all users can see
-[x] Add functionality to music player: run through playlist, enhanced GUI
-[x] Fix up global GUI, styling
-[x] Post Song suggestions from YT search to song suggestion page via retrieving video id
-[x] Enhance song suggestion page GUI to look better
-[x] Save user playlists to MongDB, retrievable by graphQL
-[ ] Add Profile page functions, including viewing:
-    [ ] User's song posts
-    [x] User's created playlists
-    [x] Load saved playlists back into music player
++ [ ] Main Page Updates (Create, Read, Update, Delete):
+  +  [ ] Add message/post/comment array to user file
+  +  [ ] Enable users to comment on posts
+  +  [ ] Enable users to 'like' posts (thumbs up emoji)
++ [x] Save song video id from search page, send to global music player
++ [x] Submit calendar availability to DB and retrieve so all users can see
++ [x] Add functionality to music player: run through playlist, enhanced GUI
++ [x] Fix up global GUI, styling
++ [x] Post Song suggestions from YT search to song suggestion page via retrieving video id
++ [x] Enhance song suggestion page GUI to look better
++ [x] Save user playlists to MongDB, retrievable by graphQL
++ [ ] Add Profile page functions, including viewing:
+  +    [ ] User's song posts
+  +    [x] User's created playlists
+  +    [x] Load saved playlists back into music player
 
 ## (10) Support
 
