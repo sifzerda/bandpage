@@ -1,22 +1,34 @@
-import { useQuery } from '@apollo/client';
-import { QUERY_ME, QUERY_PLAYLISTS } from '../utils/queries';
-import '../App';
+import React, { useState } from "react";
+import { useQuery } from "@apollo/client";
+import { QUERY_ME, QUERY_PLAYLISTS } from "../utils/queries";
+import { useOutletContext } from "react-router-dom"; // Ensure useOutletContext is imported
+import "../App";
 
 const Profile = () => {
+  // Accessing context passed from App.jsx
+  const { setPlaylist, playlist } = useOutletContext(); // Destructure setPlaylist from context
   const { loading: loadingMe, data: userData, error: errorMe } = useQuery(QUERY_ME);
   const { loading: loadingPlaylists, data: playlistsData, error: errorPlaylists } = useQuery(QUERY_PLAYLISTS, {
-    variables: { userId: userData?.me._id } // Pass the userId to fetch playlists
+    variables: { userId: userData?.me._id },
   });
+
+  const [selectedPlaylist, setSelectedPlaylist] = useState(null);
 
   if (loadingMe) return <p>Loading...</p>;
   if (errorMe) return <p>Error: {errorMe.message}</p>;
 
   const user = userData?.me;
 
+  // Function to send the playlist to MusicPlayer
+  const handleSendPlaylist = (selectedPlaylist) => {
+    // Make sure we're passing the songs from the playlist
+    setPlaylist(selectedPlaylist.songs); // Set the playlist in the parent App state
+  };
+
   return (
     <div className="profile-container">
       <div className="jumbo-bg-dark">
-        <h1 className='jumbo-bg-dark-text'>{user.username}'s Profile</h1>
+        <h1 className="jumbo-bg-dark-text">{user.username}'s Profile</h1>
       </div>
 
       {loadingPlaylists ? (
@@ -34,11 +46,16 @@ const Profile = () => {
                   <ul className="song-list">
                     {playlist.songs.map((song) => (
                       <li key={song.videoId} className="song-item">
-                        {song.title} 
-                        <span className="video-id"> (ID: {song.videoId})</span>
+                        {song.title} <span className="video-id"> (ID: {song.videoId})</span>
                       </li>
                     ))}
                   </ul>
+
+                  {/* Button to send the playlist to MusicPlayer */}
+
+                  <button className='load-button' onClick={() => handleSendPlaylist(playlist)}>
+                    Load Playlist
+                  </button>
                 </div>
               ))}
             </div>

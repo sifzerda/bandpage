@@ -52,27 +52,34 @@ function App() {
 
   return (
     <ApolloProvider client={client}>
-      <>
-
       <ToastContainer />
 
-        <header className="header">
-          <Header />
-          <Navigation />
-        </header>
+      <header className="header">
+        <Header />
+        <Navigation />
+      </header>
 
-        <main className="main-content">
-          <div>
-            {/* Music Player with Playlist */}
-            <MusicPlayer playlist={playlist} setPlaylist={setPlaylist} />
-          </div>
+      <main className="main-content">
+        <div>
+          {/* Music Player with Playlist */}
+          <MusicPlayer 
+          playlist={playlist} 
+          setPlaylist={setPlaylist} />
+        </div>
 
-          {/* Pass playlist functions and data via Outlet Context */}
-          <Outlet context={{ handleAddToPlaylist, handleSelectVideo, selectedVideo, playlist }} />
-        </main>
+        {/* Pass playlist functions and data via Outlet Context */}
+        <Outlet
+          context={{
+            handleAddToPlaylist,
+            handleSelectVideo,
+            selectedVideo,
+            playlist,
+            setPlaylist, // Pass setPlaylist here
+          }}
+        />
+      </main>
 
-        <Footer />
-      </>
+      <Footer />
     </ApolloProvider>
   );
 }

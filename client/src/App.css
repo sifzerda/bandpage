@@ -70,11 +70,21 @@ body {
   flex: 1; /* Allows content to grow and push the footer down */
   display: flex;
   flex-direction: column;
+  overflow: hidden; /* Prevents resizing due to content overflow */
 }
 
 .main-content {
-padding-bottom: 30px; /* Add some space at the bottom */
+  flex: 1; /* Take remaining space */
+  padding-bottom: 30px; /* Space for footer */
 }
+
+/* this pushes footer to hug the bottom */
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+} 
+
 
 /* --------------------- header -----------------------*/
 
@@ -351,7 +361,7 @@ footer {
   font-weight: bold;
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); /* 3D shadow effect */
-  transition: all 0.2s ease-in-out; /* Smooth transition for hover and click */
+  transition: all 0.3s ease-in-out; /* Smooth transition for hover and click */
 }
 
 .save-button:hover {
@@ -1466,6 +1476,7 @@ h2 {
 
 .playlist-card:hover {
   transform: translateY(-5px);
+  border: 6px ridge var(--volt);
 }
 
 .playlist-title {
@@ -1500,6 +1511,24 @@ h2 {
   color: #888;
 }
 
+.load-button {
+  background-color: #4a90e2;
+  color: white;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  border: 1px solid white;
+  /* Add transition to smooth the background and color changes */
+  transition: background 0.4s ease, color 0.3s ease;
+}
+
+/* Hover effect for the buttons */
+.load-button:hover {
+  background: linear-gradient(90deg, #bbff00, #42eb00);
+  color: black; 
+  border: 1px solid black;
+}
 
 /* ---------------------------- MEDIA QUERIES ------------------------*/
 
