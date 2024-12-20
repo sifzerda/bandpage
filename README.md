@@ -140,7 +140,10 @@ Optimization:
 
 ## (9) To do: 
 
-[ ] Main Page Updates (Create, Read, Update, Delete)
+[ ] Main Page Updates (Create, Read, Update, Delete):
+  [ ] Add message/post/comment array to user file
+  [ ] Enable users to comment on posts
+  [ ] Enable users to 'like' posts (thumbs up emoji)
 [x] Save song video id from search page, send to global music player
 [x] Submit calendar availability to DB and retrieve so all users can see
 [x] Add functionality to music player: run through playlist, enhanced GUI
@@ -151,7 +154,7 @@ Optimization:
 [ ] Add Profile page functions, including viewing:
     [ ] User's song posts
     [x] User's created playlists
-    [ ] Load saved playlists back into music player
+    [x] Load saved playlists back into music player
 
 ## (10) Support
 
