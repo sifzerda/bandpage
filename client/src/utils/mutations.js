@@ -137,7 +137,7 @@ export const SET_AVAILABILITY = gql`
 // Mutation to add a new thought
 export const ADD_THOUGHT = gql`
   mutation addThought($userId: ID!, $body: String!) {
-    addThought(userId: $userId, username: $username, body: $body) {
+    addThought(userId: $userId, body: $body) {
       id
       body
       username

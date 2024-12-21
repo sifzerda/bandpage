@@ -1530,6 +1530,81 @@ h2 {
   border: 1px solid black;
 }
 
+/* --------------------- Message Board/About Page -----------------------*/
+
+/* Message Board Container */
+.message-board {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #f1f7ff;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: 'Inter', sans-serif;
+}
+
+/* Title Styling */
+.board-title {
+  font-size: 2.2rem;
+  text-align: left;
+  color: #00274d;
+  margin-bottom: 25px;
+  font-weight: 600;
+  border-bottom: 2px solid #0066cc;
+  padding-bottom: 10px;
+}
+
+/* No Thoughts Message */
+.no-thoughts {
+  text-align: center;
+  color: #555;
+  font-size: 1.2rem;
+  margin-top: 20px;
+  font-style: italic;
+}
+
+/* Individual Thought Cards */
+.thought-card {
+  margin-bottom: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fff;
+  border: 1px solid #d1e7ff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Thought Header */
+.thought-header {
+  background-color: #0066cc;
+  color: #ffffff;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+/* Author Styling */
+.thought-author {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* Date Styling */
+.thought-date {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: #cce0ff;
+}
+
+/* Thought Body */
+.thought-body {
+  padding: 15px;
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.6;
+}
+
 /* ---------------------------- MEDIA QUERIES ------------------------*/
 
 /* Tablet Size (768px and below) */
@@ -1548,6 +1623,19 @@ h2 {
     font-size: 10px;
     min-width: 28px;
     padding: 2px 4px;
+  }
+
+  .message-board {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .board-title {
+    font-size: 1.8rem;
+  }
+
+  .thought-body {
+    font-size: 0.95rem;
   }
 }
 
