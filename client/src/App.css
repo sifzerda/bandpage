@@ -1658,12 +1658,8 @@ h2 {
   border: 1px solid #ddd;
   padding: 12px;
   margin-bottom: 16px;
-  max-width: 700px;
   border-radius: 8px;
   background-color: #f9f9f9;
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
 }
 
 .comment-author {
@@ -1708,9 +1704,14 @@ h2 {
 }
 
 .comment-button:hover {
-  background-color: #1fdbbc;
+  background-color: #00ffd5;
 }
 
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 5px;
+}
 
 /* ---------------------------- MEDIA QUERIES ------------------------*/
 

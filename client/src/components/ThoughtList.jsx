@@ -88,13 +88,14 @@ const ThoughtList = () => {
               </span>
             </div>
             <div className="thought-body">{thought.body}</div>
+
+<div className='button-container'>
             <button onClick={() => handleCommentButtonClick(thought.id)} className="comment-button">
               Leave a Comment
             </button>
+            </div> 
 
             </div>
-
-
 
             {commentFormVisible[thought.id] && (
               <div className="comment-form">
