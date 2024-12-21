@@ -55,7 +55,7 @@ export default function ThoughtForm() {
                             required
                         />
                     </div>
-                    <button type="submit" className="btn btn-primary mt-2-thought center">Submit</button>
+                    <button type="submit" className="comment-button">Submit</button>
                 </form>
             ) : (
                 <p>
