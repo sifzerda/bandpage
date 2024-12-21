@@ -140,8 +140,8 @@ Optimization:
 ## (9) To do: 
 
 + [ ] Main Page Updates (Create, Read, Update, Delete):
-  +  [ ] Add message/post/comment array to user file
-  +  [ ] Enable users to comment on posts
+  +  [x] Add message/post/comment array to user file
+  +  [x] Enable users to comment on posts
   +  [ ] Enable users to 'like' posts (thumbs up emoji)
 + [x] Save song video id from search page, send to global music player
 + [x] Submit calendar availability to DB and retrieve so all users can see
