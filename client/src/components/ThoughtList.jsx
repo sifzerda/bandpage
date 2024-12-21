@@ -58,7 +58,7 @@ const ThoughtList = () => {
     return (
       <div className="comments-list">
         {comments.map((comment) => (
-          <div key={comment.id} className="comment">
+          <div key={comment.id} className="comment-box">
             <p className="comment-author">
               {comment.username} <span className="comment-date">{formatDateTime(comment.createdAt)}</span>
             </p>
@@ -73,10 +73,13 @@ const ThoughtList = () => {
     <div className="message-board">
       <h2 className="board-title">Band Posts</h2>
       {thoughts.length === 0 ? (
-        <p className="no-thoughts">No posts yet! Start the conversation below.</p>
+        <p className="no-thoughts">No posts yet.</p>
       ) : (
         thoughts.map((thought) => (
           <div key={thought.id} className="thought-card">
+
+            <div className='real-thought'>
+
             <div className="thought-header">
               <span className="black-text">Posted by:&nbsp;&nbsp;</span>
               <span className="thought-author">{thought.username}</span>
@@ -88,6 +91,11 @@ const ThoughtList = () => {
             <button onClick={() => handleCommentButtonClick(thought.id)} className="comment-button">
               Leave a Comment
             </button>
+
+            </div>
+
+
+
             {commentFormVisible[thought.id] && (
               <div className="comment-form">
                 <form onSubmit={(event) => handleCommentSubmit(thought.id, event)}>
@@ -101,7 +109,10 @@ const ThoughtList = () => {
                 </form>
               </div>
             )}
-            {renderComments(thought.comments)} {/* Render comments directly from thought */}
+
+            <div>
+              {renderComments(thought.comments)} {/* Render comments directly from thought */}
+            </div>
           </div>
         ))
       )}

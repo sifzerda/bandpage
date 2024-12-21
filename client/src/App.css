@@ -1604,9 +1604,15 @@ h2 {
   margin-bottom: 20px;
   border-radius: 5px;
   overflow: hidden;
+}
+
+.real-thought {
+  margin-bottom: 20px;
+  border-radius: 5px;
+  overflow: hidden;
   background-color: #fff;
   border: 1px solid #d1e7ff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
 
 /* Thought Header */
@@ -1645,6 +1651,66 @@ h2 {
 .black-text {
   color: #ffffff;
 }
+
+/* ----------------post comments --------------------*/
+
+.comment-box {
+  border: 1px solid #ddd;
+  padding: 12px;
+  margin-bottom: 16px;
+  max-width: 700px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.comment-author {
+  font-weight: bold;
+  color: #333;
+}
+
+.comment-date {
+  font-size: 12px;
+  color: #999;
+  margin-left: 8px;
+}
+
+.comment-body {
+  margin: 8px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.comment-form {
+  margin-top: 16px;
+}
+
+.comment-form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.comment-button {
+  background-color: #4a90e2;
+  color: white;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+  border: 1px solid rgb(0, 0, 0);
+  /* Add transition to smooth the background and color changes */
+  transition: background 0.4s ease, color 0.3s ease;
+}
+
+.comment-button:hover {
+  background-color: #1fdbbc;
+}
+
 
 /* ---------------------------- MEDIA QUERIES ------------------------*/
 
