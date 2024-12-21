@@ -66,7 +66,7 @@ function Navigation() {
       <li className="nav-item">
 
         <Link to="/" className={currentPage === '/' ? 'nav-link active' : 'nav-link'}>
-          Current Activity
+          News
         </Link>
       </li>
 

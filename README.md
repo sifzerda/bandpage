@@ -98,7 +98,7 @@ Features:
 + Sign Up, Login, Logout
 + Currently sign in only using name, since that's all my band needed
 
-(2) Current Activity Landing Page
+(2) News Landing Page
 + Currently Unused
 + Requires Future Development
 + Intended to allow users to post group updates  

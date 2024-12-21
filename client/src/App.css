@@ -1566,7 +1566,7 @@ h2 {
 /* Individual Thought Cards */
 .thought-card {
   margin-bottom: 20px;
-  border-radius: 10px;
+  border-radius: 5px;
   overflow: hidden;
   background-color: #fff;
   border: 1px solid #d1e7ff;
@@ -1575,11 +1575,11 @@ h2 {
 
 /* Thought Header */
 .thought-header {
-  background-color: #0066cc;
+  background: linear-gradient(90deg, #50e3c2, #4a90e2 ); 
   color: #ffffff;
-  padding: 10px 15px;
+  padding: 2px 16px;
   display: flex;
-  justify-content: space-between;
+  justify-content: right;
   align-items: center;
   font-size: 0.9rem;
 }
@@ -1588,13 +1588,14 @@ h2 {
 .thought-author {
   font-weight: 700;
   font-size: 1rem;
+  color: #000000;
 }
 
 /* Date Styling */
 .thought-date {
   font-size: 0.85rem;
   font-style: italic;
-  color: #cce0ff;
+  color: #000000;
 }
 
 /* Thought Body */
@@ -1603,6 +1604,10 @@ h2 {
   font-size: 1rem;
   color: #333;
   line-height: 1.6;
+}
+
+.black-text {
+  color: #ffffff;
 }
 
 /* ---------------------------- MEDIA QUERIES ------------------------*/
