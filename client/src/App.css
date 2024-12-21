@@ -1532,6 +1532,42 @@ h2 {
 
 /* --------------------- Message Board/About Page -----------------------*/
 
+.thought-form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #f1f7ff;
+  border-radius: 8px;
+}
+
+.form-group-thought {
+  margin-bottom: 15px;
+}
+
+.thought-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-control-thought {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #333;
+  resize: vertical; 
+  overflow: auto; 
+}
+
+.form-control-thought:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
 /* Message Board Container */
 .message-board {
   max-width: 800px;

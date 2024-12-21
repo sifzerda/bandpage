@@ -7,27 +7,19 @@ import { ADD_USER } from '../utils/mutations';
 function Signup() {
   const [formState, setFormState] = useState({ username: '' });
   const [addUser] = useMutation(ADD_USER);
-  console.log('addUser:', addUser);  
-  console.log('addUser options:', addUser.options);
-  console.log('addUser mutation:', addUser.mutation);
   const [inputFocus, setInputFocus] = useState(false);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log('Submitting form...');
     const mutationResponse = await addUser({
       variables: { ...formState },
     });
-    console.log('Mutation response:', mutationResponse);
     const token = mutationResponse.data.addUser.token;
-    console.log('Received token:', token);
     Auth.login(token);
-    console.log('User logged in successfully.');
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    console.log('Updating form state...');
     setFormState({
       ...formState,
       [name]: value,

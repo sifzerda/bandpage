@@ -4,6 +4,7 @@ import { useQuery, useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
 import { QUERY_ME } from '../utils/queries';
 import { ADD_THOUGHT } from '../utils/mutations';
+import { toast } from 'react-toastify';
 import '../App.css';
 
 export default function ThoughtForm() {
@@ -21,7 +22,7 @@ export default function ThoughtForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+
         if (thought.trim() && userId) {
             try {
                 await addThought({
@@ -31,21 +32,16 @@ export default function ThoughtForm() {
                         body: thought,
                     },
                 });
-    
                 // Clear input field after submission
                 setThought('');
-                // Optionally reload to refresh thoughts
-                window.location.reload();
             } catch (err) {
-                console.error("Error submitting thought:", err.message); // Log error message
-                console.error("error stack:", err.stack); // Log full error stack trace
             }
         }
     };
 
     return (
         <div className="thought-form">
-            <h4>Leave a Thought</h4>
+            <h4>Leave a Message</h4>
 
             {Auth.loggedIn() ? (
                 <form onSubmit={handleSubmit} className="thought-form">
