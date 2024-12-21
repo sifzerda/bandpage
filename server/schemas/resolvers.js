@@ -50,12 +50,8 @@ const resolvers = {
       const filter = username ? { username } : {}; // Filter by username if provided
       return Thought.find(filter)
         .sort({ createdAt: -1 }) // Sort by createdAt descending
-        .populate('user'); // Populate the user field
-    },
-
-    getComments: async (_, { thoughtId }) => {
-      const thought = await Thought.findById(thoughtId);
-      return thought.comments;
+        .populate('user')       // Populate the user field
+        .populate('comments.user'); // Populate the comments and their associated user data
     },
 
 
@@ -225,8 +221,6 @@ const resolvers = {
       }
     },
 
-
-
     addThought: async (_, { userId, body }) => {
       const user = await User.findById(userId);
       if (!user) throw new Error('User not found');
@@ -241,13 +235,11 @@ const resolvers = {
       if (!thought) throw new Error('Thought not found');
       
       thought.comments.push({ 
-        body, username 
+        body, username, 
       });
       await thought.save();
       return thought.comments[thought.comments.length - 1];
     },
-
-
 
   },
 };

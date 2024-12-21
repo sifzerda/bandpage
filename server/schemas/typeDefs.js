@@ -62,7 +62,6 @@ type Query {
   getPlaylists(userId: ID!): [Playlist!]   
   getAvailabilities(date: String!): [Availability]
   getThoughts(username: String): [Thought]
-  getComments(thoughtId: ID!): [Comment]
 }
 
 type Mutation {
