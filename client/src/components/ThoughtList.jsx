@@ -1,10 +1,12 @@
 import { useQuery, useMutation } from '@apollo/client';
-import { GET_THOUGHTS } from '../utils/queries'; 
+import { GET_THOUGHTS, QUERY_ME } from '../utils/queries'; 
 import { ADD_COMMENT } from '../utils/mutations'; 
+ 
 import { useState } from 'react';
 
 const ThoughtList = () => {
   const { loading: thoughtsLoading, error: thoughtsError, data } = useQuery(GET_THOUGHTS);
+  const { data: meData } = useQuery(QUERY_ME); // Fetch logged-in user data
   const [commentFormVisible, setCommentFormVisible] = useState({});
   const [newComments, setNewComments] = useState({});
   const [addComment] = useMutation(ADD_COMMENT);
@@ -13,6 +15,7 @@ const ThoughtList = () => {
   if (thoughtsError) return <p>Error: {thoughtsError.message}</p>;
 
   const thoughts = data?.getThoughts || [];
+  const username = meData?.me?.username || 'Your Username'; // Fallback to default username
 
   const formatDateTime = (timestamp) => {
     const date = new Date(parseInt(timestamp));
@@ -40,7 +43,7 @@ const ThoughtList = () => {
       await addComment({
         variables: {
           thoughtId,
-          username: 'YourUsername', // Replace with actual user data
+          username, // Use the logged-in user's username
           body: comment,
         },
       });
@@ -77,24 +80,21 @@ const ThoughtList = () => {
       ) : (
         thoughts.map((thought) => (
           <div key={thought.id} className="thought-card">
+            <div className="real-thought">
+              <div className="thought-header">
+                <span className="black-text">Posted by:&nbsp;&nbsp;</span>
+                <span className="thought-author">{thought.username}</span>
+                <span className="thought-date">
+                  <span className="black-text">&nbsp;&nbsp;on</span> {formatDateTime(thought.createdAt)}
+                </span>
+              </div>
+              <div className="thought-body">{thought.body}</div>
 
-            <div className='real-thought'>
-
-            <div className="thought-header">
-              <span className="black-text">Posted by:&nbsp;&nbsp;</span>
-              <span className="thought-author">{thought.username}</span>
-              <span className="thought-date">
-                <span className="black-text">&nbsp;&nbsp;on</span> {formatDateTime(thought.createdAt)}
-              </span>
-            </div>
-            <div className="thought-body">{thought.body}</div>
-
-<div className='button-container'>
-            <button onClick={() => handleCommentButtonClick(thought.id)} className="comment-button">
-              Leave a Comment
-            </button>
-            </div> 
-
+              <div className="button-container">
+                <button onClick={() => handleCommentButtonClick(thought.id)} className="comment-button">
+                  Leave a Comment
+                </button>
+              </div>
             </div>
 
             {commentFormVisible[thought.id] && (
@@ -111,9 +111,7 @@ const ThoughtList = () => {
               </div>
             )}
 
-            <div>
-              {renderComments(thought.comments)} {/* Render comments directly from thought */}
-            </div>
+            <div>{renderComments(thought.comments)}</div>
           </div>
         ))
       )}
