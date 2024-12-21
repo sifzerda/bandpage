@@ -4,7 +4,6 @@ import { useQuery, useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
 import { QUERY_ME } from '../utils/queries';
 import { ADD_THOUGHT } from '../utils/mutations';
-import { toast } from 'react-toastify';
 import '../App.css';
 
 export default function ThoughtForm() {
