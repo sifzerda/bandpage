@@ -1,6 +1,6 @@
 import { useQuery, useMutation } from '@apollo/client';
-import { GET_THOUGHTS } from '../utils/queries'; // Import GET_COMMENTS
-import { ADD_COMMENT } from '../utils/mutations'; // Import ADD_COMMENT
+import { GET_THOUGHTS } from '../utils/queries'; 
+import { ADD_COMMENT } from '../utils/mutations'; 
 import { useState } from 'react';
 
 const ThoughtList = () => {
