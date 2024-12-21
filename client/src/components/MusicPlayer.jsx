@@ -10,7 +10,6 @@ import Modal from "react-modal"; // Import react-modal
 
 const MusicPlayer = ({ playlist, setPlaylist }) => {
   const { data: userData, loading: userLoading, error: userError } = useQuery(QUERY_ME);
-  console.log('userData:', userData);
 
   const [addPlaylist, { loading, error }] = useMutation(ADD_PLAYLIST);
 

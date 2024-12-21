@@ -1,33 +1,34 @@
 import { useQuery } from '@apollo/client';
-import { QUERY_THOUGHTS } from '../../../client/src/utils/queries';
-
-// Grabs URL path name and matches with 'pageParams' property of thought
-const pathName = window.location.pathname.split('/').pop(); // Extract pathname
+import { GET_THOUGHTS } from '../utils/queries';
 
 const ThoughtList = () => {
   // Fetch thoughts data using useQuery hook
-  const { loading, error, data } = useQuery(QUERY_THOUGHTS);
+  const { loading, error, data } = useQuery(GET_THOUGHTS);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  // Filter thoughts based on pageParams
-  const filteredThoughts = data.thoughts.filter(thought => thought.pageParams === pathName);
+  // Use all thoughts without filtering
+  const thoughts = data?.getThoughts || [];
 
   return (
     <div>
-        <h2>Comments</h2>
-        {filteredThoughts.map(thought => (
-            <div key={thought._id} className="thought-card">
-                <div className='thought-header'>
-                    <p className='thought-author'>By: {thought.thoughtAuthor}</p>
-                    <p className='thought-date'>{thought.createdAt}</p>
-                </div>
-                <p className='thought-text'>{thought.thoughtText}</p>
+      <h2>Posts</h2>
+      {thoughts.length === 0 ? (
+        <p>No thoughts have been posted.</p>
+      ) : (
+        thoughts.map((thought) => (
+          <div key={thought.id} className="thought-card">
+            <div className="thought-header">
+              <p className="thought-author">By: {thought.username}</p>
+              <p className="thought-date">{new Date(parseInt(thought.createdAt)).toLocaleString()}</p>
             </div>
-        ))}
+            <p className="thought-text">{thought.body}</p>
+          </div>
+        ))
+      )}
     </div>
-);
+  );
 };
 
 export default ThoughtList;

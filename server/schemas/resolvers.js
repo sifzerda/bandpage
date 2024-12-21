@@ -1,4 +1,4 @@
-const { User, Video, Availability } = require('../models');
+const { User, Video, Availability, Thought } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
@@ -42,6 +42,26 @@ const resolvers = {
         throw new Error("Error fetching availabilities");
       }
     },
+
+
+
+
+    getThoughts: async (_, { username }) => {
+      const filter = username ? { username } : {}; // Filter by username if provided
+      return Thought.find(filter)
+        .sort({ createdAt: -1 }) // Sort by createdAt descending
+        .populate('user'); // Populate the user field
+    },
+
+    getComments: async (_, { thoughtId }) => {
+      const thought = await Thought.findById(thoughtId);
+      return thought.comments;
+    },
+
+
+
+
+    
   },
 
   Mutation: {
@@ -204,6 +224,29 @@ const resolvers = {
         throw new Error("Error updating availability");
       }
     },
+
+
+
+    addThought: async (_, { userId, body }) => {
+      const user = await User.findById(userId);
+      if (!user) throw new Error('User not found');
+      
+      const thought = await Thought.create({ 
+        body, username: user.username, 
+        user: userId });
+      return thought;
+    },
+    addComment: async (_, { thoughtId, username, body }) => {
+      const thought = await Thought.findById(thoughtId);
+      if (!thought) throw new Error('Thought not found');
+      
+      thought.comments.push({ 
+        body, username 
+      });
+      await thought.save();
+      return thought.comments[thought.comments.length - 1];
+    },
+
 
 
   },

@@ -122,12 +122,42 @@ export const REMOVE_PLAYLIST = gql`
   }
 `;
 
-
 export const SET_AVAILABILITY = gql`
   mutation setAvailability($date: String!, $user: String!, $status: String!) {
     setAvailability(date: $date, user: $user, status: $status) {
       user
       status
+    }
+  }
+`;
+
+
+
+
+// Mutation to add a new thought
+export const ADD_THOUGHT = gql`
+  mutation addThought($userId: ID!, $body: String!) {
+    addThought(userId: $userId, username: $username, body: $body) {
+      id
+      body
+      username
+      createdAt
+      user {
+        _id
+        username
+      }
+    }
+  }
+`;
+
+// Mutation to add a new comment to a thought
+export const ADD_COMMENT = gql`
+  mutation addComment($thoughtId: ID!, $username: String!, $body: String!) {
+    addComment(thoughtId: $thoughtId, username: $username, body: $body) {
+      id
+      body
+      username
+      createdAt
     }
   }
 `;

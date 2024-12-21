@@ -1,14 +1,19 @@
+import React from 'react';
 import '../App.css';
+import ThoughtForm from '../components/ThoughtForm';
+import ThoughtList from '../components/ThoughtList';
 
-export default function About () {
+export default function About() {
   return (
-    <div>
-      <h1>Current Activity</h1>
+    <>
+      <div>
+        <h1>Message Board</h1>
+        <p>Current news and activities goes here:</p>
 
-      <p>Current news and activities goes here:</p>
+        <ThoughtForm />
+        <ThoughtList />
 
-      <p>A messaging system could be put here to provide updates but since we have facebook it's not a priority.</p>
-
-    </div>
+      </div>
+    </>
   );
 }

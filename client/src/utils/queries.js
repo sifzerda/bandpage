@@ -66,3 +66,35 @@ export const GET_AVAILABILITIES = gql`
     }
   }
 `;
+
+export const GET_THOUGHTS = gql`
+  query getThoughts($username: String) {
+    getThoughts(username: $username) {
+      id
+      body
+      username
+      createdAt
+      comments {
+        id
+        body
+        username
+        createdAt
+      }
+      user {
+        _id
+        username
+      }
+    }
+  }
+`;
+
+export const GET_COMMENTS = gql`
+  query getComments($thoughtId: ID!) {
+    getComments(thoughtId: $thoughtId) {
+      id
+      body
+      username
+      createdAt
+    }
+  }
+`;

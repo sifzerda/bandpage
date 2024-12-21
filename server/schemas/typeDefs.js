@@ -1,5 +1,21 @@
 const typeDefs = `
 
+type Comment {
+  id: ID!
+  body: String!
+  username: String!
+  createdAt: String!
+}
+
+type Thought {
+  id: ID!
+  body: String!
+  username: String!
+  createdAt: String!
+  comments: [Comment]
+  user: User!
+}
+
 type Song {
   videoId: String!
   title: String!
@@ -14,6 +30,7 @@ type User {
   _id: ID!
   username: String!
   playlists: [Playlist!]!
+  thoughts: [Thought]
 }
 
 type Video {
@@ -44,6 +61,8 @@ type Query {
   me: User
   getPlaylists(userId: ID!): [Playlist!]   
   getAvailabilities(date: String!): [Availability]
+  getThoughts(username: String): [Thought]
+  getComments(thoughtId: ID!): [Comment]
 }
 
 type Mutation {
@@ -54,17 +73,17 @@ type Mutation {
   removeUser: User
   removeVideo(videoId: String!): Video
   
-  # Add the songs argument to the addPlaylist mutation
   addPlaylist(userId: ID!, name: String!, songs: [SongInput]!): Playlist
 
-  # Add SongInput type for adding songs
   addSongToPlaylist(userId: ID!, playlistName: String!, videoId: String!, title: String!): Playlist
   removeSongFromPlaylist(userId: ID!, playlistName: String!, videoId: String!): Playlist
   removePlaylist(userId: ID!, playlistName: String!): Playlist
   setAvailability(date: String!, user: String!, status: String!): Availability
+
+  addThought(userId: ID!, body: String!): Thought
+  addComment(thoughtId: ID!, username: String!, body: String!): Comment
 }
 
-# Input type for adding songs to a playlist
 input SongInput {
   videoId: String!
   title: String!

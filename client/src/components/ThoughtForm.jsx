@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
@@ -6,51 +6,46 @@ import { QUERY_ME } from '../utils/queries';
 import { ADD_THOUGHT } from '../utils/mutations';
 import '../App.css';
 
-const pathName = window.location.pathname.split('/').pop(); // Extract pathname
-
 export default function ThoughtForm() {
     const [thought, setThought] = useState('');
 
     // Fetch user data
     const { data } = useQuery(QUERY_ME);
-    const userId = data?.me?._id;
+    const userId = data?.me?._id; // Get the user ID
     const username = data?.me?.username || 'Anonymous';
 
     // Define mutation
     const [addThought] = useMutation(ADD_THOUGHT, {
-        // Refetch queries to update the UI
-        refetchQueries: [{ query: QUERY_ME }],
+        refetchQueries: [{ query: QUERY_ME }], // Refetch user data after adding a thought
     });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Submitting thought...");
+    
         if (thought.trim() && userId) {
             try {
-                console.log("Calling addThought mutation...");
-                // Call the mutation
                 await addThought({
                     variables: {
-                        userId,
-                        thoughtText: thought,
-                        pageParams: pathName // Include the pathName as pageParams
-                    }
+                        userId: userId,
+                        username: username,
+                        body: thought,
+                    },
                 });
-                console.log("Thought submitted successfully!");
-
+    
                 // Clear input field after submission
                 setThought('');
-                // Refresh the page (to update with posted thought automatically)
+                // Optionally reload to refresh thoughts
                 window.location.reload();
             } catch (err) {
-                console.error("Error submitting thought:", err); // Log any errors
+                console.error("Error submitting thought:", err.message); // Log error message
+                console.error("error stack:", err.stack); // Log full error stack trace
             }
         }
     };
 
     return (
         <div className="thought-form">
-            <h4>Leave a Comment</h4>
+            <h4>Leave a Thought</h4>
 
             {Auth.loggedIn() ? (
                 <form onSubmit={handleSubmit} className="thought-form">
@@ -69,13 +64,10 @@ export default function ThoughtForm() {
                 </form>
             ) : (
                 <p>
-                    You need to be logged in to post thoughts. Please{' '}
+                    You need to be logged in to leave a message. Please{' '}
                     <Link to="/login">login</Link> or <Link to="/signup">signup</Link>.
                 </p>
             )}
-
-            {/* Remove the local state for thoughts display */}
-
         </div>
     );
 }
