@@ -108,8 +108,9 @@ const ThoughtList = () => {
                         placeholder="Write your comment..."
                         rows="4"
                       />
-                      <button type="submit">Send</button>
+                      <button className='comment-button' type="submit">Send</button>
                     </form>
+                    <br></br>
                   </div>
                 )
               )}
