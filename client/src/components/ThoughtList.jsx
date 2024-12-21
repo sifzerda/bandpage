@@ -1,7 +1,7 @@
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_THOUGHTS, QUERY_ME } from '../utils/queries'; 
 import { ADD_COMMENT } from '../utils/mutations'; 
- 
+import Auth from '../utils/auth';
 import { useState } from 'react';
 
 const ThoughtList = () => {
@@ -91,27 +91,35 @@ const ThoughtList = () => {
               <div className="thought-body">{thought.body}</div>
 
               <div className="button-container">
-                <button onClick={() => handleCommentButtonClick(thought.id)} className="comment-button">
-                  Leave a Comment
-                </button>
+                {Auth.loggedIn() && (
+                  <button onClick={() => handleCommentButtonClick(thought.id)} className="comment-button">
+                    Leave a Comment
+                  </button>
+                )}
               </div>
+
+              {Auth.loggedIn() && (
+                commentFormVisible[thought.id] && (
+                  <div className="comment-form">
+                    <form onSubmit={(event) => handleCommentSubmit(thought.id, event)}>
+                      <textarea
+                        value={newComments[thought.id] || ''}
+                        onChange={(e) => setNewComments({ ...newComments, [thought.id]: e.target.value })}
+                        placeholder="Write your comment..."
+                        rows="4"
+                      />
+                      <button type="submit">Send</button>
+                    </form>
+                  </div>
+                )
+              )}
+
+              {!Auth.loggedIn() && (
+                <p className='yellow-text'>You need to be logged in to leave a comment.</p>
+              )}
+
+              <div>{renderComments(thought.comments)}</div>
             </div>
-
-            {commentFormVisible[thought.id] && (
-              <div className="comment-form">
-                <form onSubmit={(event) => handleCommentSubmit(thought.id, event)}>
-                  <textarea
-                    value={newComments[thought.id] || ''}
-                    onChange={(e) => setNewComments({ ...newComments, [thought.id]: e.target.value })}
-                    placeholder="Write your comment..."
-                    rows="4"
-                  />
-                  <button type="submit">Send</button>
-                </form>
-              </div>
-            )}
-
-            <div>{renderComments(thought.comments)}</div>
           </div>
         ))
       )}
