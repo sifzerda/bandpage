@@ -16,6 +16,10 @@ const commentSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  user: { // Add this field
+    type: Schema.Types.ObjectId,
+    ref: 'User', // Reference to User
+  },
 });
 
 // Thought Schema
