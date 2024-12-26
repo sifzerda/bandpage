@@ -44,7 +44,8 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
     try {
       const response = await axios.get(API_URL);
       setVideos(response.data.items);
-      setNextPageToken(response.data.nextPageToken);
+      setVideos(items.slice(0, 10)); // Explicitly limit to 10 results to preserve free API use: COMMENT OUT TO REMOVE THIS LIMIT
+      setNextPageToken(response.data.nextPageToken || "");
       setPrevPageToken(response.data.prevPageToken || "");
     } catch (error) {
       console.error("Error fetching YouTube data", error);
@@ -226,8 +227,8 @@ const YouTubeSearch = ({ onSaveVideo, onAddToPlaylist }) => {
                   placeholder="Add a custom comment (optional)"
                   className="comment-input"
                 />
-                <button onClick={() => handleSave(videoId, video.snippet.title)}>Add to Playlist</button>
-                <button onClick={() => handlePost(video)}>Post</button>
+                <button className='submit-video-btn' onClick={() => handleSave(videoId, video.snippet.title)}>Add to Playlist</button>
+                <button className='post-video-btn' onClick={() => handlePost(video)}>Post</button>
               </div>
             </div>
           );

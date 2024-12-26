@@ -336,15 +336,20 @@ footer {
   font-size: 1.5rem;
 }
 
-.calendar-day.past-day {
+.calendar-day.past-date {
   background-color: #f0f0f0;
   pointer-events: none; /* Prevent all interactions */
   color: #aaa;
 }
 
-.calendar-day.current-day {
+.calendar-day.current-date {
   background-color: #fff9c4; /* Yellow highlight */
   border: 4px dashed #007bff;
+}
+
+.calendar-day.future-date {
+  background-color: #c7fff8; /* Yellow highlight */
+
 }
 
 /* buttons: save */
@@ -1290,45 +1295,38 @@ button.press-play:hover {
   width: 100%;
   height: auto;
   border-radius: 6px;
+  border: 2px solid black;
 }
 
 .video-result h4 {
   margin: 10px 0;
   font-size: 1.2em;
-  color: #007bff;
+  color: #000000;
+  border: 2px solid black;
 }
 
 .video-result button {
   margin: 5px;
   padding: 8px 16px;
-  border: none;
-  background-color: #007bff;
+  border: 1px solid black;
   color: white;
   font-size: 0.9em;
   border-radius: 4px;
   cursor: pointer;
 }
 
-.video-result button:hover {
-  background-color: #0056b3;
-}
-
-.video-result button:first-of-type {
+.submit-video-btn {
   background-color: #28a745;
-  color: #fff;
 }
 
-.video-result button:first-of-type:hover {
-  background-color: #218838;
-}
-
-.video-result button:last-of-type {
+.post-video-btn {
   background-color: #dc3545;
-  color: #fff;
 }
-
-.video-result button:last-of-type:hover {
-  background-color: #c82333;
+ 
+.post-video-btn:hover,
+.submit-video-btn:hover {
+  background-color: var(--flame2);
+  color: black;
 }
 
 .autocomplete-suggestions {

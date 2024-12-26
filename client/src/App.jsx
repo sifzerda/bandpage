@@ -26,14 +26,13 @@ const client = new ApolloClient({
 // Define the initial pre-loaded playlist
 const initialPlaylist = [
   { videoId: "8GW6sLrK40k", title: "Resonance - HOME" },
+  { videoId: "6hS5_GzAtWw", title: "Sun Goes Down, She Comes Up - Julien Winding" },
   { videoId: "r4zNUgEJpQI", title: "Là haut - L'impératrice" },
   { videoId: "tfr-h6BaYN8", title: "Let It Happen (Soulwax Remix) - Tame Impala" },
   { videoId: "F0g6216008I", title: "Don't Start Now (Kenan Remix) - Dua Lipa" },
   { videoId: "aPin82pIThM", title: "Apex - Jaga Jazzist" },
   { videoId: "3gCxSWYWqug", title: "Real Window - Quantum Lovers" },
-  { videoId: "jHKQof8WIlI", title: "Ride - Twenty One Pilots" },
-  { videoId: "3-0-vDbjdqQ", title: "Track Uno - Kaytranada" },
-  { videoId: "kOn-HdEg6AQ", title: "Beat It - Michael Jackson" },
+  { videoId: "eq_RZjEyqjk", title: "Levitate - Twenty One Pilots" },
 ];
 
 function App() {

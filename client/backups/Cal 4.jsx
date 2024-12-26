@@ -1,3 +1,6 @@
+// this works but doesnt allow displaying more than one month
+// ahead otherwise it gets a 'rendered fewer hooks than expected' error
+
 import React, { useState } from "react";
 import {
   format,
@@ -7,14 +10,12 @@ import {
   addMonths,
   isBefore,
   isSameDay,
-  isAfter,
 } from "date-fns";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_AVAILABILITIES } from "../utils/queries";
 import { SET_AVAILABILITY } from "../utils/mutations";
 
 function Cal() {
-  
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [availabilityStates, setAvailabilityStates] = useState({});
   const names = ["T", "M", "B", "H", "J"];
@@ -28,16 +29,9 @@ function Cal() {
     end: endOfMonth(selectedDate),
   });
 
-  // Query for availabilities only once for each month
-  const { data } = useQuery(GET_AVAILABILITIES, {
-    variables: { date: format(selectedDate, "yyyy-MM-dd") },
-  });
-
-  const isToday = (day) => isSameDay(day, currentDate);
-  const isPast = (day) => isBefore(day, currentDate) && !isToday(day);
-  const isFuture = (day) => isAfter(day, currentDate);
-
   const handleRowClick = (date, user, currentState) => {
+    if (isBefore(date, currentDate) && !isSameDay(date, currentDate)) return; // Allow interaction only for today or future dates
+
     const nextState =
       currentState === "normal" ? "green" : currentState === "green" ? "red" : "normal";
 
@@ -71,23 +65,23 @@ function Cal() {
       <div className="calendar-grid">
         {days.map((day) => {
           const dateKey = format(day, "yyyy-MM-dd");
-          const isTodayFlag = isToday(day);
-          const isPastFlag = isPast(day);
-          const isFutureFlag = isFuture(day);
+          const { data } = useQuery(GET_AVAILABILITIES, { variables: { date: dateKey } });
+          const isToday = isSameDay(day, currentDate); // Check if the day is today
+          const isPast = isBefore(day, currentDate) && !isToday; // Check if the day is in the past but not today
 
           return (
             <div
               key={dateKey}
-              className={`calendar-day ${isTodayFlag ? "current-date" : ""} ${
-                isPastFlag ? "past-date" : ""
-              } ${isFutureFlag ? "future-date" : ""}`}
+              className={`calendar-day ${isToday ? "current-date" : ""} ${
+                isPast ? "past-date" : ""
+              }`}
             >
               <div className="date-label">{format(day, "EEE, MMM d")}</div>
               <div className="note-row">
                 {names.map((name) => {
                   const userState =
                     availabilityStates[dateKey]?.[name] ||
-                    data?.getAvailabilities?.find((entry) => entry.user === name)?.status ||
+                    data?.getAvailabilities.find((entry) => entry.user === name)?.status ||
                     "normal";
 
                   return (
