@@ -21,7 +21,7 @@
   --light-red: #ff3859;
   --gold: #ffc107;
   --creepy-green: #9cffd9;
-  --creepy-green2:  #cefff4;
+  --creepy-green2: #cefff4;
   --midnight: rgb(8, 29, 88);
   --flame: #ff3300;
   --flame2: #e5ff00;
@@ -31,9 +31,12 @@
 
 #root {
   width: 100%;
-  max-width: 100%; /* Prevent content from exceeding the screen width */
-  margin: 0 auto; /* Center root container */
-  overflow: hidden; /* Avoid unintended overflows */
+  max-width: 100%;
+  /* Prevent content from exceeding the screen width */
+  margin: 0 auto;
+  /* Center root container */
+  overflow: hidden;
+  /* Avoid unintended overflows */
   text-align: center;
 }
 
@@ -52,7 +55,8 @@
 }
 
 body {
-  padding-bottom: 60px; /* Add padding equal to the music player's height to avoid overlapping content */
+  padding-bottom: 60px;
+  /* Add padding equal to the music player's height to avoid overlapping content */
 }
 
 /* Ensure the entire page fills the viewport */
@@ -62,20 +66,26 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow-x: hidden; /* Prevent horizontal scroll */
+  overflow-x: hidden;
+  /* Prevent horizontal scroll */
 }
 
 /* Main content of the page */
-#root, .main-content {
-  flex: 1; /* Allows content to grow and push the footer down */
+#root,
+.main-content {
+  flex: 1;
+  /* Allows content to grow and push the footer down */
   display: flex;
   flex-direction: column;
 }
 
 .main-content {
-  flex: 1; /* Take remaining space */
-  padding-bottom: 30px; /* Space for footer */
-  overflow-y: auto; /* Enable vertical scrolling */
+  flex: 1;
+  /* Take remaining space */
+  padding-bottom: 30px;
+  /* Space for footer */
+  overflow-y: auto;
+  /* Enable vertical scrolling */
 }
 
 /* this pushes footer to hug the bottom */
@@ -83,14 +93,16 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
-} 
+}
 
 
 /* --------------------- header -----------------------*/
 
 header {
-  background-color: #222; /* Optional: Customize */
-  color: white; /* Optional: Customize */
+  background-color: #222;
+  /* Optional: Customize */
+  color: white;
+  /* Optional: Customize */
   padding: 20px 0;
   text-align: center;
 }
@@ -103,36 +115,51 @@ header {
 }
 
 .right-username {
-  margin-left: auto; /* Pushes this item to the right side */
+  margin-left: auto;
+  /* Pushes this item to the right side */
 }
 
 .nav-tabs .nav-link.active {
-  color: #fff; /* Change text color */
-  background-color: #007bff; /* Highlight background color */
-  border-radius: 5px; /* Add rounded corners */
-  font-weight: bold; /* Make text bold */
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Add subtle text shadow */
+  color: #fff;
+  /* Change text color */
+  background-color: #007bff;
+  /* Highlight background color */
+  border-radius: 5px;
+  /* Add rounded corners */
+  font-weight: bold;
+  /* Make text bold */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  /* Add subtle text shadow */
 }
 
 .nav-tabs .nav-link {
-  color: #007bff; /* Default text color */
-  background-color: transparent; /* Default background */
-  text-decoration: none; /* Remove underline */
-  transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+  color: #007bff;
+  /* Default text color */
+  background-color: transparent;
+  /* Default background */
+  text-decoration: none;
+  /* Remove underline */
+  transition: background-color 0.3s, color 0.3s;
+  /* Smooth transition */
 }
 
 .nav-tabs .nav-link:hover {
-  background-color: #e7f1ff; /* Hover effect */
-  color: #0056b3; /* Hover text color */
+  background-color: #e7f1ff;
+  /* Hover effect */
+  color: #0056b3;
+  /* Hover text color */
 }
 
 /* --------------------- footer -----------------------*/
 
 footer {
-  background-color: #222; /* Optional: Customize */
-  color: white; /* Optional: Customize */
+  background-color: #222;
+  /* Optional: Customize */
+  color: white;
+  /* Optional: Customize */
   padding: 20px 0;
-  margin-top: auto; /* Push the footer to the bottom */
+  margin-top: auto;
+  /* Push the footer to the bottom */
   text-align: center;
 }
 
@@ -239,17 +266,24 @@ footer {
 .calendar {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centers the content horizontally */
-  justify-content: flex-start; /* Aligns items to the top */
-  margin-top: 20px; /* Adds some space at the top if needed */
-  max-width: 1500px; /* Set a maximum width for the calendar */
-  margin: 0 auto; /* Center the calendar on the screen */
+  align-items: center;
+  /* Centers the content horizontally */
+  justify-content: flex-start;
+  /* Aligns items to the top */
+  margin-top: 20px;
+  /* Adds some space at the top if needed */
+  max-width: 1500px;
+  /* Set a maximum width for the calendar */
+  margin: 0 auto;
+  /* Center the calendar on the screen */
 }
 
 .calendar-grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr); /* 7 equal columns for the days */
-  gap: 8px; /* Spacing between the boxes */
+  grid-template-columns: repeat(7, 1fr);
+  /* 7 equal columns for the days */
+  gap: 8px;
+  /* Spacing between the boxes */
   width: 100%;
 }
 
@@ -260,7 +294,8 @@ footer {
   border-radius: 6px;
   padding: 12px;
   text-align: center;
-  transition: all 0.3s ease; /* Smooth shrink effect */
+  transition: all 0.3s ease;
+  /* Smooth shrink effect */
 }
 
 .date-label {
@@ -271,7 +306,8 @@ footer {
 .note-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px; /* Spacing between notes */
+  gap: 4px;
+  /* Spacing between notes */
   justify-content: center;
 }
 
@@ -283,6 +319,7 @@ footer {
   text-align: center;
   min-width: 32px;
   background-color: #e0e0e0;
+  cursor: pointer;
 }
 
 .note-row-item.normal {
@@ -290,12 +327,14 @@ footer {
 }
 
 .note-row-item.green {
-  background-color:  rgb(170, 252, 116); /* Light green */
+  background-color: rgb(170, 252, 116);
+  /* Light green */
   color: black;
 }
 
 .note-row-item.red {
-  background-color: #f08181; /* Light red */
+  background-color: #f08181;
+  /* Light red */
   color: black;
 }
 
@@ -307,7 +346,8 @@ footer {
 
 .note-label {
   font-weight: bold;
-  width: 80px; /* Adjust width as needed for alignment */
+  width: 80px;
+  /* Adjust width as needed for alignment */
 }
 
 .note-input {
@@ -338,24 +378,29 @@ footer {
 
 .calendar-day.past-date {
   background-color: #f0f0f0;
-  pointer-events: none; /* Prevent all interactions */
+  pointer-events: none;
+  /* Prevent all interactions */
   color: #aaa;
+  border: 1px dashed #000000;
 }
 
 .calendar-day.current-date {
-  background-color: #fff9c4; /* Yellow highlight */
+  background-color: #fff9c4;
+  /* Yellow highlight */
   border: 4px dashed #007bff;
 }
 
 .calendar-day.future-date {
-  background-color: #c7fff8; /* Yellow highlight */
-
+  background-color: #c7fff8;
+  /* Yellow highlight */
+  border: 1px dashed #000000;
 }
 
 /* buttons: save */
 
 .save-button {
-  width: 150px; /* Set a fixed width for the button */
+  width: 150px;
+  /* Set a fixed width for the button */
   margin-top: 20px;
   padding: 12px 24px;
   background-color: #4caf50;
@@ -365,20 +410,26 @@ footer {
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); /* 3D shadow effect */
-  transition: all 0.3s ease-in-out; /* Smooth transition for hover and click */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  /* 3D shadow effect */
+  transition: all 0.3s ease-in-out;
+  /* Smooth transition for hover and click */
 }
 
 .save-button:hover {
   background-color: #45a049;
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12); /* Hover shadow */
-  transform: translateY(-2px); /* Lift the button on hover */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12);
+  /* Hover shadow */
+  transform: translateY(-2px);
+  /* Lift the button on hover */
 }
 
 .save-button:active {
   background-color: #388e3c;
-  box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.2), 0 2px 3px rgba(0, 0, 0, 0.1); /* Depress shadow when clicked */
-  transform: translateY(2px); /* Button appears pressed down */
+  box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.2), 0 2px 3px rgba(0, 0, 0, 0.1);
+  /* Depress shadow when clicked */
+  transform: translateY(2px);
+  /* Button appears pressed down */
 }
 
 div.color-box {
@@ -411,27 +462,35 @@ div.color-box {
 /* buttons: next previous */
 
 .calendar-header button {
-  background-color: #4466ff; 
-  color: white;              /* White text */
-  font-size: 16px;           /* Font size */
-  padding: 10px 20px;        /* Padding for button */
-  border: 2px solid rgb(0, 0, 0);             /* Remove border */
-  border-radius: 5px;        /* Rounded corners */
-  cursor: pointer;           /* Pointer cursor */
-  transition: background-color 0.3s ease; /* Smooth transition on hover */
+  background-color: #4466ff;
+  color: white;
+  /* White text */
+  font-size: 16px;
+  /* Font size */
+  padding: 10px 20px;
+  /* Padding for button */
+  border: 2px solid rgb(0, 0, 0);
+  /* Remove border */
+  border-radius: 5px;
+  /* Rounded corners */
+  cursor: pointer;
+  /* Pointer cursor */
+  transition: background-color 0.3s ease;
+  /* Smooth transition on hover */
 }
 
 /* Hover effect for the buttons */
 .calendar-header button:hover {
-  background-color: #72f6ff; 
-  color: rgb(0, 0, 0);    
+  background-color: #72f6ff;
+  color: rgb(0, 0, 0);
 }
 
 /* Styling for the month heading (centered) */
 .calendar-header h2 {
   font-size: 24px;
   font-weight: bold;
-  margin: 0 20px;  /* Spacing between buttons and heading */
+  margin: 0 20px;
+  /* Spacing between buttons and heading */
 }
 
 .current-date {
@@ -441,25 +500,32 @@ div.color-box {
 }
 
 .past-date {
-  color: #aaa; /* Grey text */
-  background-color: #f0f0f0; /* Light grey background */
-  pointer-events: none; /* Prevent interactions */
+  color: #aaa;
+  /* Grey text */
+  background-color: #f0f0f0;
+  /* Light grey background */
+  pointer-events: none;
+  /* Prevent interactions */
   opacity: 0.7;
 }
 
 .comment-input {
-  width: 100%; /* Default width */
-  min-height: 40px; /* Minimum height for better UX */
+  width: 100%;
+  /* Default width */
+  min-height: 40px;
+  /* Minimum height for better UX */
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 10px;
-  resize: none; /* Disable native resizing */
+  resize: none;
+  /* Disable native resizing */
   overflow: auto;
 }
 
 .comment-input.resizable {
-  resize: both; /* Enable both horizontal and vertical resizing */
+  resize: both;
+  /* Enable both horizontal and vertical resizing */
 }
 
 .confirmation-dialog {
@@ -563,18 +629,21 @@ div.color-box {
 .delete-button {
   background-color: #e74c3c;
   color: #fff;
-  border: 3px solid transparent; /* Initial transparent border */
+  border: 3px solid transparent;
+  /* Initial transparent border */
   border-radius: 4px;
   padding: 8px 12px;
   font-size: 0.9em;
   cursor: pointer;
   transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
-  box-sizing: border-box; /* Ensures border is included in total size */
+  box-sizing: border-box;
+  /* Ensures border is included in total size */
 }
 
 .delete-button:hover {
   background-color: #ffffff;
-  border-color: #ff4530; /* Change border color instead of size */
+  border-color: #ff4530;
+  /* Change border color instead of size */
   color: #ff4530;
 }
 
@@ -591,7 +660,7 @@ div.color-box {
   margin-top: 20px;
   padding: 10px;
   text-align: center;
-  border: 3px dashed #ff4530; 
+  border: 3px dashed #ff4530;
 }
 
 
@@ -626,8 +695,8 @@ div.color-box {
 }
 
 .now-playing-label {
-color: var(--blue);
-font-size: 18px;
+  color: var(--blue);
+  font-size: 18px;
 }
 
 .title-x {
@@ -647,11 +716,12 @@ font-size: 18px;
   font: 20px monospace;
   overflow: hidden;
 }
-  
+
 @keyframes marquee {
   0% {
     transform: translateX(100%);
   }
+
   100% {
     transform: translateX(-100%);
   }
@@ -701,7 +771,8 @@ font-size: 18px;
   font-size: 24px;
   cursor: pointer;
   color: #007bff;
-  margin-right: 240px; /* Optional spacing for volume button */
+  margin-right: 240px;
+  /* Optional spacing for volume button */
 }
 
 .volume-toggle:hover {
@@ -733,13 +804,14 @@ font-size: 18px;
 
 .progress-time {
   position: absolute;
-  top: -32px; /* Adjust to place it above the bar */
+  top: -32px;
+  /* Adjust to place it above the bar */
   right: 0;
   text-align: center;
   padding: 2px 5px;
   font-size: 18px;
   color: var(--blue);
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
 .music-player:active {
@@ -791,12 +863,16 @@ font-size: 18px;
 /* ------------- mp is on top of other page contents -------------*/
 
 .music-player-container {
-  position: fixed; /* Ensures the music player stays in place */
-  bottom: 0; /* Anchors the player to the bottom of the viewport */
+  position: fixed;
+  /* Ensures the music player stays in place */
+  bottom: 0;
+  /* Anchors the player to the bottom of the viewport */
   left: 0;
 
-  z-index: 1000; /* Ensures it appears on top of other content */
-  padding: 10px; /* Optional: Add padding for better aesthetics */
+  z-index: 1000;
+  /* Ensures it appears on top of other content */
+  padding: 10px;
+  /* Optional: Add padding for better aesthetics */
 }
 
 .music-player {
@@ -829,21 +905,28 @@ font-size: 18px;
 .playlist-container {
   position: absolute;
   list-style: none;
-  top: 50px; /* Below the button */
+  top: 50px;
+  /* Below the button */
   left: 0;
   right: 0;
   bottom: 0;
-  width: auto; /* Adjust width based on content */
-  max-height: 300px; /* You can adjust this to your desired max height */
-  overflow-y: auto; /* Enable vertical scrolling when content exceeds max height */
-  overflow-x: hidden; /* Prevent horizontal scrolling */
+  width: auto;
+  /* Adjust width based on content */
+  max-height: 300px;
+  /* You can adjust this to your desired max height */
+  overflow-y: auto;
+  /* Enable vertical scrolling when content exceeds max height */
+  overflow-x: hidden;
+  /* Prevent horizontal scrolling */
   background-color: #222;
   color: white;
   padding: 0px;
   margin: 0;
   border: 1px solid #555;
-  box-sizing: border-box; /* Ensure padding doesn't affect layout */
-  z-index: 999; /* Optional: to ensure the playlist is above other content */
+  box-sizing: border-box;
+  /* Ensure padding doesn't affect layout */
+  z-index: 999;
+  /* Optional: to ensure the playlist is above other content */
 }
 
 .playlist-container h3 {
@@ -872,7 +955,8 @@ font-size: 18px;
   border-radius: 4px;
   cursor: grab;
   transition: background-color 0.3s, transform 0.2s;
-  background: linear-gradient(90deg, #4a90e2, #50e3c2); /* gradient background */
+  background: linear-gradient(90deg, #4a90e2, #50e3c2);
+  /* gradient background */
 }
 
 .playlist-container li[style*="position: absolute;"] {
@@ -888,15 +972,18 @@ font-size: 18px;
 }
 
 .playlist-container li:hover {
-  background: linear-gradient(90deg,  #bbff00, #42eb00); /* New gradient hover color */
-  transform: scale(1.02); /* Slightly enlarge on hover */
+  background: linear-gradient(90deg, #bbff00, #42eb00);
+  /* New gradient hover color */
+  transform: scale(1.02);
+  /* Slightly enlarge on hover */
   color: black;
   text-transform: uppercase;
 }
 
 .playlist-container li:active {
   cursor: grabbing;
-  background: linear-gradient(45deg, #ff3859, #5a3dff); /* Darker gradient while dragging */
+  background: linear-gradient(45deg, #ff3859, #5a3dff);
+  /* Darker gradient while dragging */
   color: white;
 }
 
@@ -999,20 +1086,27 @@ font-size: 18px;
 }
 
 button.press-play {
-  background-color: #000000; 
-  color: var(--blue);            /* White text */
-  font-size: 16px;           /* Font size */
-  padding: 10px 20px;        /* Padding for button */
-  border: 2px solid rgb(81, 255, 0);             /* Remove border */
-  border-radius: 5px;        /* Rounded corners */
-  cursor: pointer;           /* Pointer cursor */
-  transition: background-color 0.3s ease; /* Smooth transition on hover */
+  background-color: #000000;
+  color: var(--blue);
+  /* White text */
+  font-size: 16px;
+  /* Font size */
+  padding: 10px 20px;
+  /* Padding for button */
+  border: 2px solid rgb(81, 255, 0);
+  /* Remove border */
+  border-radius: 5px;
+  /* Rounded corners */
+  cursor: pointer;
+  /* Pointer cursor */
+  transition: background-color 0.3s ease;
+  /* Smooth transition on hover */
 }
 
 /* Hover effect for the buttons */
 button.press-play:hover {
-  background-color: #c9fd98; 
-  color: rgb(0, 0, 0);    
+  background-color: #c9fd98;
+  color: rgb(0, 0, 0);
 }
 
 /* save playlist modal ----------------------------*/
@@ -1024,8 +1118,10 @@ button.press-play:hover {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.75); /* Dim background */
-  z-index: 1000; /* Ensure it is above other content */
+  background-color: rgba(0, 0, 0, 0.75);
+  /* Dim background */
+  z-index: 1000;
+  /* Ensure it is above other content */
 }
 
 /* Modal content styling */
@@ -1034,15 +1130,20 @@ button.press-play:hover {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #222; /* Dark background */
-  color: #fff; /* White text */
+  background-color: #222;
+  /* Dark background */
+  color: #fff;
+  /* White text */
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Drop shadow */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  /* Drop shadow */
   width: 90%;
   max-width: 500px;
-  text-align: center; /* Center content */
-  z-index: 1100; /* Above overlay */
+  text-align: center;
+  /* Center content */
+  z-index: 1100;
+  /* Above overlay */
   border: 1px solid #c8ff00;
 }
 
@@ -1058,7 +1159,8 @@ button.press-play:hover {
 
 /* Save button */
 .save-playlist {
-  background-color: #00bb06; /* Green */
+  background-color: #00bb06;
+  /* Green */
   color: white;
   padding: 10px 20px;
   margin-top: 10px;
@@ -1071,7 +1173,7 @@ button.press-play:hover {
 
 /* Save button hover effect */
 .save-playlist:hover {
-  background-color: #c8ff00;  
+  background-color: #c8ff00;
   color: black;
 }
 
@@ -1096,56 +1198,66 @@ button.press-play:hover {
 /* --------------------- music player: current song CSS -----------------------*/
 
 @keyframes rainbow {
-  0% { 
-    color: var(--light-red); 
-    text-shadow: 0 0 10px var(--light-red), 0 0 20px var(--light-red); 
+  0% {
+    color: var(--light-red);
+    text-shadow: 0 0 10px var(--light-red), 0 0 20px var(--light-red);
     filter: blur(0px);
     transform: translateX(0px);
   }
-  16% { 
-    color: white; 
-    text-shadow: 0 0 15px white, 0 0 30px white; 
+
+  16% {
+    color: white;
+    text-shadow: 0 0 15px white, 0 0 30px white;
     filter: blur(1px);
     transform: translateX(-1px);
   }
-  33% { 
-    color: var(--cyan); 
-    text-shadow: 0 0 15px var(--cyan), 0 0 30px var(--cyan); 
+
+  33% {
+    color: var(--cyan);
+    text-shadow: 0 0 15px var(--cyan), 0 0 30px var(--cyan);
     filter: blur(0.5px);
     transform: translateX(1px);
   }
-  50% { 
-    color: white; 
-    text-shadow: 0 0 20px white, 0 0 40px white; 
+
+  50% {
+    color: white;
+    text-shadow: 0 0 20px white, 0 0 40px white;
     filter: blur(0px);
     transform: translateX(-1px);
   }
-  66% { 
-    color: var(--flame2); 
-    text-shadow: 0 0 15px var(--flame2), 0 0 30px var(--flame2); 
+
+  66% {
+    color: var(--flame2);
+    text-shadow: 0 0 15px var(--flame2), 0 0 30px var(--flame2);
     filter: blur(1px);
     transform: translateX(1px);
   }
-  83% { 
-    color: white; 
-    text-shadow: 0 0 15px white, 0 0 30px white; 
+
+  83% {
+    color: white;
+    text-shadow: 0 0 15px white, 0 0 30px white;
     filter: blur(0.5px);
     transform: translateX(-1px);
   }
-  100% { 
-    color: var(--light-red); 
-    text-shadow: 0 0 10px var(--light-red), 0 0 20px var(--light-red); 
+
+  100% {
+    color: var(--light-red);
+    text-shadow: 0 0 10px var(--light-red), 0 0 20px var(--light-red);
     filter: blur(0px);
     transform: translateX(0px);
   }
 }
 
 .rainbow-text {
-  animation: rainbow 3s infinite ease-in-out; /* Smooth and dynamic */
+  animation: rainbow 3s infinite ease-in-out;
+  /* Smooth and dynamic */
   font-weight: bold;
-  font-size: 1.5em; /* Enhance visibility */
-  text-transform: uppercase; /* Stylize text */
-  letter-spacing: 2px; /* Add spacing for aesthetics */
+  font-size: 1.5em;
+  /* Enhance visibility */
+  text-transform: uppercase;
+  /* Stylize text */
+  letter-spacing: 2px;
+  /* Add spacing for aesthetics */
 }
 
 .rainbow-text {
@@ -1322,7 +1434,7 @@ button.press-play:hover {
 .post-video-btn {
   background-color: #dc3545;
 }
- 
+
 .post-video-btn:hover,
 .submit-video-btn:hover {
   background-color: var(--flame2);
@@ -1360,7 +1472,7 @@ button.suggestion-btn {
   border: none;
   color: #007bff;
   cursor: pointer;
-} 
+}
 
 .pagination {
   display: flex;
@@ -1392,14 +1504,19 @@ button.suggestion-btn {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;   /* Full width of the viewport */
+  width: 100%;
+  /* Full width of the viewport */
 }
 
 .center-text p {
-  text-align: center; /* Centers the text within the paragraph */
-  margin: 0 auto;     /* Ensures proper centering */
-  max-width: 500px;   /* Makes the container narrower */
-  font-size: 1rem;    /* Adjusts the font size for readability */
+  text-align: center;
+  /* Centers the text within the paragraph */
+  margin: 0 auto;
+  /* Ensures proper centering */
+  max-width: 500px;
+  /* Makes the container narrower */
+  font-size: 1rem;
+  /* Adjusts the font size for readability */
 }
 
 .yellow-text {
@@ -1413,14 +1530,17 @@ button.suggestion-btn {
   text-align: center;
   margin: 20px 0;
 }
+
 .spinner p {
   font-size: 1.2rem;
   color: #555;
 }
 
 .spinner img {
-  width: 120px; /* Adjust width */
-  height: 120px; /* Adjust height */
+  width: 120px;
+  /* Adjust width */
+  height: 120px;
+  /* Adjust height */
   display: inline-block;
 }
 
@@ -1480,7 +1600,8 @@ h2 {
 .playlist-title {
   font-size: 20px;
   font-weight: 600;
-  background: linear-gradient(90deg, #4a90e2, #50e3c2); /* gradient background */
+  background: linear-gradient(90deg, #4a90e2, #50e3c2);
+  /* gradient background */
   color: black;
   padding: 10px;
   margin: 0;
@@ -1524,7 +1645,7 @@ h2 {
 /* Hover effect for the buttons */
 .load-button:hover {
   background: linear-gradient(90deg, #bbff00, #42eb00);
-  color: black; 
+  color: black;
   border: 1px solid black;
 }
 
@@ -1556,8 +1677,8 @@ h2 {
   border-radius: 4px;
   font-size: 16px;
   color: #333;
-  resize: vertical; 
-  overflow: auto; 
+  resize: vertical;
+  overflow: auto;
 }
 
 .form-control-thought:focus {
@@ -1610,12 +1731,12 @@ h2 {
   overflow: hidden;
   background-color: #fff;
   border: 1px solid #d1e7ff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Thought Header */
 .thought-header {
-  background: linear-gradient(90deg, #50e3c2, #4a90e2 ); 
+  background: linear-gradient(90deg, #50e3c2, #4a90e2);
   color: #ffffff;
   padding: 2px 16px;
   display: flex;
@@ -1719,13 +1840,17 @@ h2 {
 /* Tablet Size (768px and below) */
 @media (max-width: 768px) {
   .calendar-grid {
-    grid-template-columns: repeat(4, 1fr); /* 4 columns instead of 7 */
-    gap: 6px; /* Reduce spacing */
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 columns instead of 7 */
+    gap: 6px;
+    /* Reduce spacing */
   }
 
   .calendar-day {
-    padding: 8px; /* Shrink padding */
-    font-size: 12px; /* Reduce text size */
+    padding: 8px;
+    /* Shrink padding */
+    font-size: 12px;
+    /* Reduce text size */
   }
 
   .note-row-item {
@@ -1751,13 +1876,17 @@ h2 {
 /* Mobile Size (480px and below) */
 @media (max-width: 480px) {
   .calendar-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns for compact layout */
-    gap: 4px; /* Even smaller spacing */
+    grid-template-columns: repeat(2, 1fr);
+    /* 2 columns for compact layout */
+    gap: 4px;
+    /* Even smaller spacing */
   }
 
   .calendar-day {
-    padding: 6px; /* Smaller padding */
-    font-size: 10px; /* Smaller text */
+    padding: 6px;
+    /* Smaller padding */
+    font-size: 10px;
+    /* Smaller text */
   }
 
   .note-row-item {
