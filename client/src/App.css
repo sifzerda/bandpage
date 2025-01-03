@@ -1640,6 +1640,9 @@ h2 {
   border: 1px solid white;
   /* Add transition to smooth the background and color changes */
   transition: background 0.4s ease, color 0.3s ease;
+  pointer-events: auto;
+  z-index: 1001;
+  position: relative;
 }
 
 /* Hover effect for the buttons */
