@@ -1589,12 +1589,14 @@ h2 {
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  border: 6px solid transparent; /* Maintain consistent border size */
 }
 
 .playlist-card:hover {
   transform: translateY(-5px);
-  border: 6px ridge var(--volt);
+  border-color: var(--volt); /* Change border color instead of adding a new border */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Enhance shadow for hover effect */
 }
 
 .playlist-title {

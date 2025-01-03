@@ -44,10 +44,11 @@ const Profile = () => {
                 <div key={index} className="playlist-card">
                   <h3 className="playlist-title">{playlist.name}</h3>
                   <ul className="song-list">
-                    {playlist.songs.map((song) => (
+                    {playlist.songs.map((song, idx) => (
                       <li key={song.videoId} className="song-item">
-                        {song.title} <span className="video-id"> (ID: {song.videoId})</span>
+                        {idx + 1}. {song.title}
                       </li>
+
                     ))}
                   </ul>
 
