@@ -61,6 +61,8 @@ This was built with React, Express, GraphQl, MongoDB, Node, Javascript, and CSS.
 ![bandpage-screenshot1](https://github.com/user-attachments/assets/dc123bbc-dc1e-49e7-a143-0358f60db85a)
 ![bandpage-screenshot2](https://github.com/user-attachments/assets/84dc15d4-ffa9-4152-852c-25191ac5e077)
 ![bandpage-screenshot3](https://github.com/user-attachments/assets/8666a2a6-ad0a-45f4-adba-1a6f31c59732)
+![youtubesearch](https://github.com/user-attachments/assets/ee188dd5-c89b-47b5-9d5c-3389d75b5038)
+![messageboard](https://github.com/user-attachments/assets/3f93c855-f98f-4739-9c1e-11c06bc58ac0)
 
 ## (4) Installation
 
