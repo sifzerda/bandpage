@@ -20,7 +20,7 @@
 
 ## (1) Description
 
-This site was designed for my (cover) band for use of a number of functions:
+This site was designed for my (cover) band, although it's currently unused by us, and up for demonstrative/testing purposes only. For use of a number of functions:
 
 (a) CALENDAR PAGE: to arrange a jamming date amongst band members, visually depicting who is available on which days, to make it easier to arrange an optimal date. The calendar can be used for any group activity, not just jamming.
 
