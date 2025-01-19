@@ -305,7 +305,7 @@ footer {
 
 .note-row {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row; /* Changes layout from row to column */
   gap: 4px;
   /* Spacing between notes */
   justify-content: center;

@@ -1,8 +1,6 @@
 
 // Does not use LazyQuery
 // does not use monthAvailabilities to store data for entire month
-
-
 import React, { useState } from "react";
 import {
   format,
@@ -20,7 +18,7 @@ import { SET_AVAILABILITY } from "../utils/mutations";
 function Cal() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [availabilityStates, setAvailabilityStates] = useState({});
-  const names = ["T", "M", "B", "H", "J"];
+  const names = ["Troy", "Megan", "Brad", "Harold", "Jonathan"];
   const currentDate = new Date();
   const [setAvailability] = useMutation(SET_AVAILABILITY, {
     refetchQueries: [GET_AVAILABILITIES],
