@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// this selects the right date, but websocket won't save on refresh
+import React, { useState, useEffect } from "react";
 import {
   format,
   startOfMonth,
@@ -7,37 +8,48 @@ import {
   addMonths,
   isBefore,
   isSameDay,
-  isAfter,
 } from "date-fns";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_AVAILABILITIES } from "../utils/queries";
 import { SET_AVAILABILITY } from "../utils/mutations";
 
 function Cal() {
-  
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [availabilityStates, setAvailabilityStates] = useState({});
-  const names = ["Troy", "Megan", "Brad", "Harold", "Jonathan"];
+  const names = ["T", "M", "B", "H", "J"];
   const currentDate = new Date();
+
+  const { data, loading } = useQuery(GET_AVAILABILITIES, {
+    variables: {
+      startDate: format(startOfMonth(selectedDate), "yyyy-MM-dd"),
+      endDate: format(endOfMonth(selectedDate), "yyyy-MM-dd"),
+    },
+  });
+
   const [setAvailability] = useMutation(SET_AVAILABILITY, {
     refetchQueries: [GET_AVAILABILITIES],
   });
+
+  useEffect(() => {
+    if (data?.getAvailabilities) {
+      const organizedData = data.getAvailabilities.reduce((acc, entry) => {
+        const dateKey = format(new Date(entry.date), "yyyy-MM-dd");
+        if (!acc[dateKey]) acc[dateKey] = {};
+        acc[dateKey][entry.user] = entry.status;
+        return acc;
+      }, {});
+      setAvailabilityStates(organizedData);
+    }
+  }, [data]);
 
   const days = eachDayOfInterval({
     start: startOfMonth(selectedDate),
     end: endOfMonth(selectedDate),
   });
 
-  // Query for availabilities only once for each month
-  const { data } = useQuery(GET_AVAILABILITIES, {
-    variables: { date: format(selectedDate, "yyyy-MM-dd") },
-  });
-
-  const isToday = (day) => isSameDay(day, currentDate);
-  const isPast = (day) => isBefore(day, currentDate) && !isToday(day);
-  const isFuture = (day) => isAfter(day, currentDate);
-
   const handleRowClick = (date, user, currentState) => {
+    if (isBefore(date, currentDate) && !isSameDay(date, currentDate)) return;
+
     const nextState =
       currentState === "normal" ? "green" : currentState === "green" ? "red" : "normal";
 
@@ -58,6 +70,8 @@ function Cal() {
     });
   };
 
+  if (loading) return <div>Loading...</div>;
+
   return (
     <div className="calendar">
       {/* Calendar Header */}
@@ -71,24 +85,21 @@ function Cal() {
       <div className="calendar-grid">
         {days.map((day) => {
           const dateKey = format(day, "yyyy-MM-dd");
-          const isTodayFlag = isToday(day);
-          const isPastFlag = isPast(day);
-          const isFutureFlag = isFuture(day);
+          const isToday = isSameDay(day, currentDate);
+          const isPast = isBefore(day, currentDate) && !isToday;
 
           return (
             <div
               key={dateKey}
-              className={`calendar-day ${isTodayFlag ? "current-date" : ""} ${
-                isPastFlag ? "past-date" : ""
-              } ${isFutureFlag ? "future-date" : ""}`}
+              className={`calendar-day ${isToday ? "current-date" : ""} ${
+                isPast ? "past-date" : ""
+              }`}
             >
               <div className="date-label">{format(day, "EEE, MMM d")}</div>
               <div className="note-row">
                 {names.map((name) => {
                   const userState =
-                    availabilityStates[dateKey]?.[name] ||
-                    data?.getAvailabilities?.find((entry) => entry.user === name)?.status ||
-                    "normal";
+                    availabilityStates[dateKey]?.[name] || "normal";
 
                   return (
                     <div
