@@ -134,6 +134,8 @@ Features:
 
 + Sometimes page buttons don't work until page refreshed, or scrolled down, may be an issue with an invisible absolutely positioned div connected to the global music player (?)
 + Song suggestion page may not show newly posted song until refreshed
++ Progress bar on Music Player may not be draggable until page refreshed
++ Calendar used to have buttons to flip between months (including past months) however this caused a problem with fetching SETAVAILABILITIES. 'Next/prev. month' buttons are still in code but commented out until this issue is fixed
 
 Optimization:
 - use a bundler like Webpack or Parcel to optimize build output: Enable code splitting, tree-shaking, and minification to reduce bundle size and improve load times.
