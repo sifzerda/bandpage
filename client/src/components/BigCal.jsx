@@ -5,7 +5,11 @@ import interactionPlugin from '@fullcalendar/interaction';
 
 const BigCal = () => {
   const [events, setEvents] = useState([
-    { title: 'Sample Event', date: '2025-02-10' },
+    { title: 'Troy', color: 'green', date: '2025-02-10' },
+    { title: 'Megan', color: 'red', date: '2025-02-13' },
+    { title: 'Brad', color: 'red', date: '2025-02-12' },
+    { title: 'Harold', color: 'green', date: '2025-02-19' },
+    { title: 'Jonathan', color: 'green', date: '2025-02-21' },
   ]);
 
   const handleDateClick = (arg) => {
