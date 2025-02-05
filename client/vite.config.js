@@ -14,9 +14,17 @@ export default defineConfig({
         changeOrigin: true
       }
     }
-  }, 
+  },
   test: {
     environment: 'happy-dom',
     globals: true
+  },
+  css: {
+    // Optional: Adding this for asset handling if needed
+    preprocessorOptions: {
+      css: {
+        additionalData: `@import "~@fullcalendar/core/main.css";`
+      }
+    }
   }
 })

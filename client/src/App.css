@@ -1837,6 +1837,49 @@ h2 {
   padding: 5px;
 }
 
+/* ---------------------------- big cal------------------------*/
+
+
+/* calendar.css */
+.calendar-container {
+  width: 80%; /* Set the calendar's width */
+  max-width: 700px; /* Set a maximum width for responsiveness */
+  margin: 0 auto; /* Center the calendar */
+}
+
+.fc {
+  font-size: 14px; /* Reduce the font size of the calendar text */
+}
+
+.fc-daygrid-day-number {
+  font-size: 12px; /* Reduce the size of day numbers */
+}
+
+/* Optional: Adjust the height of the calendar */
+.fc-daygrid-body {
+  height: 400px; /* You can adjust the height as needed */
+}
+
+/* calendar.css */
+.fc-daygrid-day {
+  width: 40px !important; /* Adjust the width of the date cells */
+  height: 40px !important; /* Adjust the height of the date cells */
+  padding: 4px !important; /* Adjust the padding inside the cells */
+}
+
+.fc-daygrid-day-number {
+  font-size: 12px; /* Adjust the font size of the day number */
+}
+
+.fc-daygrid-day-top {
+  padding: 2px; /* Adjust padding of the top area of the date cell */
+}
+
+.fc-daygrid-day-events {
+  font-size: 10px; /* Adjust the font size of events */
+}
+
+
 /* ---------------------------- MEDIA QUERIES ------------------------*/
 
 /* Tablet Size (768px and below) */
