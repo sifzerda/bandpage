@@ -11,6 +11,7 @@ import Suggestions from './pages/Suggestions.jsx';
 import About from './pages/About.jsx';
 import Profile from './pages/Profile.jsx';
 
+import Extra from './pages/Extra.jsx';
 
 // subjects
 
@@ -61,6 +62,11 @@ const router = createBrowserRouter([
         path: '/Profile',
         element: <Profile />
       },
+
+      {
+        path: '/Extra',
+        element: <Extra />,
+      }
     ],
   },
 ]);

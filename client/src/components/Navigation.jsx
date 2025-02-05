@@ -88,6 +88,12 @@ function Navigation() {
         </Link>
       </li>
 
+      <li className="nav-item">
+        <Link to="/Extra" className={currentPage === '/Extra' ? 'nav-link active' : 'nav-link'}>
+          Extra
+        </Link>
+      </li>
+
       {/* ------------------------- link to band's external website -----------------------  */}
 
       <li className="nav-item">
