@@ -44,9 +44,13 @@ const BigCal = () => {
   const eventStyleGetter = (event) => {
     // This function sets the background color of the event based on its color property
     const style = {
-      backgroundColor: event.color,
-      borderColor: event.color,
+      backgroundColor: event.color === 'green' ? '#1cc623' : '#ff655b',  // Hex codes for green and red
+      borderColor: event.color === 'green' ? '#28a745' : '#dc3545',      // Border color matches the event's color
       color: '#fff',  // You can change this based on your design
+      minHeight: '10px', // Ensure the event has a minimum height
+    marginBottom: '0px', // Add some margin between stacked events
+    textAlign: 'center', // Center the text
+    padding: '0px', // Padding for spacing inside the event
     };
     return { style };
   };
@@ -61,18 +65,18 @@ const BigCal = () => {
         selectable={true}
         onSelectSlot={handleSelectSlot}
         eventPropGetter={eventStyleGetter}  // Apply the custom styling to each event
+        popup={false}  // Disable event popup, to avoid the "+N more" behavior
         style={{ 
           border: '1px solid black',
           backgroundColor: '#f0f0f0',
           boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
           textAlign: 'center', 
-
           display: 'flex',            // Enable flexbox layout
           justifyContent: 'center',   // Center the calendar horizontally
           alignItems: 'center',       // Center the calendar vertically
-          height: 500, 
-          width: 500,
-          margin: '50px' }}
+          height: 650, 
+          width: 650,
+          margin: '20px' }}
       />
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>

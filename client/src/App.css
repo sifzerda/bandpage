@@ -1839,12 +1839,11 @@ h2 {
 
 /* ---------------------------- big cal------------------------*/
 
-
 /* calendar.css */
 .small-calendar {
   height: 400px;  /* Set the height of the calendar */
   width: 80%;     /* Adjust the width of the calendar (optional) */
-  max-width: 700px; /* Set a max width to limit the calendar's size */
+  max-width: 800px; /* Set a max width to limit the calendar's size */
   margin: 0 auto;  /* Center the calendar horizontally */
 }
 
@@ -1855,22 +1854,48 @@ h2 {
   margin-top: 20px;
 }
 
+.rbc-day-bg {
+  min-height: 100px; /* Adjust this value as needed */
+}
+
+/* Allow events to be stacked vertically inside a day cell */
+.rbc-day-slot {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Event box color and size */
+.rbc-event {
+  border: 1px solid black!important;
+  color: white;
+  border-radius: 5px;
+  padding: 0px!important;
+  min-height: 0px!important;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.62rem;
+}
+
+/* Optional: Adjust event wrapper margin to separate events */
+.rbc-event-wrapper {
+  margin-bottom: 0px;  /* Adjust the space between events */
+}
+
 /* ---------------------------- MEDIA QUERIES ------------------------*/
 
 /* Tablet Size (768px and below) */
 @media (max-width: 768px) {
   .calendar-grid {
     grid-template-columns: repeat(4, 1fr);
-    /* 4 columns instead of 7 */
     gap: 6px;
-    /* Reduce spacing */
   }
 
   .calendar-day {
     padding: 8px;
-    /* Shrink padding */
     font-size: 12px;
-    /* Reduce text size */
   }
 
   .note-row-item {
@@ -1897,16 +1922,12 @@ h2 {
 @media (max-width: 480px) {
   .calendar-grid {
     grid-template-columns: repeat(2, 1fr);
-    /* 2 columns for compact layout */
     gap: 4px;
-    /* Even smaller spacing */
   }
 
   .calendar-day {
     padding: 6px;
-    /* Smaller padding */
     font-size: 10px;
-    /* Smaller text */
   }
 
   .note-row-item {

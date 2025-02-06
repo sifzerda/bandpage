@@ -320,7 +320,7 @@ const MusicPlayer = ({ playlist, setPlaylist }) => {
                     ⏮
                   </button>
                   <button className="press-play" onClick={togglePlayPause}>
-                    {isPlaying ? "⏸️" : "▶️"}
+                    {isPlaying ? "||" : "▷"}
                   </button>
                   <button
                     className="press-play"
