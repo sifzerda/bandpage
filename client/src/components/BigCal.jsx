@@ -51,6 +51,7 @@ const BigCal = () => {
     marginBottom: '0px', // Add some margin between stacked events
     textAlign: 'center', // Center the text
     padding: '0px', // Padding for spacing inside the event
+
     };
     return { style };
   };
@@ -74,8 +75,8 @@ const BigCal = () => {
           display: 'flex',            // Enable flexbox layout
           justifyContent: 'center',   // Center the calendar horizontally
           alignItems: 'center',       // Center the calendar vertically
-          height: 650, 
-          width: 650,
+          height: 700, 
+          width: 700,
           margin: '20px' }}
       />
       <Modal show={showModal} onHide={() => setShowModal(false)}>

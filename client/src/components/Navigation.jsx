@@ -62,6 +62,11 @@ function Navigation() {
   // ------------------------------- MAIN NAVIGATION LINKS ------------------//
 
   return (
+
+<div>
+      {/* Always Display the "Ultimate Band Name" Heading */}
+      <h1 className="navbar-heading">Ultimate Band Name</h1>
+
     <ul className="nav nav-tabs">
       <li className="nav-item">
 
@@ -113,6 +118,7 @@ function Navigation() {
       {/* ----------------------------------end --------------------------------  */}
 
     </ul>
+    </div>
   );
 }
 

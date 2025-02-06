@@ -103,8 +103,15 @@ header {
   /* Optional: Customize */
   color: white;
   /* Optional: Customize */
-  padding: 20px 0;
+  padding: 5px 0;
   text-align: center;
+}
+
+.navbar-heading {
+  font-size: 1rem;
+  /* Optional: Customize */
+  font-weight: bold;
+  /* Optional: Customize */
 }
 
 /* ------------------- nav tabs -----------------------*/
@@ -1876,7 +1883,7 @@ h2 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 0.62rem;
+  font-size: 0.60rem;
 }
 
 /* Optional: Adjust event wrapper margin to separate events */
